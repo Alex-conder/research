@@ -2,7 +2,7 @@
 
 > 本指南提供两套方案：
 > 1. **方案 A**：强制推送覆盖 `Kaelis-archive`，但需先备份。
-> 2. **方案 B**：新建 `research-portfolio` 仓库，更安全，但需要修改套磁信链接。
+> 2. **方案 B**：新建 `research` 仓库，更安全，已最终采用。
 >
 > **推荐方案 B**：避免破坏 `Kaelis-archive` 历史，降低操作风险。
 
@@ -77,7 +77,7 @@
 
 ---
 
-## 方案 B：新建 `research-portfolio` 仓库（推荐）
+## 方案 B：新建 `research` 仓库（推荐）
 
 ### 适用场景
 - 你不想破坏 `Kaelis-archive` 的现有内容和历史。
@@ -193,7 +193,7 @@ https://github.com/Alex-conder/research-portfolio
 ## 最终建议
 
 **强烈建议采用方案 B**：
-1. 新建 `research-portfolio` 仓库并推送作品集。
+1. 新建 `research` 仓库并推送作品集。
 2. 将套磁信中的 GitHub 链接全部替换为新地址。
 3. 将 `Kaelis-archive` 的 README 添加跳转提示，或将其设为私有/归档。
 4. 将 `Kaelis-main` 设为私有。

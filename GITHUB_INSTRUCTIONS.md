@@ -1,17 +1,17 @@
-# GitHub 发布指南（已选方案 B：新建 research-portfolio）
+# GitHub 发布指南（已选方案：新建 research）
 
-> **已确认方案**：新建公开仓库 `research-portfolio` 作为学术作品集，不破坏原有 `Kaelis-archive`。
+> **已确认方案**：新建公开仓库 `research` 作为学术作品集，不破坏原有 `Kaelis-archive`。
 >
-> **原因**：`research-portfolio` 名称更专业、风险更低，且便于与工程项目 `Kaelis-archive` / `Kaelis-main` 区分。
+> **原因**：`research` 名称简洁、专业，便于在套磁信中展示，且与工程项目 `Kaelis-archive` / `Kaelis-main` 清晰区分。
 
 ---
 
-## 第一步：在 GitHub 上创建 `research-portfolio` 仓库
+## 第一步：在 GitHub 上创建 `research` 仓库
 
 1. 打开浏览器，登录 GitHub：https://github.com
 2. 点击右上角 `+` → `New repository`
 3. 填写信息：
-   - **Repository name**: `research-portfolio`
+   - **Repository name**: `research`
    - **Description**: `Academic research portfolio: molecular docking, multi-omics, virtual cell modeling, and metabolomics`
    - **Visibility**: `Public`
    - **Initialize this repository with**: **全部不勾选**（因为本地已有 README）
@@ -44,7 +44,7 @@ git commit -m "feat: initial academic research portfolio
 
 # 5. 关联远程仓库
 git branch -M main
-git remote add origin https://github.com/Alex-conder/research-portfolio.git
+git remote add origin https://github.com/Alex-conder/research.git
 
 # 6. 推送
 git push -u origin main
@@ -54,7 +54,7 @@ git push -u origin main
 
 ## 第三步：验证新仓库
 
-浏览器打开：https://github.com/Alex-conder/research-portfolio
+浏览器打开：https://github.com/Alex-conder/research
 
 确认以下事项：
 - [ ] 首页显示 `Huang Teng — Academic Research Portfolio`
@@ -75,7 +75,7 @@ git push -u origin main
 新链接统一为：
 
 ```
-https://github.com/Alex-conder/research-portfolio
+https://github.com/Alex-conder/research
 ```
 
 **如果你之前已经发送过任何邮件**，无需追回，后续邮件使用新链接即可。
@@ -92,7 +92,7 @@ https://github.com/Alex-conder/research-portfolio
 1. 打开 `https://github.com/Alex-conder/Kaelis-archive`
 2. 编辑 `README.md`，在**最顶部**添加：
    ```markdown
-   > 📁 My academic research portfolio has moved to [Alex-conder/research-portfolio](https://github.com/Alex-conder/research-portfolio).
+   > 📁 My academic research portfolio has moved to [Alex-conder/research-portfolio](https://github.com/Alex-conder/research).
    ```
 3. 提交更改。
 
@@ -145,6 +145,6 @@ https://github.com/Alex-conder/research-portfolio
 
 | 仓库 | 可见性 | 用途 |
 |---|---|---|
-| `research-portfolio` | Public | 学术作品集，套磁信中展示 |
+| `research` | Public | 学术作品集，套磁信中展示 |
 | `Kaelis-archive` | Public（可选：添加跳转提示） | 原有 AI Agent OS 项目 |
 | `Kaelis-main` | Private | 完整 Kaelis 项目 |
