@@ -11,8 +11,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE225948"
-OUT_DIR  = "D:/Pirb_stroke_project/04_reports/figures/GSE225948"
+DATA_DIR = "../01_raw_data/GSE225948"
+OUT_DIR  = "../04_reports/figures/GSE225948"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 count_files = sorted(glob.glob(os.path.join(DATA_DIR, "*_counts.csv.gz")))

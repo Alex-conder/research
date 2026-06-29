@@ -7,8 +7,8 @@ from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 
-DOCX_PATH = "D:/Pirb_stroke_project/04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告_V2.docx"
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures"
+DOCX_PATH = "../04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告_V2.docx"
+FIG_DIR = "../04_reports/figures"
 
 images_to_insert = [
     ("3.2 Pirb 表达的细胞类型格局", os.path.join(FIG_DIR, "GSE174574/umap_celltype.png"), "图 1. GSE174574 细胞类型注释与 Pirb 表达 UMAP"),

@@ -15,8 +15,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE233815"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233815"
+DATA_DIR = "../01_raw_data/GSE233815"
+OUT_DIR = "../04_reports/figures/GSE233815"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 读取所有 count 文件
@@ -76,7 +76,7 @@ logcpm.to_csv(os.path.join(OUT_DIR, "logcpm_matrix.csv"))
 # 首先找到 Pirb 对应的 ENSG ID
 # 由于我们没有完整的注释，可以尝试在 GSE174574 的 features 中找对应关系
 # 先读取 GSE174574 的 features 文件获取 gene_id -> symbol 映射
-feature_file = "D:/Pirb_stroke_project/01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
+feature_file = "../01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
 gene_map = pd.read_csv(feature_file, sep="\t", header=None, names=["gene_id", "gene_symbol"])
 gene_map["gene_id"] = gene_map["gene_id"].str.split(".").str[0]
 gene_map = gene_map.drop_duplicates("gene_id").set_index("gene_id")["gene_symbol"]

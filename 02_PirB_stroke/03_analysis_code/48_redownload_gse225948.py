@@ -6,7 +6,7 @@ import os, subprocess, time, sys
 import pandas as pd
 from pathlib import Path
 
-DATA_DIR = Path("D:/Pirb_stroke_project/01_raw_data/GSE225948")
+DATA_DIR = Path("../01_raw_data/GSE225948")
 LOG_PATH = DATA_DIR / "redownload_log.txt"
 
 def log(msg):

@@ -6,7 +6,7 @@ from matplotlib import font_manager as fm
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-OUT_PDF = "D:/Pirb_stroke_project/04_reports/提升点对比表_原报告vs最终报告.pdf"
+OUT_PDF = "../04_reports/提升点对比表_原报告vs最终报告.pdf"
 
 # 尝试使用支持中文的字体（Windows 常见）
 chinese_fonts = ['SimHei', 'Microsoft YaHei', 'SimSun', 'Arial Unicode MS']
@@ -128,13 +128,13 @@ with PdfPages(OUT_PDF) as pdf:
         "新增配套交付物",
         ["类别", "文件名", "绝对路径"],
         [
-            ["原格式最终报告", "脑缺血后Pirb阳性细胞单细胞图谱_多数据集验证最终报告_原格式.docx", "D:/Pirb_stroke_project/04_reports/"],
-            ["NC 格式报告", "脑缺血后Pirb阳性细胞单细胞图谱_NatureCommunications_完整报告.docx", "D:/Pirb_stroke_project/04_reports/"],
-            ["Supplementary Tables", "Supplementary_Tables_Pirb_Stroke.xlsx", "D:/Pirb_stroke_project/04_reports/supplementary/"],
-            ["Graphical Abstract", "graphical_abstract_draft.png/.svg/.pdf", "D:/Pirb_stroke_project/04_reports/figures/"],
-            ["投稿模板", "Cover_Letter_Template.md", "D:/Pirb_stroke_project/04_reports/"],
-            ["审稿回复模板", "Response_to_Reviewers_Template.md", "D:/Pirb_stroke_project/04_reports/"],
-            ["交付物清单", "项目交付物清单_绝对路径.md", "D:/Pirb_stroke_project/04_reports/"],
+            ["原格式最终报告", "脑缺血后Pirb阳性细胞单细胞图谱_多数据集验证最终报告_原格式.docx", "../04_reports/"],
+            ["NC 格式报告", "脑缺血后Pirb阳性细胞单细胞图谱_NatureCommunications_完整报告.docx", "../04_reports/"],
+            ["Supplementary Tables", "Supplementary_Tables_Pirb_Stroke.xlsx", "../04_reports/supplementary/"],
+            ["Graphical Abstract", "graphical_abstract_draft.png/.svg/.pdf", "../04_reports/figures/"],
+            ["投稿模板", "Cover_Letter_Template.md", "../04_reports/"],
+            ["审稿回复模板", "Response_to_Reviewers_Template.md", "../04_reports/"],
+            ["交付物清单", "项目交付物清单_绝对路径.md", "../04_reports/"],
         ],
         col_widths=[0.22, 0.45, 0.33]
     )

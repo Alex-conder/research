@@ -12,8 +12,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE171169"
-OUT_DIR  = "D:/Pirb_stroke_project/04_reports/figures/GSE171169"
+DATA_DIR = "../01_raw_data/GSE171169"
+OUT_DIR  = "../04_reports/figures/GSE171169"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 barcode_files = sorted(glob.glob(os.path.join(DATA_DIR, "*_barcodes.tsv.gz")))

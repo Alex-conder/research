@@ -13,7 +13,7 @@ from scipy.spatial import ConvexHull, distance
 from scipy.spatial.distance import cdist
 from scipy.stats import mannwhitneyu
 
-DATA_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233814"
+DATA_DIR = "../04_reports/figures/GSE233814"
 OUT_DIR = DATA_DIR
 
 # 读取空间坐标 + Pirb 表达

@@ -250,7 +250,7 @@ def assign_group(name: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", default="D:/raw convert", help="Directory of mzML files")
+    parser.add_argument("--input-dir", default="./data/raw_mzml", help="Directory of mzML files")
     parser.add_argument("--output-dir", default="./output", help="Output directory")
     parser.add_argument("--mz-tol", type=float, default=0.01, help="m/z tolerance for within-file grouping (Da)")
     parser.add_argument("--rt-tol", type=float, default=0.1, help="RT gap tolerance for within-file grouping (min)")

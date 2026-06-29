@@ -10,8 +10,8 @@ import seaborn as sns
 
 sc.settings.verbosity = 3
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE225948_merged_raw.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE225948"
+IN_H5AD = "../04_reports/figures/GSE225948_merged_raw.h5ad"
+OUT_DIR = "../04_reports/figures/GSE225948"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 print("[INFO] Loading merged raw data...")

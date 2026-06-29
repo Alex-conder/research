@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/regulatory_brake"
+OUT_DIR = "../04_reports/figures/regulatory_brake"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 基因集

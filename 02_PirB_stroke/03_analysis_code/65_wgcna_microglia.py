@@ -12,7 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from scipy.stats import pearsonr
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/wgcna_microglia"
+OUT_DIR = "../04_reports/figures/wgcna_microglia"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 

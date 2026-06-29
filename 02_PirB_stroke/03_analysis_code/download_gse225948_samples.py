@@ -38,8 +38,8 @@ def download(url: str, out_path: str, max_retries: int = 50):
 
 
 if __name__ == "__main__":
-    meta_path = "D:/Pirb_stroke_project/01_raw_data/GSE225948_metadata_full.txt"
-    out_dir = "D:/Pirb_stroke_project/01_raw_data/GSE225948"
+    meta_path = "../01_raw_data/GSE225948_metadata_full.txt"
+    out_dir = "../01_raw_data/GSE225948"
     with open(meta_path, 'r', encoding='utf-8') as f:
         text = f.read()
     supp_urls = re.findall(r'ftp://ftp\.ncbi\.nlm\.nih\.gov/geo/samples/GSM\d+nnn/GSM\d+/suppl/[^\s]+\.gz', text)

@@ -18,7 +18,7 @@ except ImportError:
     sys.exit(1)
 
 # 路径
-PROJECT_ROOT = "D:/Pirb_stroke_project"
+PROJECT_ROOT = ".."
 VELO_DIR = os.path.join(PROJECT_ROOT, "01_raw_data/GSE233812_velocity/velocity")
 LOOM_PATH = os.path.join(VELO_DIR, "GSE233812_merged.loom")
 H5AD_IN = os.path.join(PROJECT_ROOT, "04_reports/figures/GSE233812_processed.h5ad")

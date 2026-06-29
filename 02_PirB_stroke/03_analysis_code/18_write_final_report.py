@@ -10,7 +10,7 @@ from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 
-OUT_MD = "D:/Pirb_stroke_project/04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告.md"
+OUT_MD = "../04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告.md"
 OUT_DOCX = OUT_MD.replace(".md", ".docx")
 
 report_md = """# 脑缺血后 Pirb 阳性细胞单细胞图谱：机制深挖与多数据集验证阶段性报告

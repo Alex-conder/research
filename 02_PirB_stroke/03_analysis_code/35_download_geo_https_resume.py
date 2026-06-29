@@ -3,7 +3,7 @@
 """
 import os, sys, subprocess, time
 
-raw_dir = "D:/Pirb_stroke_project/01_raw_data"
+raw_dir = "../01_raw_data"
 os.makedirs(raw_dir, exist_ok=True)
 
 def download_https(url, local_path, max_retries=100):

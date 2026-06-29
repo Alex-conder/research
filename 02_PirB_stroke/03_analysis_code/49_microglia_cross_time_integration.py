@@ -15,14 +15,14 @@ from matplotlib.colors import LinearSegmentedColormap
 sc.settings.verbosity = 3
 sc.settings.set_figure_params(dpi=100, facecolor='white')
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/microglia_cross_time"
+OUT_DIR = "../04_reports/figures/microglia_cross_time"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # -----------------------------------------------------------------------------
 # 1. 加载各数据集并提取小胶质细胞
 # -----------------------------------------------------------------------------
 print("[INFO] Loading microglia from GSE174574...")
-adata_174 = sc.read_h5ad("D:/Pirb_stroke_project/04_reports/figures/GSE174574/GSE174574_annotated.h5ad")
+adata_174 = sc.read_h5ad("../04_reports/figures/GSE174574/GSE174574_annotated.h5ad")
 mg_174 = adata_174[adata_174.obs['cell_type'] == 'Microglia'].copy()
 mg_174.obs['dataset'] = 'GSE174574'
 mg_174.obs['time_point'] = mg_174.obs['condition'].map({'Sham': 'sham', 'MCAO': 'MCAO_24h'})
@@ -33,7 +33,7 @@ print(f"  GSE174574 microglia: {mg_174.n_obs}")
 del adata_174; gc.collect()
 
 print("[INFO] Loading microglia from GSE233812...")
-adata_812 = sc.read_h5ad("D:/Pirb_stroke_project/04_reports/figures/GSE233812_processed.h5ad")
+adata_812 = sc.read_h5ad("../04_reports/figures/GSE233812_processed.h5ad")
 mg_812 = adata_812[adata_812.obs['cell_type'] == 'Microglia'].copy()
 mg_812.obs['dataset'] = 'GSE233812_sc'
 mg_812.obs['time_ordered'] = mg_812.obs['time_point'].map({'sham': 0, 'D1': 1, 'D3': 2, 'D7': 3})
@@ -41,7 +41,7 @@ print(f"  GSE233812 microglia: {mg_812.n_obs}")
 del adata_812; gc.collect()
 
 print("[INFO] Loading microglia from GSE233813...")
-adata_813 = sc.read_h5ad("D:/Pirb_stroke_project/04_reports/figures/GSE233813_processed.h5ad")
+adata_813 = sc.read_h5ad("../04_reports/figures/GSE233813_processed.h5ad")
 mg_813 = adata_813[adata_813.obs['cell_type'] == 'Microglia'].copy()
 mg_813.obs['dataset'] = 'GSE233813_sn'
 mg_813.obs['time_ordered'] = mg_813.obs['time_point'].map({'sham': 0, 'D1': 1, 'D3': 2, 'D7': 3})

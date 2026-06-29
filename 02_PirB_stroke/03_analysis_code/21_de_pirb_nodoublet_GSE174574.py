@@ -13,8 +13,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/doublet_qc/GSE174574_with_doublet.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/doublet_qc"
+IN_H5AD = "../04_reports/figures/GSE174574/doublet_qc/GSE174574_with_doublet.h5ad"
+OUT_DIR = "../04_reports/figures/GSE174574/doublet_qc"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 adata = sc.read_h5ad(IN_H5AD)

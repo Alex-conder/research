@@ -11,9 +11,9 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/de_pirb"
+OUT_DIR = "../04_reports/figures/GSE174574/de_pirb"
 DEG_FILE = os.path.join(OUT_DIR, "DE_PirbPos_vs_Neg_Astrocyte.csv")
-GS_DIR = "D:/Pirb_stroke_project/04_reports/gene_sets"
+GS_DIR = "../04_reports/gene_sets"
 
 deg = pd.read_csv(DEG_FILE)
 # 用 logFC 作为 ranking；添加微小随机扰动打破平局

@@ -9,8 +9,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE227651"
-OUT_DIR  = "D:/Pirb_stroke_project/04_reports/figures/GSE227651"
+DATA_DIR = "../01_raw_data/GSE227651"
+OUT_DIR  = "../04_reports/figures/GSE227651"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 sample_dirs = sorted([d for d in glob.glob(os.path.join(DATA_DIR, "*")) if os.path.isdir(d)])

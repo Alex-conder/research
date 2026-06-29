@@ -8,8 +8,8 @@ import scanpy as sc
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE233814_processed.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233814"
+IN_H5AD = "../04_reports/figures/GSE233814_processed.h5ad"
+OUT_DIR = "../04_reports/figures/GSE233814"
 
 adata = sc.read_h5ad(IN_H5AD)
 

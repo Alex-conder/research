@@ -6,12 +6,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233812_813_comparison"
+OUT_DIR = "../04_reports/figures/GSE233812_813_comparison"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 读取 summary
-sc = pd.read_csv("D:/Pirb_stroke_project/04_reports/figures/GSE233812/pirb_summary_celltype_time.csv")
-sn = pd.read_csv("D:/Pirb_stroke_project/04_reports/figures/GSE233813/pirb_summary_celltype_time.csv")
+sc = pd.read_csv("../04_reports/figures/GSE233812/pirb_summary_celltype_time.csv")
+sn = pd.read_csv("../04_reports/figures/GSE233813/pirb_summary_celltype_time.csv")
 
 sc['dataset'] = 'scRNA-seq (GSE233812)'
 sn['dataset'] = 'snRNA-seq (GSE233813)'

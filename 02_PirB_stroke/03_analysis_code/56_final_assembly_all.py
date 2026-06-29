@@ -17,10 +17,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import FancyBboxPatch, Circle, FancyArrowPatch
 
-REPORT_DIR = "D:/Pirb_stroke_project/04_reports"
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures"
-SUP_DIR = "D:/Pirb_stroke_project/04_reports/supplementary"
-CODE_DIR = "D:/Pirb_stroke_project/03_analysis_code"
+REPORT_DIR = "../04_reports"
+FIG_DIR = "../04_reports/figures"
+SUP_DIR = "../04_reports/supplementary"
+CODE_DIR = "../03_analysis_code"
 os.makedirs(SUP_DIR, exist_ok=True)
 
 SUP_XLSX = os.path.join(SUP_DIR, "Supplementary_Tables_Pirb_Stroke.xlsx")
@@ -264,12 +264,12 @@ Spatial coordinates were reconstructed from `json.gz` files by mapping 10x Visiu
 ### Supplementary information
 
 Supplementary Tables 1–8 are provided in:
-- `D:/Pirb_stroke_project/04_reports/supplementary/Supplementary_Tables_Pirb_Stroke.xlsx`
+- `../04_reports/supplementary/Supplementary_Tables_Pirb_Stroke.xlsx`
 
 This file contains dataset summary, cell-type-specific and cross-time differential expression results, pathway enrichments, spatial statistics, and peripheral myeloid DE genes. The Graphical Abstract is available at:
-- `D:/Pirb_stroke_project/04_reports/figures/graphical_abstract_draft.png`
-- `D:/Pirb_stroke_project/04_reports/figures/graphical_abstract_draft.svg`
-- `D:/Pirb_stroke_project/04_reports/figures/graphical_abstract_draft.pdf`
+- `../04_reports/figures/graphical_abstract_draft.png`
+- `../04_reports/figures/graphical_abstract_draft.svg`
+- `../04_reports/figures/graphical_abstract_draft.pdf`
 
 ---
 
@@ -279,11 +279,11 @@ All data are publicly available via GEO under accession numbers GSE174574, GSE17
 
 ## Code availability
 
-Analysis code is available in `D:/Pirb_stroke_project/03_analysis_code/` and is provided as Supplementary Software. Key scripts include:
-- `D:/Pirb_stroke_project/03_analysis_code/56_final_assembly_all.py` (one-click regeneration of final deliverables)
-- `D:/Pirb_stroke_project/03_analysis_code/55_gse225948_pb_de.py` (PB Mo/Neu differential expression)
-- `D:/Pirb_stroke_project/03_analysis_code/54_nc_report_supp_graphical_abstract.py` (initial NC report, supplementary tables, graphical abstract)
-- `D:/Pirb_stroke_project/03_analysis_code/53_generate_comprehensive_report.py` (Chinese comprehensive summary report)
+Analysis code is available in `../03_analysis_code/` and is provided as Supplementary Software. Key scripts include:
+- `../03_analysis_code/56_final_assembly_all.py` (one-click regeneration of final deliverables)
+- `../03_analysis_code/55_gse225948_pb_de.py` (PB Mo/Neu differential expression)
+- `../03_analysis_code/54_nc_report_supp_graphical_abstract.py` (initial NC report, supplementary tables, graphical abstract)
+- `../03_analysis_code/53_generate_comprehensive_report.py` (Chinese comprehensive summary report)
 
 ## Acknowledgements
 
@@ -415,7 +415,7 @@ doc.add_heading('Data availability', level=1)
 doc.add_paragraph('All data are publicly available via GEO: GSE174574, GSE171169, GSE225948, GSE233815, GSE233812, GSE233813, GSE233814.')
 
 doc.add_heading('Code availability', level=1)
-doc.add_paragraph('Analysis code is available in D:/Pirb_stroke_project/03_analysis_code/.')
+doc.add_paragraph('Analysis code is available in ../03_analysis_code/.')
 
 doc.add_heading('Competing interests', level=1)
 doc.add_paragraph('The authors declare no competing interests.')

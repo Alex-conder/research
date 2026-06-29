@@ -5,7 +5,7 @@
 import os, sys, subprocess
 from ftplib import FTP
 
-raw_dir = "D:/Pirb_stroke_project/01_raw_data"
+raw_dir = "../01_raw_data"
 
 def run_ftp(remote_path, local_path):
     print(f"[DOWNLOAD] {remote_path} -> {local_path}")

@@ -8,7 +8,7 @@ from docx import Document
 from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports"
+OUT_DIR = "../04_reports"
 MD_PATH = os.path.join(OUT_DIR, "Pirb体外功能实验设计_路线三.md")
 DOCX_PATH = os.path.join(OUT_DIR, "Pirb体外功能实验设计_路线三.docx")
 

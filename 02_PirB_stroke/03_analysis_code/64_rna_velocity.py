@@ -8,8 +8,8 @@ import sys
 import scanpy as sc
 import numpy as np
 
-H5AD_PATH = "D:/Pirb_stroke_project/04_reports/figures/GSE233812_processed.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/rna_velocity"
+H5AD_PATH = "../04_reports/figures/GSE233812_processed.h5ad"
+OUT_DIR = "../04_reports/figures/rna_velocity"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 print("[INFO] RNA velocity analysis for GSE233812 microglia")

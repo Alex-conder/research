@@ -11,9 +11,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
-LR_FILE = "D:/Pirb_stroke_project/04_reports/gene_sets/mouseconsensus_lr.csv"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/lr_manual"
+IN_H5AD = "../04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
+LR_FILE = "../04_reports/gene_sets/mouseconsensus_lr.csv"
+OUT_DIR = "../04_reports/figures/GSE174574/lr_manual"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 adata = sc.read_h5ad(IN_H5AD)

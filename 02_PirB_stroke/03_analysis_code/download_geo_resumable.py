@@ -8,7 +8,7 @@
 示例：
     python download_geo_resumable.py \
         "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE227nnn/GSE227651/suppl/GSE227651_RAW.tar" \
-        "D:/Pirb_stroke_project/01_raw_data/GSE227651_RAW.tar" \
+        "../01_raw_data/GSE227651_RAW.tar" \
         1048576 100
 """
 import sys

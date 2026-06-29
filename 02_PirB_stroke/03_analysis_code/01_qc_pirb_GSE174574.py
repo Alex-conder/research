@@ -15,8 +15,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # 路径
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE174574"
-OUT_DIR  = "D:/Pirb_stroke_project/04_reports/figures/GSE174574"
+DATA_DIR = "../01_raw_data/GSE174574"
+OUT_DIR  = "../04_reports/figures/GSE174574"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 从文件名识别样本前缀

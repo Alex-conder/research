@@ -12,8 +12,8 @@ import seaborn as sns
 
 sc.settings.verbosity = 3
 
-DATA_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE233813"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233813"
+DATA_DIR = "../01_raw_data/GSE233813"
+OUT_DIR = "../04_reports/figures/GSE233813"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 samples = {

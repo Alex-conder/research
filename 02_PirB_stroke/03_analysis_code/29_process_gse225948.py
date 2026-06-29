@@ -13,8 +13,8 @@ import seaborn as sns
 
 sc.settings.verbosity = 3
 
-RAW_DIR = "D:/Pirb_stroke_project/01_raw_data/GSE225948"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE225948"
+RAW_DIR = "../01_raw_data/GSE225948"
+OUT_DIR = "../04_reports/figures/GSE225948"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 找到所有成对的 counts + metadata

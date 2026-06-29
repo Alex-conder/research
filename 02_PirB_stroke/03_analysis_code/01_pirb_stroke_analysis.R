@@ -32,7 +32,7 @@ suppressPackageStartupMessages({
 set.seed(20260615)
 
 # 工作路径
-work_dir <- "D:/Pirb_stroke_project"
+work_dir <- ".."
 data_dir <- file.path(work_dir, "01_raw_data")
 out_dir <- file.path(work_dir, "04_reports")
 fig_dir <- file.path(work_dir, "05_supplementary", "figures")

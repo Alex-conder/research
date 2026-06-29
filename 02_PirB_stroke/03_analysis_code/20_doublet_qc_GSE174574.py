@@ -13,8 +13,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/doublet_qc"
+IN_H5AD = "../04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
+OUT_DIR = "../04_reports/figures/GSE174574/doublet_qc"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 adata = sc.read_h5ad(IN_H5AD)
@@ -75,7 +75,7 @@ print("\nPirb+ % after removing predicted doublets:")
 print(pirb_stats_nodbl)
 
 # 与原始对比
-original = pd.read_csv("D:/Pirb_stroke_project/04_reports/figures/GSE174574/pirb_by_celltype_condition.csv")
+original = pd.read_csv("../04_reports/figures/GSE174574/pirb_by_celltype_condition.csv")
 compare = original.merge(pirb_stats_nodbl, on=["cell_type", "condition"], suffixes=("_orig", "_nodbl"))
 compare["pct_diff"] = compare["pirb_positive_pct_nodbl"] - compare["pirb_positive_pct_orig"]
 compare.to_csv(os.path.join(OUT_DIR, "pirb_comparison_doublet_removal.csv"), index=False)

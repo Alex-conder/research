@@ -7,8 +7,8 @@ from docx import Document
 from docx.shared import Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-REPORT_DIR = "D:/Pirb_stroke_project/04_reports"
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures"
+REPORT_DIR = "../04_reports"
+FIG_DIR = "../04_reports/figures"
 
 DEEP_MD = os.path.join(REPORT_DIR, "深度机制分析_5优先级结果汇总.md")
 

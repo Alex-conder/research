@@ -11,7 +11,7 @@ import scanpy as sc
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/peripheral_central_lr"
+OUT_DIR = "../04_reports/figures/peripheral_central_lr"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 手动 curated 配体-受体对（小鼠基因名）

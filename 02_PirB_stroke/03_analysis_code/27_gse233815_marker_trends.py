@@ -10,13 +10,13 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233815"
+OUT_DIR = "../04_reports/figures/GSE233815"
 cpm_symbol = pd.read_csv(os.path.join(OUT_DIR, "cpm_matrix_symbol.csv"), index_col=0) if os.path.exists(os.path.join(OUT_DIR, "cpm_matrix_symbol.csv")) else None
 
 # 如果没有预保存，重新生成
 if cpm_symbol is None:
     cpm = pd.read_csv(os.path.join(OUT_DIR, "cpm_matrix.csv"), index_col=0)
-    feature_file = "D:/Pirb_stroke_project/01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
+    feature_file = "../01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
     gene_map = pd.read_csv(feature_file, sep="\t", header=None, names=["gene_id", "gene_symbol"])
     gene_map["gene_id"] = gene_map["gene_id"].str.split(".").str[0]
     gene_map = gene_map.drop_duplicates("gene_id").set_index("gene_id")["gene_symbol"]

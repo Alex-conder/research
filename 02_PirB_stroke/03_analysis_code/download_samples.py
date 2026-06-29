@@ -39,7 +39,7 @@ def download(url: str, out_path: str, max_retries: int = 50):
 
 if __name__ == "__main__":
     # GSE227651 remaining samples
-    base_dir = "D:/Pirb_stroke_project/01_raw_data/GSE227651"
+    base_dir = "../01_raw_data/GSE227651"
     samples = {
         "GSM7104633": "3d",
         "GSM7104634": "7d",

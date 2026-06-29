@@ -15,7 +15,7 @@ from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
 from scipy import stats
 
-DATA_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233814"
+DATA_DIR = "../04_reports/figures/GSE233814"
 OUT_DIR = os.path.join(DATA_DIR, "gradient_de")
 os.makedirs(OUT_DIR, exist_ok=True)
 

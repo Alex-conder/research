@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 # Default msconvert path (update if your version differs)
-DEFAULT_MSCONVERT = r"C:\Users\ASUS\AppData\Local\Apps\ProteoWizard 3.0.26174.cb5536a 64-bit\msconvert.exe"
+DEFAULT_MSCONVERT = r"path/to/msconvert.exe"  # Update to your local ProteoWizard msconvert path
 
 
 def count_functions(raw_dir: Path) -> int:

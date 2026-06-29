@@ -7,7 +7,7 @@ import scanpy as sc
 import pandas as pd
 import numpy as np
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE225948"
+OUT_DIR = "../04_reports/figures/GSE225948"
 OUT_CSV = os.path.join(OUT_DIR, "DE_PirbPos_vs_Neg_PB_Mo_Neu_D02.csv")
 
 ad = sc.read_h5ad('04_reports/figures/GSE225948_processed.h5ad')

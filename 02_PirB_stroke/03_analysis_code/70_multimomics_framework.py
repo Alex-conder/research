@@ -7,7 +7,7 @@ import scanpy as sc
 from pathlib import Path
 import warnings; warnings.filterwarnings('ignore')
 
-BASE = Path("D:/Pirb_stroke_project")
+BASE = Path("..")
 FIG = BASE / "04_reports/figures/multiomics"
 FIG.mkdir(parents=True, exist_ok=True)
 

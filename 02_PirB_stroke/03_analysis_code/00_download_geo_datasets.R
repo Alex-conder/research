@@ -5,7 +5,7 @@
 # ==============================================================================
 library(GEOquery)
 
-work_dir <- "D:/Pirb_stroke_project"
+work_dir <- ".."
 data_dir <- file.path(work_dir, "01_raw_data")
 dir.create(data_dir, recursive = TRUE, showWarnings = FALSE)
 

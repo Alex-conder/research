@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import hypergeom
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/de_pirb"
+OUT_DIR = "../04_reports/figures/GSE174574/de_pirb"
 DEG_FILE = os.path.join(OUT_DIR, "DE_PirbPos_vs_Neg_Astrocyte.csv")
 
 # 读取 DEG

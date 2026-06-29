@@ -13,8 +13,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/GSE174574_qc.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574"
+IN_H5AD = "../04_reports/figures/GSE174574/GSE174574_qc.h5ad"
+OUT_DIR = "../04_reports/figures/GSE174574"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 读取

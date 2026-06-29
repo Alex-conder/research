@@ -11,8 +11,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-IN_H5AD = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574/de_pirb_all_ct"
+IN_H5AD = "../04_reports/figures/GSE174574/GSE174574_annotated.h5ad"
+OUT_DIR = "../04_reports/figures/GSE174574/de_pirb_all_ct"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 adata = sc.read_h5ad(IN_H5AD)

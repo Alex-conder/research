@@ -7,10 +7,10 @@ from docx import Document
 from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports"
+OUT_DIR = "../04_reports"
 MD_PATH = os.path.join(OUT_DIR, "深度机制分析_5优先级结果汇总.md")
 DOCX_PATH = os.path.join(OUT_DIR, "深度机制分析_5优先级结果汇总.docx")
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures"
+FIG_DIR = "../04_reports/figures"
 
 md_content = f"""# 深度机制分析：Pirb 卒中后神经炎症的 5 优先级探索
 

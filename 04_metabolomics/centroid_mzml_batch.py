@@ -6,13 +6,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-DEFAULT_MSCONVERT = r"C:\Users\ASUS\AppData\Local\Apps\ProteoWizard 3.0.26174.cb5536a 64-bit\msconvert.exe"
+DEFAULT_MSCONVERT = r"path/to/msconvert.exe"  # Update to your local ProteoWizard msconvert path
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", default="D:/raw convert")
-    parser.add_argument("--output-dir", default="C:/mzml_centroided")
+    parser.add_argument("--input-dir", default="./data/raw_mzml")
+    parser.add_argument("--output-dir", default="./data/mzml_centroided")
     parser.add_argument("--msconvert", default=DEFAULT_MSCONVERT)
     args = parser.parse_args()
 

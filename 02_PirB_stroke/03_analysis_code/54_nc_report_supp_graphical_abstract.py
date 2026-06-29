@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import FancyBboxPatch, Circle, FancyArrowPatch
 
-REPORT_DIR = "D:/Pirb_stroke_project/04_reports"
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures"
-SUP_DIR = "D:/Pirb_stroke_project/04_reports/supplementary"
+REPORT_DIR = "../04_reports"
+FIG_DIR = "../04_reports/figures"
+SUP_DIR = "../04_reports/supplementary"
 os.makedirs(SUP_DIR, exist_ok=True)
 
 SUP_XLSX = os.path.join(SUP_DIR, "Supplementary_Tables_Pirb_Stroke.xlsx")
@@ -259,7 +259,7 @@ All data are publicly available via GEO under accession numbers GSE174574, GSE17
 
 ## Code availability
 
-Analysis code is available in `D:/Pirb_stroke_project/03_analysis_code/` and is provided as Supplementary Software.
+Analysis code is available in `../03_analysis_code/` and is provided as Supplementary Software.
 
 ## Acknowledgements
 
@@ -394,7 +394,7 @@ doc.add_heading('Data availability', level=1)
 doc.add_paragraph('All data are publicly available via GEO: GSE174574, GSE171169, GSE225948, GSE233815, GSE233812, GSE233813, GSE233814.')
 
 doc.add_heading('Code availability', level=1)
-doc.add_paragraph('Analysis code is available in D:/Pirb_stroke_project/03_analysis_code/.')
+doc.add_paragraph('Analysis code is available in ../03_analysis_code/.')
 
 doc.add_heading('Competing interests', level=1)
 doc.add_paragraph('The authors declare no competing interests.')

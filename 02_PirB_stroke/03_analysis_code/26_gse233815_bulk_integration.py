@@ -12,7 +12,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-OUT_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE233815"
+OUT_DIR = "../04_reports/figures/GSE233815"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # 读取 GSE233815 CPM
@@ -20,7 +20,7 @@ cpm = pd.read_csv(os.path.join(OUT_DIR, "cpm_matrix.csv"), index_col=0)
 meta = pd.read_csv(os.path.join(OUT_DIR, "sample_metadata.csv"))
 
 # 基因 symbol 映射
-feature_file = "D:/Pirb_stroke_project/01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
+feature_file = "../01_raw_data/GSE174574/GSM5319987_sham1_genes.tsv.gz"
 gene_map = pd.read_csv(feature_file, sep="\t", header=None, names=["gene_id", "gene_symbol"])
 gene_map["gene_id"] = gene_map["gene_id"].str.split(".").str[0]
 gene_map = gene_map.drop_duplicates("gene_id").set_index("gene_id")["gene_symbol"]
@@ -31,7 +31,7 @@ cpm_symbol = cpm_symbol[~cpm_symbol.index.isna()]
 cpm_symbol = cpm_symbol.groupby(cpm_symbol.index).sum()
 
 # 读取 GSE174574 Pirb+ astro DEG
-pirb_de = pd.read_csv("D:/Pirb_stroke_project/04_reports/figures/GSE174574/doublet_qc/DE_PirbPos_vs_Neg_Astrocyte_no_doublet.csv")
+pirb_de = pd.read_csv("../04_reports/figures/GSE174574/doublet_qc/DE_PirbPos_vs_Neg_Astrocyte_no_doublet.csv")
 pirb_up = pirb_de[(pirb_de["logfoldchange"] > 0) & (pirb_de["pvals_adj"] < 0.05)]["gene"].tolist()
 pirb_down = pirb_de[(pirb_de["logfoldchange"] < 0) & (pirb_de["pvals_adj"] < 0.05)]["gene"].tolist()
 

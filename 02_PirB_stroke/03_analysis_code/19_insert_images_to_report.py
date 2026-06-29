@@ -7,8 +7,8 @@ from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 
-DOCX_PATH = "D:/Pirb_stroke_project/04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告.docx"
-FIG_DIR = "D:/Pirb_stroke_project/04_reports/figures/GSE174574"
+DOCX_PATH = "../04_reports/脑缺血后Pirb阳性细胞单细胞图谱_机制深挖与多数据集验证阶段性报告.docx"
+FIG_DIR = "../04_reports/figures/GSE174574"
 
 # 图片插入配置：(章节关键词, 图片路径, 图片说明)
 images_to_insert = [
