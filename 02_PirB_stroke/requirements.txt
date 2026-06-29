@@ -1,0 +1,28 @@
+# Core scientific computing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Single-cell & spatial transcriptomics
+scanpy>=1.9.0
+anndata>=0.9.0
+leidenalg>=0.10.0
+harmony-pytorch>=0.1.0      # optional: cross-dataset batch correction
+squidpy>=1.2.0              # spatial transcriptomics (Visium)
+scvi-tools>=1.0.0           # optional: scVI integration
+gseapy>=1.0.0               # GSEA / pathway enrichment
+adjustText>=0.8.0           # avoid overlapping labels in plots
+
+# GEO data parsing
+GEOparse>=1.0.0             # directly fetch GEO metadata
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Utility
+pyyaml>=6.0
+tqdm>=4.65.0
+jupyter>=1.0.0
+openpyxl>=3.1.0             # export tables to .xlsx

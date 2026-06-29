@@ -1,0 +1,352 @@
+=== CELL 0 (markdown) ===
+# 模块一进阶：HH 模型从现象学到机制化的提升
+
+本 Notebook 针对原 HH 模型的三个核心短板进行补全：
+1. 二维参数相图：从单独扫描升级为联合扫描 g_Na vs g_K，识别兴奋性双稳态区域。
+2. Markov 钠通道模型：用 5 状态 Markov 链替代经验门控变量 m³h，提升分子可解释性；同时明确参数来源并做关键跃迁敏感性分析。
+3. 双室电缆模型：建立 soma + dendrite 两室接口，为空间传播与突触整合奠基。
+=== CELL 1 (code) ===
+import numpy as np
+from scipy.integrate import odeint
+from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+import warnings
+warnings.filterwarnings('ignore')
+
+plt.rcParams['figure.dpi'] = 120
+plt.rcParams['font.size'] = 10
+=== CELL 2 (markdown) ===
+## 1. 二维兴奋性相图（g_Na vs g_K）
+
+同时改变 g_Na 和 g_K，通过动作电位发放次数判断细胞处于：
+- 静止区（0 spike）
+- 单发放区（1 spike）
+- 重复发放区（>=2 spikes）
+- 潜在双稳态区：静息与放电均可稳定存在
+=== CELL 3 (code) ===
+def hodgkin_huxley(y, t, I_ext, g_Na=120.0, g_K=36.0, g_L=0.3, C_m=1.0):
+    V, m, h, n = y
+    alpha_m = 0.1 * (V + 40) / (1 - np.exp(-(V + 40)/10))
+    beta_m  = 4.0 * np.exp(-(V + 65)/18)
+    alpha_h = 0.07 * np.exp(-(V + 65)/20)
+    beta_h  = 1.0 / (1 + np.exp(-(V + 35)/10))
+    alpha_n = 0.01 * (V + 55) / (1 - np.exp(-(V + 55)/10))
+    beta_n  = 0.125 * np.exp(-(V + 65)/80)
+
+    E_Na, E_K, E_L = 50.0, -77.0, -54.387
+    I_Na = g_Na * m**3 * h * (V - E_Na)
+    I_K  = g_K * n**4 * (V - E_K)
+    I_L  = g_L * (V - E_L)
+
+    dVdt = (I_ext - (I_Na + I_K + I_L)) / C_m
+    dmdt = alpha_m * (1 - m) - beta_m * m
+    dhdt = alpha_h * (1 - h) - beta_h * h
+    dndt = alpha_n * (1 - n) - beta_n * n
+    return [dVdt, dmdt, dhdt, dndt]
+
+def simulate_phase(g_Na, g_K, I_amp=10.0, C_m=1.0, tmax=200):
+    time = np.linspace(0, tmax, int(tmax*100)+1)
+    I_ext = np.zeros_like(time)
+    I_ext[(time > 20) & (time < 120)] = I_amp
+    I_func = interp1d(time, I_ext, kind='linear', fill_value='extrapolate')
+    y0 = [-65.0, 0.05, 0.6, 0.32]
+    sol = odeint(lambda y, t: hodgkin_huxley(y, t, I_func(t), g_Na, g_K, C_m=C_m),
+                 y0, time, hmax=0.1)
+    V = sol[:, 0]
+    spikes = ((V[:-1] < -20) & (V[1:] >= -20)).sum()
+    peak = V.max()
+    return spikes, peak
+
+# 构建二维网格
+g_Na_grid = np.linspace(40, 180, 29)
+g_K_grid = np.linspace(10, 70, 31)
+phase_map = np.zeros((len(g_K_grid), len(g_Na_grid)))
+peak_map = np.zeros((len(g_K_grid), len(g_Na_grid)))
+
+for i, gK in enumerate(g_K_grid):
+    for j, gNa in enumerate(g_Na_grid):
+        spikes, peak = simulate_phase(gNa, gK)
+        phase_map[i, j] = spikes
+        peak_map[i, j] = peak
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+im1 = axes[0].pcolormesh(g_Na_grid, g_K_grid, phase_map, cmap='viridis', shading='auto')
+axes[0].set_xlabel('g_Na (mS/cm2)')
+axes[0].set_ylabel('g_K (mS/cm2)')
+axes[0].set_title('2D Excitability Phase Diagram (spike count)')
+cbar1 = fig.colorbar(im1, ax=axes[0])
+cbar1.set_label('Spike count')
+axes[0].scatter([120], [36], c='red', s=80, marker='*', edgecolors='white', linewidths=1, label='Classic HH')
+axes[0].legend(loc='upper right')
+
+im2 = axes[1].pcolormesh(g_Na_grid, g_K_grid, peak_map, cmap='coolwarm', shading='auto', vmin=-80, vmax=50)
+axes[1].set_xlabel('g_Na (mS/cm2)')
+axes[1].set_ylabel('g_K (mS/cm2)')
+axes[1].set_title('Peak Membrane Potential (mV)')
+cbar2 = fig.colorbar(im2, ax=axes[1])
+cbar2.set_label('Peak (mV)')
+axes[1].scatter([120], [36], c='red', s=80, marker='*', edgecolors='white', linewidths=1, label='Classic HH')
+axes[1].legend(loc='upper right')
+
+plt.tight_layout()
+plt.savefig('report_images/hh_phase_diagram.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f"经典 HH 点 (g_Na=120, g_K=36): {simulate_phase(120, 36)[0]} spikes")
+print(f"高 Na 低 K (g_Na=160, g_K=15): {simulate_phase(160, 15)[0]} spikes")
+print(f"低 Na 高 K (g_Na=60, g_K=60): {simulate_phase(60, 60)[0]} spikes")
+=== CELL 4 (markdown) ===
+### 双稳态区域识别
+
+双稳态意味着细胞既可以在静息状态稳定存在，也可以在重复发放状态稳定存在。采用双脉冲协议：
+- 第一次脉冲（t=20-40 ms）强度 I1 用于探测从静息到放电的阈值
+- 第二次脉冲（t=120-140 ms）强度 I2 用于探测从放电回到静息的阈值
+- 若 I1 != I2，则存在滞后回线（hysteresis），即双稳态
+=== CELL 5 (code) ===
+def bistability_scan(g_Na=120.0, g_K=36.0, I1=20.0, I2=0.0, tmax=300):
+    time = np.linspace(0, tmax, int(tmax*100)+1)
+    I_ext = np.zeros_like(time)
+    I_ext[(time > 20) & (time < 40)] = I1
+    I_ext[(time > 120) & (time < 140)] = I2
+    I_func = interp1d(time, I_ext, kind='linear', fill_value='extrapolate')
+    y0 = [-65.0, 0.05, 0.6, 0.32]
+    sol = odeint(lambda y, t: hodgkin_huxley(y, t, I_func(t), g_Na, g_K), y0, time, hmax=0.1)
+    V = sol[:, 0]
+    late_spikes = ((V[time>150][:-1] < -20) & (V[time>150][1:] >= -20)).sum()
+    return late_spikes, time, V
+
+gK_bistable = np.linspace(15, 45, 13)
+late_spikes_list = []
+for gK in gK_bistable:
+    ls, _, _ = bistability_scan(g_Na=120, g_K=gK, I1=25.0, I2=0.0)
+    late_spikes_list.append(ls)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(gK_bistable, late_spikes_list, 'o-', color='purple')
+ax.set_xlabel('g_K (mS/cm2)')
+ax.set_ylabel('Late spikes (150-300 ms, after stimulus removal)')
+ax.set_title('Bistability Probe: persistent firing after transient stimulus')
+ax.axhline(0, color='gray', linestyle='--')
+ax.grid(True)
+plt.tight_layout()
+plt.savefig('report_images/hh_bistability_probe.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+ls, t_ex, V_ex = bistability_scan(g_Na=120, g_K=25, I1=25, I2=0)
+fig, ax = plt.subplots(figsize=(10, 3))
+ax.plot(t_ex, V_ex, color='purple')
+ax.set_xlabel('Time (ms)')
+ax.set_ylabel('V (mV)')
+ax.set_title('Example: g_Na=120, g_K=25 - persistent firing after transient stimulus')
+ax.grid(True)
+plt.tight_layout()
+plt.savefig('report_images/hh_bistability_trace.png', dpi=150, bbox_inches='tight')
+plt.show()
+print(f"双稳态示例 late spikes: {ls}")
+=== CELL 6 (markdown) ===
+## 2. Markov 状态钠通道模型（含参数来源与敏感性分析）
+
+将 HH 中经验性的 m³h 替换为 5 状态 Markov 模型。状态包括：
+- C3, C2, C1：三个闭合状态（closed）
+- O：开放状态（open）
+- I：失活状态（inactivated）
+
+**参数来源声明**：本实现采用教学/概念级参数化，速率函数形式参考经典 HH 门控动力学（保证动作电位波形可比），
+并非直接拟合自单通道 patch-clamp 数据。正式研究中应使用文献参数（如 Patlak & Ortiz, 1986 的钠通道模型）
+或从单通道记录重新标定。
+
+由于 5 状态模型有 10 个跃迁速率，为避免参数不可识别问题，这里只扰动两条关键路径：
+- alpha（激活路径 C -> O）
+- gamma（失活路径 O -> I）
+=== CELL 7 (code) ===
+def markov_na_rates(V, alpha_scale=1.0, gamma_scale=1.0):
+    """
+    电压依赖的 Markov 转移速率（简化参数化，与 HH 行为可比）。
+    alpha_scale: 激活路径整体缩放
+    gamma_scale: 失活路径整体缩放
+    """
+    alpha = alpha_scale * 0.4 * (V + 45) / (1 - np.exp(-(V + 45)/10))
+    beta  = 4.0 * np.exp(-(V + 60)/18)
+    gamma = gamma_scale * 0.1 * np.exp(-(V + 60)/20)
+    delta = 0.05 / (1 + np.exp(-(V + 30)/10))
+    return alpha, beta, gamma, delta
+
+def hh_markov(y, t, I_ext, alpha_scale=1.0, gamma_scale=1.0,
+              g_Na_max=120.0, g_K=36.0, g_L=0.3, C_m=1.0):
+    V, c3, c2, c1, o, inh, n = y
+    alpha, beta, gamma, delta = markov_na_rates(V, alpha_scale, gamma_scale)
+
+    # 5 状态 Markov: C3 <-> C2 <-> C1 <-> O <-> I
+    dc3dt = beta*c2 - alpha*c3 + delta*inh
+    dc2dt = alpha*c3 - beta*c2 + beta*c1 - alpha*c2
+    dc1dt = alpha*c2 - beta*c1 + beta*o - alpha*c1
+    dodt  = alpha*c1 - beta*o - gamma*o + delta*inh
+    dinhdt = gamma*o - delta*inh
+
+    alpha_n = 0.01 * (V + 55) / (1 - np.exp(-(V + 55)/10))
+    beta_n  = 0.125 * np.exp(-(V + 65)/80)
+    dndt = alpha_n*(1-n) - beta_n*n
+
+    E_Na, E_K, E_L = 50.0, -77.0, -54.387
+    I_Na = g_Na_max * o * (V - E_Na)
+    I_K  = g_K * n**4 * (V - E_K)
+    I_L  = g_L * (V - E_L)
+    dVdt = (I_ext - (I_Na + I_K + I_L)) / C_m
+    return [dVdt, dc3dt, dc2dt, dc1dt, dodt, dinhdt, dndt]
+
+def simulate_markov(I_amp=10.0, tmax=100, alpha_scale=1.0, gamma_scale=1.0):
+    time = np.linspace(0, tmax, int(tmax*100)+1)
+    I_ext = np.zeros_like(time)
+    I_ext[(time > 10) & (time < 50)] = I_amp
+    I_func = interp1d(time, I_ext, fill_value='extrapolate')
+    y0 = [-65.0, 0.9, 0.05, 0.025, 0.0, 0.025, 0.32]
+    sol = odeint(lambda y, t: hh_markov(y, t, I_func(t), alpha_scale, gamma_scale),
+                 y0, time, hmax=0.1)
+    return time, sol
+
+# 关键跃迁敏感性分析：只扰动 alpha_scale 和 gamma_scale
+alpha_scales = [0.5, 0.75, 1.0, 1.25, 1.5]
+gamma_scales = [0.5, 0.75, 1.0, 1.25, 1.5]
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+for a_s in alpha_scales:
+    t_m, sol_m = simulate_markov(alpha_scale=a_s)
+    V_m = sol_m[:, 0]
+    axes[0].plot(t_m, V_m, label=f'alpha x{a_s}')
+axes[0].set_xlabel('Time (ms)')
+axes[0].set_ylabel('V (mV)')
+axes[0].set_title('Sensitivity: activation path (alpha)')
+axes[0].legend(loc='upper right', fontsize=8)
+axes[0].grid(True)
+
+for g_s in gamma_scales:
+    t_m, sol_m = simulate_markov(gamma_scale=g_s)
+    V_m = sol_m[:, 0]
+    axes[1].plot(t_m, V_m, label=f'gamma x{g_s}')
+axes[1].set_xlabel('Time (ms)')
+axes[1].set_ylabel('V (mV)')
+axes[1].set_title('Sensitivity: inactivation path (gamma)')
+axes[1].legend(loc='upper right', fontsize=8)
+axes[1].grid(True)
+plt.tight_layout()
+plt.savefig('report_images/hh_markov_channel.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+t_m, sol_m = simulate_markov()
+V_m = sol_m[:, 0]
+o_m = sol_m[:, 4]
+inh_m = sol_m[:, 5]
+print(f"Markov 模型动作电位峰值: {V_m.max():.2f} mV")
+print(f"最大开放概率: {o_m.max():.4f}")
+=== CELL 8 (markdown) ===
+## 3. 双室电缆模型接口
+
+将单室 HH 扩展为两室（soma + dendrite），中间用电耦连 g_couple 连接。
+=== CELL 9 (code) ===
+def two_compartment_hh(y, t, I_ext_soma, g_Na=120.0, g_K=36.0, g_L_soma=0.3,
+                       g_L_dend=0.1, g_couple=0.05, C_soma=1.0, C_dend=1.0):
+    V_s, m, h, n, V_d = y
+    E_Na, E_K, E_L = 50.0, -77.0, -54.387
+
+    alpha_m = 0.1 * (V_s + 40) / (1 - np.exp(-(V_s + 40)/10))
+    beta_m  = 4.0 * np.exp(-(V_s + 65)/18)
+    alpha_h = 0.07 * np.exp(-(V_s + 65)/20)
+    beta_h  = 1.0 / (1 + np.exp(-(V_s + 35)/10))
+    alpha_n = 0.01 * (V_s + 55) / (1 - np.exp(-(V_s + 55)/10))
+    beta_n  = 0.125 * np.exp(-(V_s + 65)/80)
+
+    I_Na = g_Na * m**3 * h * (V_s - E_Na)
+    I_K  = g_K * n**4 * (V_s - E_K)
+    I_Ls = g_L_soma * (V_s - E_L)
+    I_Ld = g_L_dend * (V_d - E_L)
+    I_couple = g_couple * (V_s - V_d)
+
+    dV_sdt = (I_ext_soma - I_Na - I_K - I_Ls - I_couple) / C_soma
+    dV_ddt = (-I_Ld + I_couple) / C_dend
+    dmdt = alpha_m * (1 - m) - beta_m * m
+    dhdt = alpha_h * (1 - h) - beta_h * h
+    dndt = alpha_n * (1 - n) - beta_n * n
+    return [dV_sdt, dmdt, dhdt, dndt, dV_ddt]
+
+def simulate_two_comp(g_couple=0.05, I_amp=10.0, tmax=100):
+    time = np.linspace(0, tmax, int(tmax*100)+1)
+    I_ext = np.zeros_like(time)
+    I_ext[(time > 10) & (time < 50)] = I_amp
+    I_func = interp1d(time, I_ext, fill_value='extrapolate')
+    y0 = [-65.0, 0.05, 0.6, 0.32, -65.0]
+    sol = odeint(lambda y, t: two_compartment_hh(y, t, I_func(t), g_couple=g_couple),
+                 y0, time, hmax=0.1)
+    return time, sol
+
+g_couples = [0.01, 0.05, 0.2]
+fig, axes = plt.subplots(len(g_couples), 1, figsize=(10, 8), sharex=True)
+for ax, gc in zip(axes, g_couples):
+    t2, sol2 = simulate_two_comp(g_couple=gc)
+    ax.plot(t2, sol2[:, 0], label='Soma', color='red')
+    ax.plot(t2, sol2[:, 4], label='Dendrite', color='blue', linestyle='--')
+    ax.set_ylabel('V (mV)')
+    ax.set_title(f'g_couple = {gc} mS/cm2')
+    ax.legend(loc='upper right')
+    ax.grid(True)
+axes[-1].set_xlabel('Time (ms)')
+plt.tight_layout()
+plt.savefig('report_images/hh_two_compartment.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+t2, sol2 = simulate_two_comp(g_couple=0.05)
+V_s_peak = sol2[:, 0].max()
+V_d_peak = sol2[:, 4].max()
+print(f"Soma 峰值: {V_s_peak:.2f} mV, Dendrite 峰值: {V_d_peak:.2f} mV")
+print(f"Dendrite/Soma 峰值比: {V_d_peak/V_s_peak:.3f}")
+=== CELL 10 (markdown) ===
+## 4. 与 Allen Cell Types Database 的接口（计算验证准备）
+=== CELL 11 (code) ===
+def extract_electrophys_features(V, time, I_window=(20, 120), threshold=-20):
+    mask = (time > I_window[0]) & (time < I_window[1])
+    V_stim = V[mask]
+    crossings = ((V_stim[:-1] < threshold) & (V_stim[1:] >= threshold)).sum()
+    stim_duration = I_window[1] - I_window[0]
+    freq_hz = crossings / (stim_duration / 1000.0)
+    AP_peak = V_stim.max()
+    AP_amplitude = AP_peak - np.median(V_stim[V_stim < threshold])
+    return {
+        'spike_count': int(crossings),
+        'frequency_Hz': freq_hz,
+        'AP_peak_mV': AP_peak,
+        'AP_amplitude_mV': AP_amplitude
+    }
+
+I_amps = np.linspace(2, 30, 15)
+freqs = []
+for I in I_amps:
+    time = np.linspace(0, 150, 15001)
+    I_ext = np.zeros_like(time)
+    I_ext[(time > 20) & (time < 120)] = I
+    I_func = interp1d(time, I_ext, fill_value='extrapolate')
+    sol = odeint(lambda y, t: hodgkin_huxley(y, t, I_func(t), 120, 36),
+                 [-65.0, 0.05, 0.6, 0.32], time, hmax=0.1)
+    feats = extract_electrophys_features(sol[:,0], time)
+    freqs.append(feats['frequency_Hz'])
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(I_amps, freqs, 'o-', color='darkgreen')
+ax.set_xlabel('Injected current (uA/cm2)')
+ax.set_ylabel('Firing frequency (Hz)')
+ax.set_title('f-I Curve for HH Model (Allen-style feature)')
+ax.grid(True)
+plt.tight_layout()
+plt.savefig('report_images/hh_fI_curve.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f"Rheobase 近似: I = {I_amps[np.where(np.array(freqs) > 0)[0][0]]:.1f} uA/cm2")
+print(f"饱和频率: {max(freqs):.1f} Hz")
+=== CELL 12 (markdown) ===
+## 5. 小节：HH 模块升级后的能力清单
+
+| 短板 | 原状态 | 补全内容 | 可交付物 |
+|------|--------|----------|----------|
+| 参数扫描过于粗糙 | 一维扫描 | 二维 g_Na-g_K 相图 + 双稳态识别 | hh_phase_diagram.png |
+| 现象学门控 | m³h 经验拟合 | 5 状态 Markov 钠通道 + 关键跃迁敏感性 | hh_markov_channel.png |
+| 单室无空间维度 | 单室模型 | 两室 soma-dendrite 原型 | hh_two_compartment.png |
+| 缺乏公开数据接口 | 无 | Allen-style f-I 特征提取 | hh_fI_curve.png |

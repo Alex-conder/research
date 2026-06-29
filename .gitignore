@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data files (too large for GitHub)
+*.h5ad
+*.h5
+*.mzML
+*.raw
+*.fastq
+*.fq
+*.bam
+*.sam
+*.cram
+*.tar
+*.tar.gz
+*.zip
+*.gz
+
+# Executables, installers, and binary documents
+*.exe
+*.msi
+*.dmg
+*.docx
+*.pdbqt
+*.pdf
+
+# Figure directories and large outputs
+figures/
+04_metabolomics/output/
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Output directories that may contain large files
+output/
+outputs/*/!
+outputs/*.png
+outputs/*.pdf
+outputs/*.svg
+
+# R / SPSS serialized data
+*.qs
+*.rds
+*.sav
+
+# Project-specific cache / test / installer directories
+cache/
+mzml_test/
+R_installers/
+
+# Keep READMEs and small CSVs
+!*/README.md
+!*.md
+!*.csv
+!*.txt
+!*.py
+!*.R
+!*.ipynb
+!*.yml
+!*.yaml
+!*.json

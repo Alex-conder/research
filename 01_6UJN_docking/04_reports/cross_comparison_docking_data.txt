@@ -1,0 +1,22 @@
+Cross-comparison: docking energies and geometries
+============================================================
+
+Docking energies (kcal/mol):
+  Meropenem apo:             -6.788
+  Meropenem in Vancomycin-first: -6.738
+  Vancomycin apo:            -8.743
+  Vancomycin in Meropenem-first: -8.502
+
+Docked ternary complex geometries:
+  Meropenem-first VAN-MER distance: 7.38 A
+  Vancomycin-first VAN-MER distance: 51.05 A
+
+MM-GBSA binding free energies (igb=2, saltcon=0.15 M):
+  Meropenem-first (Vancomycin as ligand):  -52.8460 +/- 4.2025 kcal/mol
+  Vancomycin-first (Meropenem as ligand):  -23.0253 +/- 2.4839 kcal/mol
+  Delta Delta G (Mero-first - Van-first):  -29.82 kcal/mol
+
+Interpretation:
+  - Meropenem-first: Vancomycin binds close to Meropenem, forming a crowded ternary complex.
+  - Vancomycin-first: Meropenem binds far from Vancomycin, no ternary crowding; affinity is essentially apo-like.
+  - Docking affinities alone suggest little difference, but geometry + MM-GBSA together reveal order-dependent paving.

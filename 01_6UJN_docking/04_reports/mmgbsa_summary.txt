@@ -1,0 +1,52 @@
+MM-GBSA Results Summary
+========================
+
+System: 6UJN + Meropenem + Vancomycin
+Method: Single-trajectory MM-GBSA (MMPBSA.py)
+GB model: igb=2
+Salt concentration: 0.15 M
+Frames analyzed: 100 (full 100 ps trajectory, interval=1)
+
+1. Meropenem-first → Vancomycin
+   Receptor: protein + Meropenem
+   Ligand:   Vancomycin
+   ΔG = -52.8460 ± 4.2025 kcal/mol (Std. Err. = 0.4202)
+
+   Energy decomposition:
+   ΔVDWAALS =  -84.9830 ±  5.1745
+   ΔEEL     =  -30.1014 ±  6.4030
+   ΔEGB     =  +71.9757 ±  6.8835
+   ΔESURF   =   -9.7372 ±  0.4298
+   ΔG gas   = -115.0844 ±  8.8397
+   ΔG solv  =  +62.2384 ±  6.7353
+   ΔTOTAL   =  -52.8460 ±  4.2025
+
+2. Vancomycin-first → Meropenem
+   Receptor: protein + Vancomycin
+   Ligand:   Meropenem
+   ΔG = -23.0253 ± 2.4839 kcal/mol (Std. Err. = 0.2484)
+
+   Energy decomposition:
+   ΔVDWAALS =  -29.4746 ±  2.7904
+   ΔEEL     = +343.8700 ± 14.7604
+   ΔEGB     = -334.1198 ± 12.0980
+   ΔESURF   =   -3.3008 ±  0.2704
+   ΔG gas   = +314.3954 ± 13.1686
+   ΔG solv  = -337.4207 ± 12.2682
+   ΔTOTAL   =  -23.0253 ±  2.4839
+
+3. Comparison
+   ΔΔG = ΔG(Meropenem-first) - ΔG(Vancomycin-first)
+       = -52.8460 - (-23.0253)
+       = -29.8207 kcal/mol
+
+   Interpretation: Binding of the second ligand is substantially more favorable
+   when Meropenem is bound first, supporting a directional paving/pre-organization
+   effect by Meropenem for subsequent Vancomycin binding.
+
+Output files:
+- md/output/mmgbsa_meropenem_first_RESULTS.dat
+- md/output_van_first/mmgbsa_vancomycin_first_RESULTS.dat
+- md/scripts/run_mmgbsa.sh
+
+Generated: 2026-06-26

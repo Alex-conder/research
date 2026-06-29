@@ -1,0 +1,50 @@
+Vancomycin-first -> Meropenem 分子对接摘要
+=============================================
+
+受体: 6UJN + Vancomycin (holo)
+配体: Meropenem
+对接软件: AutoDock Vina 1.2.5
+对接中心 (Å): (56.0328, 17.1666, 25.8216)
+盒子大小 (Å): 60.68 x 60.68 x 60.68
+Exhaustiveness: 8
+num_modes: 10
+seed: 42
+
+对接结果 (CSV: input/6UJN_Vancomycin_Meropenem.csv)
+---------------------------------------------------
+| Mode | Binding Affinity (kcal/mol) | 到 VAN 质心距离 (Å) | vs apo RMSD (Å) |
+|------|----------------------------|---------------------|-----------------|
+| 1    | -6.738                     | 51.05               | 52.81           |
+| 2    | -6.713                     | 51.71               | 40.23           |
+| 3    | -6.685                     | 53.70               | 42.41           |
+| 4    | -6.630                     | 18.39               | 4.72            |
+| 5    | -6.459                     | 16.71               | 7.19            |
+| 6    | -6.459                     | 44.02               | 46.08           |
+| 7    | -6.418                     | 51.16               | 40.23           |
+| 8    | -6.415                     | 26.83               | 16.46           |
+| 9    | -6.376                     | 53.24               | 41.74           |
+
+最佳亲和力: -6.738 kcal/mol (Mode 1)
+apo Meropenem 参考能: -6.788 kcal/mol
+ΔE (Van-first - apo): +0.050 kcal/mol
+
+关键结论
+--------
+1. Meropenem 在 Vancomycin-first 序贯对接中远离 Vancomycin 结合。
+2. 最佳 pose 距 Vancomycin 质心约 51.05 Å。
+3. 亲和力与 apo 状态几乎相同，说明 Vancomycin 预结合未促进 Meropenem 结合。
+4. 与后续对称 MD 松弛（COM ~46.76 Å，MM-GBSA ΔG = -23.03 kcal/mol）一致。
+
+生成文件
+--------
+- 04_reports/Vancomycin_first_docking_report.md        (English)
+- 04_reports/Vancomycin_first_docking_report_CN.md     (中文)
+- 04_reports/Vancomycin_first_docking_report.docx      (English)
+- 04_reports/Vancomycin_first_docking_report_CN.docx   (中文)
+- 04_reports/figures/van_first_complex_overview.png
+- 04_reports/figures/van_first_docking_poses.png
+- 04_reports/figures/van_first_distance_vs_affinity.png
+- 04_reports/figures/van_first_xy_projection.png
+- 04_reports/create_van_first_docking_report.py        (生成脚本)
+
+生成时间: 2026-06-26

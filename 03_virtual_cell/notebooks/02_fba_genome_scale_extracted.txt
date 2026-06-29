@@ -1,0 +1,327 @@
+=== CELL 0 (markdown) ===
+# 模块二进阶：FBA 从核心模型到基因组规模与动态约束
+
+本 Notebook 针对原 FBA 的三个核心短板进行补全：
+1. 升级到基因组规模模型，并区分绝对必需与条件必需基因。
+2. 动态 FBA（dFBA）模拟分批培养。
+3. 酶约束接口（sMOMENT 简化版）与不确定性量化。
+=== CELL 1 (code) ===
+import cobra
+from cobra.io import load_model
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+import warnings
+warnings.filterwarnings('ignore')
+
+plt.rcParams['figure.dpi'] = 120
+=== CELL 2 (markdown) ===
+## 1. 加载并比较核心模型与基因组规模模型
+
+`iML1515` 是 E. coli K-12 MG1655 的最新基因组规模代谢模型（2017），覆盖约 1515 基因、2716 反应。
+=== CELL 3 (code) ===
+core = load_model('e_coli_core')
+
+try:
+    gsm = load_model('iML1515')
+    gsm_name = 'iML1515'
+except Exception as e:
+    print(f'iML1515 加载失败: {e}')
+    print('尝试加载 iJO1366 作为替代基因组规模模型...')
+    try:
+        gsm = load_model('iJO1366')
+        gsm_name = 'iJO1366'
+    except Exception as e2:
+        print(f'iJO1366 也失败: {e2}')
+        gsm = None
+        gsm_name = None
+
+comparison = pd.DataFrame({
+    'Metric': ['Reactions', 'Metabolites', 'Genes'],
+    'E. coli core': [len(core.reactions), len(core.metabolites), len(core.genes)],
+})
+if gsm is not None:
+    comparison[gsm_name] = [len(gsm.reactions), len(gsm.metabolites), len(gsm.genes)]
+
+print(comparison.to_string(index=False))
+
+core.reactions.EX_glc__D_e.lower_bound = -10
+core.reactions.EX_o2_e.lower_bound = -20
+core_sol = core.optimize()
+print(f"\nE. coli core 最大生长速率: {core_sol.objective_value:.4f} /h")
+
+if gsm is not None:
+    gsm.reactions.EX_glc__D_e.lower_bound = -10
+    gsm.reactions.EX_o2_e.lower_bound = -20
+    gsm_sol = gsm.optimize()
+    print(f"{gsm_name} 最大生长速率: {gsm_sol.objective_value:.4f} /h")
+=== CELL 4 (markdown) ===
+## 2. 绝对必需 vs 条件必需：M9 最小培养基预测
+
+基因组规模模型预测的必需基因数量会远大于 core 模型，因为很多基因是条件必需。
+这里分别在 **丰富培养基**（所有氨基酸可摄取）和 **M9 最小培养基**（仅葡萄糖 + 无机盐）下扫描必需性，
+并与文献中的 M9 必需基因集做对比。
+=== CELL 5 (code) ===
+# 文献中 E. coli K-12 在 M9 葡萄糖培养基下的部分必需基因（示例集，来自 Goodall et al. 2018 等）
+M9_LITERATURE_ESSENTIAL = {
+    'glyA', 'ddlB', 'murA', 'murB', 'murC', 'murD', 'murE', 'murF', 'murG', 'murI',
+    'coaD', 'coaE', 'panB', 'panC', 'panD', 'panE',
+    'fabA', 'fabB', 'fabD', 'fabF', 'fabG', 'fabH', 'fabI', 'fabZ',
+    'gyrA', 'gyrB', 'parC', 'parE',
+    'dnaA', 'dnaB', 'dnaC', 'dnaE', 'dnaN', 'holA', 'holB', 'holC', 'holD',
+    'glyS', 'glyQ', 'serS', 'leuS', 'ileS', 'valS',
+    'pfkA', 'fbaA', 'gapA', 'pgk', 'gpmA', 'eno', 'pykF'
+}
+
+def set_m9_minimal(model):
+    """设置 M9 最小培养基：关闭所有有机营养物摄取，只保留葡萄糖和无机盐。"""
+    # 允许的无机/基础交换反应（部分反应可能不存在于 core 模型中）
+    allowed = {'EX_glc__D_e', 'EX_o2_e', 'EX_nh4_e', 'EX_pi_e', 'EX_so4_e',
+               'EX_mg2_e', 'EX_ca2_e', 'EX_fe2_e', 'EX_fe3_e', 'EX_h2o_e',
+               'EX_h_e', 'EX_co2_e'}
+    for r in model.exchanges:
+        if r.id in allowed:
+            continue
+        if r.lower_bound < 0:
+            r.lower_bound = 0
+    # 确保基础反应开放（若存在）
+    for rxn_id, lb in [('EX_glc__D_e', -10), ('EX_o2_e', -20), ('EX_nh4_e', -1000),
+                       ('EX_pi_e', -1000), ('EX_so4_e', -1000), ('EX_h2o_e', -1000),
+                       ('EX_h_e', -1000)]:
+        if rxn_id in [r.id for r in model.reactions]:
+            model.reactions.get_by_id(rxn_id).lower_bound = lb
+
+def knockout_scan(model, label):
+    """扫描单基因敲除，返回必需基因列表。为控制计算量，仅扫描前 300 个基因。"""
+    essential = []
+    sample = list(model.genes)[:300]
+    for gene in sample:
+        with model:
+            gene.knock_out()
+            if model.slim_optimize() < 0.01:
+                essential.append(gene.id)
+    print(f"{label}: {len(essential)} / {len(sample)} 必需")
+    return set(essential)
+
+# core 模型在 M9 下的必需性
+with core as core_m9:
+    set_m9_minimal(core_m9)
+    ess_core_m9 = knockout_scan(core_m9, 'E. coli core (M9)')
+
+# 基因组规模模型在 M9 下的必需性
+if gsm is not None:
+    with gsm as gsm_m9:
+        set_m9_minimal(gsm_m9)
+        ess_gsm_m9 = knockout_scan(gsm_m9, f'{gsm_name} (M9)')
+    
+    # 与文献集对比
+    overlap = ess_gsm_m9 & M9_LITERATURE_ESSENTIAL
+    literature_only = M9_LITERATURE_ESSENTIAL - ess_gsm_m9
+    model_only = ess_gsm_m9 - M9_LITERATURE_ESSENTIAL
+    print(f"\n与文献 M9 必需基因集对比（示例 {len(M9_LITERATURE_ESSENTIAL)} 个）:")
+    print(f"  模型与文献共同预测: {len(overlap)}")
+    print(f"  文献有但模型未预测: {len(literature_only)}")
+    print(f"  模型预测但文献未列: {len(model_only)}")
+    
+    # 可视化
+    categories = ['Core (M9)', f'{gsm_name} (M9)', 'Literature (M9 sample)']
+    counts = [len(ess_core_m9), len(ess_gsm_m9), len(M9_LITERATURE_ESSENTIAL)]
+    fig, ax = plt.subplots(figsize=(8, 4))
+    bars = ax.bar(categories, counts, color=['steelblue', 'seagreen', 'coral'])
+    ax.set_ylabel('Essential gene count')
+    ax.set_title('Absolute vs Conditional Essentiality on M9 Minimal Medium')
+    ax.grid(axis='y')
+    for bar, c in zip(bars, counts):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1, str(c),
+                ha='center', va='bottom', fontsize=12)
+    plt.tight_layout()
+    plt.savefig('report_images/fba_m9_essentiality.png', dpi=150, bbox_inches='tight')
+    plt.show()
+else:
+    print('基因组规模模型未加载，跳过 M9 必需性对比。')
+=== CELL 6 (markdown) ===
+## 3. 动态 FBA（dFBA）模拟分批培养
+=== CELL 7 (code) ===
+def dFBA_batch(model, X0=0.01, Glc0=10.0, O20=20.0,
+               t_max=10.0, dt=0.1, v_glc_max=10.0, v_o2_max=20.0):
+    times = np.arange(0, t_max + dt, dt)
+    X = np.zeros_like(times)
+    Glc = np.zeros_like(times)
+    O2 = np.zeros_like(times)
+    mu = np.zeros_like(times)
+    X[0], Glc[0], O2[0] = X0, Glc0, O20
+    K = 0.5
+
+    for i in range(1, len(times)):
+        with model:
+            v_glc = -v_glc_max * (Glc[i-1] / (K + Glc[i-1]))
+            v_o2 = -v_o2_max * (O2[i-1] / (K + O2[i-1]))
+            model.reactions.EX_glc__D_e.lower_bound = v_glc
+            model.reactions.EX_o2_e.lower_bound = v_o2
+            sol = model.optimize()
+            if sol.status != 'optimal':
+                mu_i, v_glc_used, v_o2_used = 0, 0, 0
+            else:
+                mu_i = sol.objective_value
+                v_glc_used = sol.fluxes['EX_glc__D_e']
+                v_o2_used = sol.fluxes['EX_o2_e']
+        mu[i] = mu_i
+        X[i] = X[i-1] * np.exp(mu_i * dt)
+        Glc[i] = max(0, Glc[i-1] + v_glc_used * X[i] * dt)
+        O2[i] = max(0, O2[i-1] + v_o2_used * X[i] * dt)
+    return times, X, Glc, O2, mu
+
+t_core, X_core, Glc_core, O2_core, mu_core = dFBA_batch(core, t_max=12)
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+axes[0].plot(t_core, X_core, label='Biomass', color='green')
+ax0_twin = axes[0].twinx()
+ax0_twin.plot(t_core, Glc_core, label='Glucose', color='blue', linestyle='--')
+ax0_twin.plot(t_core, O2_core, label='Oxygen', color='red', linestyle='--')
+axes[0].set_xlabel('Time (h)')
+axes[0].set_ylabel('Biomass (gDW/L)', color='green')
+ax0_twin.set_ylabel('Substrate (mmol/L)')
+axes[0].set_title('dFBA: Batch Growth on Glucose (E. coli core)')
+axes[0].legend(loc='upper left')
+ax0_twin.legend(loc='center right')
+axes[0].grid(True)
+
+axes[1].plot(t_core, mu_core, color='darkgreen')
+axes[1].set_xlabel('Time (h)')
+axes[1].set_ylabel('Growth rate mu (1/h)')
+axes[1].set_title('Instantaneous Growth Rate from dFBA')
+axes[1].grid(True)
+plt.tight_layout()
+plt.savefig('report_images/fba_dfba_core.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f"最终生物量: {X_core[-1]:.4f} gDW/L")
+print(f"葡萄糖耗尽时间: {t_core[np.argmin(Glc_core > 0.01)]:.2f} h")
+=== CELL 8 (markdown) ===
+## 4. 多碳源动态预测
+=== CELL 9 (code) ===
+if gsm is not None:
+    carbon_sources = {
+        'Glucose': 'EX_glc__D_e',
+        'Acetate': 'EX_ac_e',
+        'Fructose': 'EX_fru_e',
+        'Glycerol': 'EX_glyc_e',
+        'Succinate': 'EX_succ_e'
+    }
+
+    gsm_results = []
+    for name, rxn_id in carbon_sources.items():
+        with gsm:
+            for r in gsm.exchanges:
+                if r.id.startswith('EX_') and r.id not in ['EX_o2_e', 'EX_h2o_e', 'EX_h_e', 'EX_co2_e', 'EX_nh4_e', 'EX_pi_e']:
+                    if r.lower_bound < 0:
+                        r.lower_bound = 0
+            if rxn_id not in [r.id for r in gsm.reactions]:
+                print(f'  {rxn_id} not in {gsm_name}, skipping {name}')
+                continue
+            gsm.reactions.get_by_id(rxn_id).lower_bound = -10
+            gsm.reactions.EX_o2_e.lower_bound = -20
+            sol = gsm.optimize()
+            gsm_results.append({'Carbon Source': name, 'Growth Rate (/h)': sol.objective_value})
+
+    df_gsm_carbon = pd.DataFrame(gsm_results)
+    print(df_gsm_carbon.to_string(index=False))
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.bar(df_gsm_carbon['Carbon Source'], df_gsm_carbon['Growth Rate (/h)'], color='seagreen')
+    ax.set_ylabel('Max Growth Rate (/h)')
+    ax.set_title(f'{gsm_name}: Growth on Different Carbon Sources')
+    ax.grid(axis='y')
+    plt.tight_layout()
+    plt.savefig('report_images/fba_gsm_carbon_sources.png', dpi=150, bbox_inches='tight')
+    plt.show()
+else:
+    print('基因组规模模型未加载，跳过本部分。')
+=== CELL 10 (markdown) ===
+## 5. 酶约束接口（sMOMENT 简化版）
+=== CELL 11 (code) ===
+def apply_enzyme_constraints(model, enzyme_levels, kcat_dict, total_enzyme_budget=None):
+    conversion = 3600.0
+    for rxn_id, e_level in enzyme_levels.items():
+        if rxn_id not in [r.id for r in model.reactions]:
+            continue
+        rxn = model.reactions.get_by_id(rxn_id)
+        kcat = kcat_dict.get(rxn_id, 50.0)
+        vmax = e_level * kcat / conversion
+        if rxn.upper_bound > 0:
+            rxn.upper_bound = min(rxn.upper_bound, vmax)
+    if total_enzyme_budget is not None:
+        print(f'总酶预算约束: Sum E_j <= {total_enzyme_budget} (概念级，未添加硬约束)')
+    return model
+
+key_reactions = ['GLCpts', 'PFK', 'PGK', 'PYK', 'PDH', 'CS', 'ICDHyr', 'SUCDi']
+enzyme_levels = {r: 1.0 for r in key_reactions}
+kcat_values = {r: np.random.uniform(20, 100) for r in key_reactions}
+
+with core as core_enz:
+    core_enz.reactions.EX_glc__D_e.lower_bound = -10
+    core_enz.reactions.EX_o2_e.lower_bound = -20
+    apply_enzyme_constraints(core_enz, enzyme_levels, kcat_values)
+    sol_enz = core_enz.optimize()
+    print(f"施加酶约束后最大生长速率: {sol_enz.objective_value:.4f} /h")
+    print(f"无约束基准: {core_sol.objective_value:.4f} /h")
+
+flux_unconstrained = [core_sol.fluxes[r] for r in key_reactions]
+flux_constrained = [sol_enz.fluxes[r] for r in key_reactions]
+x = np.arange(len(key_reactions))
+width = 0.35
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.bar(x - width/2, flux_unconstrained, width, label='Unconstrained FBA', color='steelblue')
+ax.bar(x + width/2, flux_constrained, width, label='Enzyme-constrained', color='coral')
+ax.set_ylabel('Flux (mmol/gDW/h)')
+ax.set_title('Effect of Enzyme Capacity Constraints on Central Carbon Fluxes')
+ax.set_xticks(x)
+ax.set_xticklabels(key_reactions, rotation=45, ha='right')
+ax.legend()
+ax.grid(axis='y')
+plt.tight_layout()
+plt.savefig('report_images/fba_enzyme_constraints.png', dpi=150, bbox_inches='tight')
+plt.show()
+=== CELL 12 (markdown) ===
+## 6. 通量采样与不确定性量化
+=== CELL 13 (code) ===
+from cobra.sampling import sample
+
+with core as core_sample:
+    core_sample.reactions.EX_glc__D_e.lower_bound = -10
+    core_sample.reactions.EX_o2_e.lower_bound = -20
+    s = sample(core_sample, n=100, processes=1)
+
+rxns_to_plot = ['BIOMASS_Ecoli_core_w_GAM', 'EX_co2_e', 'EX_etoh_e', 'ATPS4r', 'PYK']
+fig, axes = plt.subplots(2, 3, figsize=(14, 8))
+axes = axes.flatten()
+for ax, r in zip(axes, rxns_to_plot):
+    if r in s.columns:
+        ax.hist(s[r], bins=20, color='teal', edgecolor='white')
+        ax.axvline(core_sol.fluxes[r], color='red', linestyle='--', label='FBA optimum')
+        ax.set_xlabel('Flux')
+        ax.set_ylabel('Frequency')
+        ax.set_title(r)
+        ax.legend(fontsize=8)
+        ax.grid(axis='y')
+axes[-1].axis('off')
+plt.tight_layout()
+plt.savefig('report_images/fba_flux_sampling.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print("关键反应通量 95% 置信区间:")
+for r in rxns_to_plot:
+    if r in s.columns:
+        lo, hi = np.percentile(s[r], [2.5, 97.5])
+        print(f"  {r}: [{lo:.3f}, {hi:.3f}] (FBA={core_sol.fluxes[r]:.3f})")
+=== CELL 14 (markdown) ===
+## 7. 小节：FBA 模块升级后的能力清单
+
+| 短板 | 原状态 | 补全内容 | 可交付物 |
+|------|--------|----------|----------|
+| 核心模型规模小 | E. coli core 95 反应 | 基因组规模 ~2716 反应 | 模型规模对比表 |
+| 无动态 | 稳态 FBA | dFBA 分批培养动态 | fba_dfba_core.png |
+| 缺少酶约束 | 仅化学计量约束 | sMOMENT 简化接口 | fba_enzyme_constraints.png |
+| 不确定性弱 | 单点最优 | 通量采样置信区间 | fba_flux_sampling.png |
+| 必需性概念模糊 | 单一培养基 | M9 最小培养基 + 文献对比 | fba_m9_essentiality.png |

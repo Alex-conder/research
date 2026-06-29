@@ -1,0 +1,11 @@
+receptor = 6UJN.pdbqt
+exhaustiveness = 8
+center_x = 62.2972927131
+center_y = 7.86209210753
+center_z = 25.8216
+size_x = 49.0738273572
+size_y = 49.0738273572
+size_z = 49.0738273572
+seed = 42
+num_modes = 10
+energy_range = 3

@@ -1,0 +1,26 @@
+# Core scientific computing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Molecular docking & MD (Python bindings / helpers)
+# Note: AutoDock Vina and AmberTools are external command-line tools,
+#       not installable via pip. See README for installation instructions.
+openmm>=8.0.0
+openmmtools>=0.20.0
+pdbfixer>=1.9
+mdtraj>=1.9.9
+
+# MM-GBSA / MMPBSA.py is part of AmberTools (external).
+# For Python-based binding analysis:
+pymol-open-source>=2.5.0
+prody>=2.4.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Utility
+pyyaml>=6.0
+tqdm>=4.65.0
