@@ -5,7 +5,7 @@ Reproducibility package for the manuscript
 > **How Much Does a Virtual-Cell Model Know About Its Own Errors?**
 > *An Internally Timestamped Audit of Cheap Reliability Gating*
 >
-> Teng Huang, Xu'ang Wu — Center for Brain-Inspired Computing Research, Tsinghua University.
+> Teng Huang, Dongjian Jiang — Center for Brain-Inspired Computing Research, Tsinghua University.
 
 ## What this repo contains
 
