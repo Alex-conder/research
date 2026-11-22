@@ -1,0 +1,479 @@
+{
+  "task": "Family-Consequence: three consequential design principles from the architecture-family error structure (step24, prereg_family_consequence.md)",
+  "prereg": "prereg_family_consequence.md",
+  "smoke": true,
+  "spec": {
+    "p1": "fam_full (mean probe of F\\{T}) vs single_R on fixed target err_T; utility = G-C cost savings vs random at B in {5,10,20,50}; delta per (T,R) = mean over B; paired perturbation bootstrap B=100, master seed 20261101",
+    "p2": "d = |rank_pct(mean expression-family probe) - rank_pct(mean embedding-family probe)|; z = 1[family-mean error rank >= median]; AUROC + bootstrap CI",
+    "p3": "on-file own_in_situ AUROC registry (ensemble_gate.json) + G-B2 shared-difficulty R2; LODO over {K562,RPE1}, rules R1 (family-aware) vs R0 (family-blind)",
+    "full_run_spec": {
+      "b_boot": 1000
+    }
+  },
+  "boot_master_seed": 20261101,
+  "budgets": [
+    5,
+    10,
+    20,
+    50
+  ],
+  "p1": {
+    "criterion": "primary cells (D in {K562,RPE1} x embedding family x T x R!=T; delta = mean over B in {5,10,20,50} of topk(err_T,s_R,B) - topk(err_T,s_{F\\T},B); paired bootstrap 95% CI of delta contains 0 in ALL 12 cells -> within-family redundancy has a cost consequence (deploy any single representative); any cell CI entirely above 0 -> P1 fails",
+    "cells": [
+      {
+        "dataset": "K562",
+        "family": "expression",
+        "target": "gears_k562",
+        "rep": "scgenept_k562",
+        "structural": true,
+        "note": "family has 2 members: fam_full == single_R",
+        "delta_by_budget": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        },
+        "mean_delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "ci_contains_zero": true,
+        "util_fam_full_vs_random": {
+          "5": 0.12490644555151631,
+          "10": 0.26312551428754016,
+          "20": -0.09177548861006457,
+          "50": -0.029383079885509034
+        },
+        "util_single_vs_random": {
+          "5": 0.12490644555151631,
+          "10": 0.26312551428754016,
+          "20": -0.09177548861006457,
+          "50": -0.029383079885509034
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "expression",
+        "target": "scgenept_k562",
+        "rep": "gears_k562",
+        "structural": true,
+        "note": "family has 2 members: fam_full == single_R",
+        "delta_by_budget": {
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "50": 0.0
+        },
+        "mean_delta": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0,
+        "ci_contains_zero": true,
+        "util_fam_full_vs_random": {
+          "5": 0.19841290438060577,
+          "10": 0.4533919449140509,
+          "20": -0.027483024111418786,
+          "50": -3.534219345421704
+        },
+        "util_single_vs_random": {
+          "5": 0.19841290438060577,
+          "10": 0.4533919449140509,
+          "20": -0.027483024111418786,
+          "50": -3.534219345421704
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "scgpt_k562",
+        "rep": "geneformer_k562",
+        "structural": false,
+        "mean_delta": -0.5657226477190852,
+        "ci_lo": -2.0782982178032396,
+        "ci_hi": 0.9943853836506604,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": 1.0386073589324951,
+          "10": -1.0784499943256378,
+          "20": -1.8979610800743103,
+          "50": -2.21601340174675
+        },
+        "util_fam_full_vs_random": {
+          "5": 0.10193544255423692,
+          "10": -1.054794169928071,
+          "20": -1.0075518488197268,
+          "50": -1.3674511237215867
+        },
+        "util_single_vs_random": {
+          "5": -0.9366719163782582,
+          "10": 0.02365582439756686,
+          "20": 0.8904092312545835,
+          "50": 0.8485622780251632
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "scgpt_k562",
+        "rep": "uce_k562",
+        "structural": false,
+        "mean_delta": 0.05351149067282677,
+        "ci_lo": -1.668027812987566,
+        "ci_hi": 1.589617200382053,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": -1.0148914009332657,
+          "10": -0.9801505953073502,
+          "20": 0.2981235980987549,
+          "50": 1.73027104139328
+        },
+        "util_fam_full_vs_random": {
+          "5": 0.10193544255423692,
+          "10": -1.054794169928071,
+          "20": -1.0075518488197268,
+          "50": -1.3674511237215867
+        },
+        "util_single_vs_random": {
+          "5": 1.1168268434875026,
+          "10": -0.0746435746207208,
+          "20": -1.3056754469184817,
+          "50": -3.0977221651148668
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "geneformer_k562",
+        "rep": "scgpt_k562",
+        "structural": false,
+        "mean_delta": -0.16440091982483865,
+        "ci_lo": -1.5038946941494942,
+        "ci_hi": 1.1015082471072664,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": 1.2860926389694214,
+          "10": -0.9701119065284729,
+          "20": -0.23002749681472778,
+          "50": -1.2579636573791504
+        },
+        "util_fam_full_vs_random": {
+          "5": 0.3084503008473307,
+          "10": -1.994024297883433,
+          "20": -1.6698480671451925,
+          "50": -1.1433753236647561
+        },
+        "util_single_vs_random": {
+          "5": -0.9776423381220907,
+          "10": -1.0239123913549601,
+          "20": -1.4398205703304647,
+          "50": 0.11458833371439425
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "geneformer_k562",
+        "rep": "uce_k562",
+        "structural": false,
+        "mean_delta": -0.27197965905070304,
+        "ci_lo": -2.1410197883844377,
+        "ci_hi": 1.5522321812808508,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": -0.3999205231666565,
+          "10": -1.3112497925758362,
+          "20": 0.05321604013442993,
+          "50": -0.5247588753700256
+        },
+        "util_fam_full_vs_random": {
+          "5": 0.3084503008473307,
+          "10": -1.994024297883433,
+          "20": -1.6698480671451925,
+          "50": -1.1433753236647561
+        },
+        "util_single_vs_random": {
+          "5": 0.7083708240139872,
+          "10": -0.6827745053075969,
+          "20": -1.7230641072796224,
+          "50": -0.6186164482947305
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "uce_k562",
+        "rep": "scgpt_k562",
+        "structural": false,
+        "mean_delta": -0.04961492666043343,
+        "ci_lo": -0.26206469344906497,
+        "ci_hi": 0.09992004514206189,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": 0.05526357889175404,
+          "10": -0.3074966743588452,
+          "20": 0.024237893521785736,
+          "50": 0.12846849486231804
+        },
+        "util_fam_full_vs_random": {
+          "5": -0.1608947639778463,
+          "10": -0.47551691782776695,
+          "20": -0.2742169549525606,
+          "50": 0.05422582341710047
+        },
+        "util_single_vs_random": {
+          "5": -0.21615834286960034,
+          "10": -0.16802024346892175,
+          "20": -0.29845484847434633,
+          "50": -0.07424267144521757
+        },
+        "diagnostic": false
+      },
+      {
+        "dataset": "K562",
+        "family": "embedding",
+        "target": "uce_k562",
+        "rep": "geneformer_k562",
+        "structural": false,
+        "mean_delta": -0.029613256072625518,
+        "ci_lo": -0.1886038804193958,
+        "ci_hi": 0.10246318737044914,
+        "ci_contains_zero": true,
+        "delta_by_budget": {
+          "5": -0.004782244563102722,
+          "10": -0.03405866026878401,
+          "20": -0.06206560879945755,
+          "50": -0.16698463633656502
+        },
+        "util_fam_full_vs_random": {
+          "5": -0.1608947639778463,
+          "10": -0.47551691782776695,
+          "20": -0.2742169549525606,
+          "50": 0.05422582341710047
+        },
+        "util_single_vs_random": {
+          "5": -0.15611251941474358,
+          "10": -0.44145825755898294,
+          "20": -0.21215134615310305,
+          "50": 0.2212104597536655
+        },
+        "diagnostic": false
+      }
+    ],
+    "verdict": {
+      "rule": "primary cells (D in {K562,RPE1} x embedding family x T x R!=T; delta = mean over B in {5,10,20,50} of topk(err_T,s_R,B) - topk(err_T,s_{F\\T},B); paired bootstrap 95% CI of delta contains 0 in ALL 12 cells -> within-family redundancy has a cost consequence (deploy any single representative); any cell CI entirely above 0 -> P1 fails",
+      "n_primary_cells": 6,
+      "n_ci_contains_zero": 6,
+      "all_contain_zero": true,
+      "failing_cells": [],
+      "tier": "within_family_redundancy_has_cost_consequence"
+    }
+  },
+  "p2": {
+    "criterion": "AUROC(d, z) point estimate >= 0.6 in BOTH K562 and RPE1 (d = |rank_pct(mean probe of expression family) - rank_pct(mean probe of embedding family)|; z = 1[family-mean error rank >= median]) -> family disagreement is a predictive third signal",
+    "blocks": [
+      {
+        "dataset": "K562",
+        "n": 217,
+        "auroc": 0.43233944954128445,
+        "ci_lo": 0.3541779910951134,
+        "ci_hi": 0.4999257112763999,
+        "above_0_5": false,
+        "below_0_5": true,
+        "spearman_d_vs_rbar": -0.03894964556053097,
+        "variant_expr_vs_all_auroc": 0.47838090383961945,
+        "variant_emb_vs_all_auroc": 0.4123343527013252,
+        "diagnostic": false
+      }
+    ],
+    "verdict": {
+      "rule": "AUROC(d, z) point estimate >= 0.6 in BOTH K562 and RPE1 (d = |rank_pct(mean probe of expression family) - rank_pct(mean probe of embedding family)|; z = 1[family-mean error rank >= median]) -> family disagreement is a predictive third signal",
+      "auroc": {
+        "K562": 0.4323
+      },
+      "all_ge_0_6": false,
+      "tier": "family_disagreement_not_predictive"
+    }
+  },
+  "p3": {
+    "criterion": "LODO over {K562,RPE1}: family-aware rule R1 top-1 hit in both folds AND R1 regret < family-blind R0 regret in both folds -> selection principle supported (prototype-grade, low power)",
+    "registry_rows": [
+      {
+        "key": "gears_k562",
+        "engine": "GEARS",
+        "dataset": "K562",
+        "unit": "K562",
+        "family": "expression",
+        "n": 217,
+        "label_balance": 0.4976958525345622,
+        "shared_r2": 0.13300764742928972,
+        "own_in_situ_auroc": 0.6543493034318723
+      },
+      {
+        "key": "gears_rpe1",
+        "engine": "GEARS",
+        "dataset": "RPE1",
+        "unit": "RPE1",
+        "family": "expression",
+        "n": 306,
+        "label_balance": 0.5,
+        "shared_r2": 0.04851796465255953,
+        "own_in_situ_auroc": 0.7896535520526293
+      },
+      {
+        "key": "scgenept_k562",
+        "engine": "scGenePT",
+        "dataset": "K562",
+        "unit": "K562",
+        "family": "expression",
+        "n": 217,
+        "label_balance": 0.4976958525345622,
+        "shared_r2": 0.1122628786939378,
+        "own_in_situ_auroc": 0.6015545361875637
+      },
+      {
+        "key": "scgenept_rpe1",
+        "engine": "scGenePT",
+        "dataset": "RPE1",
+        "unit": "RPE1",
+        "family": "expression",
+        "n": 306,
+        "label_balance": 0.5,
+        "shared_r2": 0.023441079051963354,
+        "own_in_situ_auroc": 0.45931052159425856
+      },
+      {
+        "key": "scf_k562",
+        "engine": "scFoundation",
+        "dataset": "K562",
+        "unit": "scf_k562_diag",
+        "family": "expression",
+        "n": 45,
+        "label_balance": 0.4888888888888889,
+        "shared_r2": 0.1574685776372583,
+        "own_in_situ_auroc": 0.6679841897233202
+      },
+      {
+        "key": "scgpt_k562",
+        "engine": "scGPT",
+        "dataset": "K562",
+        "unit": "K562",
+        "family": "embedding",
+        "n": 217,
+        "label_balance": 0.4976958525345622,
+        "shared_r2": 0.08108688872935599,
+        "own_in_situ_auroc": 0.4782959565069657
+      },
+      {
+        "key": "scgpt_rpe1",
+        "engine": "scGPT",
+        "dataset": "RPE1",
+        "unit": "RPE1",
+        "family": "embedding",
+        "n": 306,
+        "label_balance": 0.5,
+        "shared_r2": 0.11833109422244104,
+        "own_in_situ_auroc": 0.5730274680678371
+      },
+      {
+        "key": "geneformer_k562",
+        "engine": "Geneformer",
+        "dataset": "K562",
+        "unit": "K562",
+        "family": "embedding",
+        "n": 217,
+        "label_balance": 0.4976958525345622,
+        "shared_r2": 0.10051295332804944,
+        "own_in_situ_auroc": 0.4672103295956507
+      },
+      {
+        "key": "geneformer_rpe1",
+        "engine": "Geneformer",
+        "dataset": "RPE1",
+        "unit": "RPE1",
+        "family": "embedding",
+        "n": 306,
+        "label_balance": 0.5,
+        "shared_r2": 0.3468978285151101,
+        "own_in_situ_auroc": 0.5561108975180485
+      },
+      {
+        "key": "uce_k562",
+        "engine": "UCE",
+        "dataset": "K562",
+        "unit": "K562",
+        "family": "embedding",
+        "n": 217,
+        "label_balance": 0.4976958525345622,
+        "shared_r2": 0.0908028344913483,
+        "own_in_situ_auroc": 0.4492864424057085
+      },
+      {
+        "key": "uce_rpe1",
+        "engine": "UCE",
+        "dataset": "RPE1",
+        "unit": "RPE1",
+        "family": "embedding",
+        "n": 306,
+        "label_balance": 0.5,
+        "shared_r2": 0.36178802266927546,
+        "own_in_situ_auroc": 0.5416506471869793
+      }
+    ],
+    "folds": [
+      {
+        "train_unit": "RPE1",
+        "test_unit": "K562",
+        "test_best_engine": "GEARS",
+        "test_best_auroc": 0.6543493034318723,
+        "R1": {
+          "predicted_engine": "GEARS",
+          "top1_hit": true,
+          "regret": 0.0
+        },
+        "R0": {
+          "predicted_engine": "GEARS",
+          "top1_hit": true,
+          "regret": 0.0
+        },
+        "random_reference_regret": 0.12420998980632014
+      },
+      {
+        "train_unit": "K562",
+        "test_unit": "RPE1",
+        "test_best_engine": "GEARS",
+        "test_best_auroc": 0.7896535520526293,
+        "R1": {
+          "predicted_engine": "GEARS",
+          "top1_hit": true,
+          "regret": 0.0
+        },
+        "R0": {
+          "predicted_engine": "GEARS",
+          "top1_hit": true,
+          "regret": 0.0
+        },
+        "random_reference_regret": 0.20570293476867874
+      }
+    ],
+    "scf_descriptive": {
+      "scf_auroc": 0.6679841897233202,
+      "R1_train_K562_picks": "GEARS",
+      "R0_train_K562_picks": "GEARS",
+      "R1_train_RPE1_picks": "GEARS",
+      "R0_train_RPE1_picks": "GEARS"
+    },
+    "verdict": {
+      "rule": "LODO over {K562,RPE1}: family-aware rule R1 top-1 hit in both folds AND R1 regret < family-blind R0 regret in both folds -> selection principle supported (prototype-grade, low power)",
+      "prototype_low_power": true,
+      "r1_top1_hits": 2,
+      "n_folds": 2,
+      "r1_regret_lt_r0_both_folds": false,
+      "tier": "selection_principle_not_supported"
+    }
+  },
+  "timing_total_s": 8.97
+}

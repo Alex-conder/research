@@ -1,0 +1,2 @@
+score,k562_auroc,k562_threshold,rpe1_transfer_auroc,rpe1_direct_auroc
+frac_split,0.5806150186884131,0.9072868686868687,0.5,0.5360972275620488

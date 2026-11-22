@@ -1,0 +1,55 @@
+{
+  "task": "GEARS data-coverage ablation variant A_k562",
+  "date_utc": "2026-10-16T14:04:56Z",
+  "variant": "A_k562",
+  "protocol": {
+    "split_seed": 0,
+    "holdout_frac": 0.2,
+    "hidden": 64,
+    "batch": 32,
+    "top_n_deg": 50,
+    "gears_split": "simulation/only_test_set_perts",
+    "baseline_ref": "local step1_run.py cell-gears 0.1.2 (patched)"
+  },
+  "data": {
+    "k562": {
+      "h5ad": "E:\\清华类脑计算研究中心\\virtual_cell_constraint_mvp\\data\\gears_demo\\replogle_k562_essential\\perturb_processed.h5ad",
+      "h5ad_sha256": "550fde89ac85c258c9fd517638fe34fb42c0e748c9305fe6355761a2bb754170",
+      "heldout_source": "E:\\清华类脑计算研究中心\\virtual_cell_constraint_mvp\\outputs\\pred_expr_seed0.npz"
+    }
+  },
+  "mixed_batch_effect_note": "C 版本：k562+rpe1 直接拼接；同名列条件按 GEARS 原生行为合并；obs['dataset'] 留痕；无额外 batch covariate（GEARS 0.1.2 无接口）",
+  "gene_space_note": "模型预测空间 5000 基因；存储/评估空间 5000 基因",
+  "eval_protocol": {
+    "label_definition": "pearson_delta = Pearson(pred_delta, true_delta) on top-50 |true_delta| genes",
+    "true_mean": "per-dataset condition cell mean",
+    "ctrl_mean": "per-dataset ctrl cell mean"
+  },
+  "runtime": {
+    "command": "E:\\清华类脑计算研究中心\\virtual_cell_constraint_mvp\\train_gears_ablation_local.py --variant A_k562 --epochs 10 --threads 8",
+    "epochs": 10,
+    "epoch_seconds": [
+      908.0698561668396,
+      939.8947410583496,
+      1058.333978652954,
+      932.2309846878052,
+      868.760626077652,
+      861.009877204895,
+      859.6879599094391,
+      867.6020965576172,
+      858.9943449497223,
+      859.6387093067169
+    ],
+    "vm_hwm_gb": 7.82,
+    "total_seconds": 9177.28252696991
+  },
+  "host": "Windows-11-10.0.26200-SP0",
+  "summary": {
+    "k562": {
+      "n": 217,
+      "pearson_delta_mean": 0.582158753373787,
+      "pearson_delta_median": 0.6448271264846454,
+      "pearson_delta_all_mean": 0.3526492210518176
+    }
+  }
+}

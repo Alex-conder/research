@@ -1,0 +1,22 @@
+{
+  "formula": "violation_delta_i = ||S_sub @ vhat_delta_i||_2; vhat_delta_r = mean delta expression of AND genes; delta = pred_expr - ctrl_train_mean",
+  "n_perts": 217,
+  "n_mapped_genes": 271,
+  "n_hv_genes": 67,
+  "n_rxns_kept": 167,
+  "cv_percent": 57.918866736348996,
+  "r": -0.0230942746739746,
+  "r_ci": [
+    -0.1558018813561715,
+    0.11043222906049503
+  ],
+  "p_exploratory": 0.7351520849275235,
+  "null_p95": 0.10733300061074039,
+  "emp_p_exploratory": 0.6865671641791045,
+  "partial_r": 0.2174892498141754,
+  "partial_ci": [
+    0.08681722835069629,
+    0.3408041085424868
+  ],
+  "partial_p_exploratory": 0.0012977886379457984
+}

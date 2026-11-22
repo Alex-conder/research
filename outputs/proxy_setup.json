@@ -1,0 +1,14 @@
+{
+  "formula": "violation_i = ||S_sub @ vhat_i||_2, unnormalized; vhat_r = mean expression of AND genes (GEARS pred, seed0)",
+  "human_gem": "2.0.1 (2026-03-26)",
+  "n_perts": 217,
+  "n_panel_genes": 5000,
+  "n_model_genes": 1052,
+  "n_mapped_genes": 271,
+  "model_gene_coverage": 0.2576045627376426,
+  "hv_gene_frac": 0.25,
+  "n_hv_genes": 67,
+  "n_rxns_total": 3943,
+  "n_rxns_kept": 167,
+  "n_mets": 4308
+}

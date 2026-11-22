@@ -1,0 +1,14 @@
+{
+  "n_mcf7_conditions": 189,
+  "mcf7_panel_auroc_in_situ": 0.5810657596371882,
+  "mcf7_panel_auroc_ci95": [
+    0.4651123037169549,
+    0.702322287350555
+  ],
+  "mcf7_cv_3split_auroc_mean": 0.6000000000000001,
+  "k562_threshold_applied": 0.3768729610671435,
+  "mcf7_flagged_fraction_by_k562_threshold": 1.0,
+  "mean_neg_frac_k562": 0.3886941315810387,
+  "mean_neg_frac_rpe1": 0.7087442626012778,
+  "mean_neg_frac_mcf7": 0.9675111111111111
+}

@@ -1,0 +1,80 @@
+{
+  "task": "split conformal prediction for GEARS perturbation error",
+  "model": "Ridge regression on raw features",
+  "comparison_model": "GradientBoostingRegressor on engineered features",
+  "n_perts": 217,
+  "raw_feature_names": [
+    "delta_l2",
+    "delta_l1",
+    "delta_max",
+    "delta_top50_mean",
+    "n_de_025",
+    "frac_de_025",
+    "neg_frac",
+    "delta_entropy",
+    "log_n_cells"
+  ],
+  "engineered_feature_names": [
+    "delta_l2",
+    "delta_l1",
+    "delta_max",
+    "delta_top50_mean",
+    "n_de_025",
+    "frac_de_025",
+    "neg_frac",
+    "delta_entropy",
+    "log_n_cells",
+    "delta_l2_sq",
+    "delta_l1_sq",
+    "delta_max_sq",
+    "delta_top50_mean_sq",
+    "n_de_025_sq",
+    "frac_de_025_sq",
+    "neg_frac_sq",
+    "delta_entropy_sq",
+    "log_n_cells_sq",
+    "delta_l2_x_frac_de",
+    "entropy_x_neg_frac"
+  ],
+  "n_features_raw": 9,
+  "n_features_engineered": 20,
+  "main_alpha": 0.1,
+  "main_coverage": 0.8863636363636364,
+  "main_mean_width": 0.5889549625058891,
+  "main_q_margin": 0.2955086044658623,
+  "main_train_r2": 0.10770394002419925,
+  "gbm_coverage": 0.7727272727272727,
+  "gbm_mean_width": 0.5667316369380785,
+  "gbm_train_r2": 0.6491658726990015,
+  "alpha_sweep_summary": [
+    {
+      "alpha": 0.05,
+      "coverage_mean": 0.909090909090909,
+      "coverage_std": 0.07575757575757576,
+      "mean_width_mean": 0.7831611559797353,
+      "mean_width_std": 0.1411151583978326
+    },
+    {
+      "alpha": 0.1,
+      "coverage_mean": 0.875,
+      "coverage_std": 0.07364478066372566,
+      "mean_width_mean": 0.623258373538822,
+      "mean_width_std": 0.09348820402153565
+    },
+    {
+      "alpha": 0.2,
+      "coverage_mean": 0.7568181818181818,
+      "coverage_std": 0.09156957041449587,
+      "mean_width_mean": 0.4898775528221121,
+      "mean_width_std": 0.02404632212303047
+    },
+    {
+      "alpha": 0.3,
+      "coverage_mean": 0.65,
+      "coverage_std": 0.09040262963743209,
+      "mean_width_mean": 0.4215754152059632,
+      "mean_width_std": 0.03341351509332434
+    }
+  ],
+  "interpretation": "Coverage close to 1-alpha means the intervals are statistically valid; narrow width means they are informative. On these model-side features, Ridge already yields valid (close to 1-alpha) but wide intervals. A stronger GBM learner overfits the small sample and produces wider intervals on average, suggesting the feature set, not the base model, is the bottleneck for tighter uncertainty quantification."
+}

@@ -1,0 +1,25 @@
+{
+  "task": "Geneformer V2-104M zero-shot in silico deletion: Replogle essential held-out perturbation (K562)",
+  "date_utc": "2026-10-16T06:22:50Z",
+  "model": {
+    "name": "Geneformer V2-104M (ctheodoris/Geneformer)",
+    "source": "hf-mirror ctheodoris/Geneformer Geneformer-V2-104M",
+    "weights_dir": "/research/models/geneformer/Geneformer-V2-104M/",
+    "weights_sha256": "fff5cba29ddd8792991fa77b4872246fbe548a178cebda3775cdc72b67780e7f",
+    "inference_protocol": "delete perturbed gene token from ranked cell sentence, cell embedding = mean of gene-token last_hidden_state, pred_emb = pool mean; delta vs ctrl baseline",
+    "output_type": "cell embedding (768-d); NOT an expression profile"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_k562.h5ad",
+    "heldout_source": "/research/meta/pred_expr_seed0.npz",
+    "split": "GEARS simulation, split_seed=0",
+    "ctrl_pool_size": 32
+  },
+  "runtime": {
+    "command": "/research/scripts/run_geneformer_k562.py --threads 32 --batch 16 --out /research/results/geneformer_k562",
+    "torch_version": "2.1.2+cpu",
+    "threads": 32,
+    "infer_seconds_total": 7071.177321434021,
+    "total_seconds": 7173.064295530319
+  }
+}

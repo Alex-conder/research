@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vcgate"
+version = "0.1.0"
+description = "Cheap reliability gating for single-cell perturbation-response predictions (model-side features, L2 logistic probe, pre-registered protocol)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0,<3.0",
+    "scikit-learn>=1.3",
+]
+
+[project.optional-dependencies]
+h5ad = ["anndata>=0.10"]   # ctrl-mean extraction from GEARS-processed h5ad
+dev = ["pytest>=7"]
+
+[project.scripts]
+vcgate = "vcgate.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["vcgate*"]

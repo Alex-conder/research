@@ -1,0 +1,655 @@
+{
+  "task": "AD baseline + dual-metric robustness audit (step21)",
+  "prereg": "prereg_ad_baseline.md",
+  "smoke": true,
+  "spec": {
+    "b_boot": 200,
+    "boot_seed": 20261030,
+    "oof_seed": 0,
+    "metrics": [
+      "full",
+      "top20",
+      "top50"
+    ],
+    "failure_label": "error > median (paper Top50%)",
+    "topk": "per-perturbation by |true delta|",
+    "ad_direction": "larger AD = more likely failure (paper)"
+  },
+  "analysis_A": {
+    "combos": {
+      "gears_k562_s0": {
+        "dataset": "replogle_k562_essential",
+        "seed": 0,
+        "n": 217,
+        "features": [
+          "delta_l2",
+          "delta_l1",
+          "delta_max",
+          "delta_top50_mean",
+          "n_de_025",
+          "frac_de_025",
+          "neg_frac",
+          "delta_entropy",
+          "log_n_cells"
+        ],
+        "excluded_features": [
+          "in_pert_graph (constant)"
+        ],
+        "symbol_source": [
+          "replogle_rpe1_essential/outputs_rpe1/s0"
+        ],
+        "signals_note": "ad = AD-mean (protocol deviation D-AD1)",
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "n_positive": 108,
+            "auroc": {
+              "ad": 0.8440366972477065,
+              "symbol": 0.14381583418280666,
+              "probe": 0.908936459395175
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.6957873862464083,
+                "ci_lo": 0.602766901696,
+                "ci_hi": 0.7987534036759701,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              },
+              "ad_minus_probe": {
+                "mean_diff": -0.06649881721894259,
+                "ci_lo": -0.13346199737285655,
+                "ci_hi": -0.008124879254003596,
+                "ci_excludes_zero": true,
+                "favors": "gate"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top20": {
+            "evaluable": true,
+            "n_positive": 108,
+            "auroc": {
+              "ad": 0.40375467210329596,
+              "symbol": 0.614593951749915,
+              "probe": 0.6346415222562012
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": -0.2112819690790645,
+                "ci_lo": -0.34717363916101,
+                "ci_hi": -0.08375394226388785,
+                "ci_excludes_zero": true,
+                "favors": "gate"
+              },
+              "ad_minus_probe": {
+                "mean_diff": -0.22669989770850607,
+                "ci_lo": -0.3612089933571794,
+                "ci_hi": -0.10528805200993105,
+                "ci_excludes_zero": true,
+                "favors": "gate"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top50": {
+            "evaluable": true,
+            "n_positive": 108,
+            "auroc": {
+              "ad": 0.4431702344546381,
+              "symbol": 0.5691471287801563,
+              "probe": 0.6151885830784913
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": -0.12969527784218185,
+                "ci_lo": -0.269453656462585,
+                "ci_hi": 0.026519478146759128,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              },
+              "ad_minus_probe": {
+                "mean_diff": -0.16862848634471247,
+                "ci_lo": -0.2977463223990161,
+                "ci_hi": -0.021663572295292054,
+                "ci_excludes_zero": true,
+                "favors": "gate"
+              }
+            },
+            "probe_cv": "5-fold"
+          }
+        }
+      },
+      "gears_norman_s4": {
+        "dataset": "norman",
+        "seed": 4,
+        "n": 20,
+        "features": [
+          "delta_l2",
+          "delta_l1",
+          "delta_max",
+          "delta_top50_mean",
+          "n_de_025",
+          "frac_de_025",
+          "neg_frac",
+          "delta_entropy",
+          "log_n_cells"
+        ],
+        "excluded_features": [
+          "in_pert_graph (constant)"
+        ],
+        "symbol_source": [
+          "adamson/outputs_multidataset/adamson/s3",
+          "adamson/outputs_multidataset/adamson/s5"
+        ],
+        "signals_note": "ad = AD-mean (protocol deviation D-AD1)",
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "n_positive": 10,
+            "auroc": {
+              "ad": 0.88,
+              "symbol": 0.36,
+              "probe": 0.68
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.5094010114885115,
+                "ci_lo": 0.09292307692307687,
+                "ci_hi": 0.800054945054945,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              },
+              "ad_minus_probe": {
+                "mean_diff": 0.2015209432928183,
+                "ci_lo": 0.0625,
+                "ci_hi": 0.4182539682539685,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top20": {
+            "evaluable": true,
+            "n_positive": 10,
+            "auroc": {
+              "ad": 0.72,
+              "symbol": 0.48,
+              "probe": 0.44
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.23925942703130204,
+                "ci_lo": -0.22239583333333332,
+                "ci_hi": 0.6304116161616162,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              },
+              "ad_minus_probe": {
+                "mean_diff": 0.290421216977467,
+                "ci_lo": 0.08053787878787876,
+                "ci_hi": 0.5357059607059608,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top50": {
+            "evaluable": true,
+            "n_positive": 10,
+            "auroc": {
+              "ad": 0.88,
+              "symbol": 0.36,
+              "probe": 0.68
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.5435657421010363,
+                "ci_lo": 0.16599999999999998,
+                "ci_hi": 0.8681318681318682,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              },
+              "ad_minus_probe": {
+                "mean_diff": 0.20828570308368102,
+                "ci_lo": 0.07291666666666663,
+                "ci_hi": 0.4080447330447334,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              }
+            },
+            "probe_cv": "5-fold"
+          }
+        }
+      },
+      "gears_adamson_s3": {
+        "dataset": "adamson",
+        "seed": 3,
+        "n": 16,
+        "features": [
+          "delta_l2",
+          "delta_l1",
+          "delta_max",
+          "delta_top50_mean",
+          "n_de_025",
+          "frac_de_025",
+          "neg_frac",
+          "delta_entropy",
+          "log_n_cells"
+        ],
+        "excluded_features": [
+          "in_pert_graph (constant)"
+        ],
+        "symbol_source": [
+          "norman/outputs_multidataset/norman/s4"
+        ],
+        "signals_note": "ad = AD-mean (protocol deviation D-AD1)",
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "n_positive": 8,
+            "auroc": {
+              "ad": 0.6875,
+              "symbol": 0.4375,
+              "probe": 0.53125
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.22881316426628928,
+                "ci_lo": -0.27340909090909093,
+                "ci_hi": 0.6731818181818183,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              },
+              "ad_minus_probe": {
+                "mean_diff": 0.11766147220834722,
+                "ci_lo": -0.14068080357142856,
+                "ci_hi": 0.32784090909090924,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top20": {
+            "evaluable": true,
+            "n_positive": 8,
+            "auroc": {
+              "ad": 0.609375,
+              "symbol": 0.171875,
+              "probe": 0.671875
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.4386769653957154,
+                "ci_lo": -0.048015873015873005,
+                "ci_hi": 0.8461538461538461,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              },
+              "ad_minus_probe": {
+                "mean_diff": -0.07288622662060161,
+                "ci_lo": -0.36687499999999995,
+                "ci_hi": 0.2701264880952382,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              }
+            },
+            "probe_cv": "5-fold"
+          },
+          "top50": {
+            "evaluable": true,
+            "n_positive": 8,
+            "auroc": {
+              "ad": 0.609375,
+              "symbol": 0.171875,
+              "probe": 0.671875
+            },
+            "paired_bootstrap": {
+              "ad_minus_symbol": {
+                "mean_diff": 0.4442003812160062,
+                "ci_lo": 0.02913419913419919,
+                "ci_hi": 0.8217261904761907,
+                "ci_excludes_zero": true,
+                "favors": "AD"
+              },
+              "ad_minus_probe": {
+                "mean_diff": -0.06943076368076367,
+                "ci_lo": -0.35,
+                "ci_hi": 0.2222222222222222,
+                "ci_excludes_zero": false,
+                "favors": "undetermined"
+              }
+            },
+            "probe_cv": "5-fold"
+          }
+        }
+      }
+    },
+    "dataset_summary": {
+      "replogle_k562_essential": {
+        "seeds": [
+          0
+        ],
+        "n_per_seed": [
+          217
+        ],
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.8440366972477065,
+              "symbol": 0.14381583418280666,
+              "probe": 0.908936459395175
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top20": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.40375467210329596,
+              "symbol": 0.614593951749915,
+              "probe": 0.6346415222562012
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top50": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.4431702344546381,
+              "symbol": 0.5691471287801563,
+              "probe": 0.6151885830784913
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          }
+        }
+      },
+      "norman": {
+        "seeds": [
+          4
+        ],
+        "n_per_seed": [
+          20
+        ],
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.88,
+              "symbol": 0.36,
+              "probe": 0.68
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top20": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.72,
+              "symbol": 0.48,
+              "probe": 0.44
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top50": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.88,
+              "symbol": 0.36,
+              "probe": 0.68
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          }
+        }
+      },
+      "adamson": {
+        "seeds": [
+          3
+        ],
+        "n_per_seed": [
+          16
+        ],
+        "per_metric": {
+          "full": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.6875,
+              "symbol": 0.4375,
+              "probe": 0.53125
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top20": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.609375,
+              "symbol": 0.171875,
+              "probe": 0.671875
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          },
+          "top50": {
+            "evaluable": true,
+            "auroc_seed_mean": {
+              "ad": 0.609375,
+              "symbol": 0.171875,
+              "probe": 0.671875
+            },
+            "auroc_seed_std": {
+              "ad": NaN,
+              "symbol": NaN,
+              "probe": NaN
+            }
+          }
+        }
+      }
+    }
+  },
+  "analysis_B": {
+    "model": "gears norman seed4 (archived weights, CPU, no training)",
+    "n_candidates": 10,
+    "n_eligible": 10,
+    "n_predicted": 10,
+    "excluded": {
+      "no_single_condition": 0,
+      "predict_failed": 0
+    },
+    "n_perts": 10,
+    "per_metric": {
+      "full": {
+        "evaluable": true,
+        "n_positive": 5,
+        "auroc": {
+          "ad": 0.88,
+          "symbol": 0.44,
+          "probe": 0.88
+        },
+        "paired_bootstrap": {
+          "ad_minus_symbol": {
+            "mean_diff": NaN,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          },
+          "ad_minus_probe": {
+            "mean_diff": 0.005358928571428571,
+            "ci_lo": -0.19092261904761904,
+            "ci_hi": 0.24025000000000005,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          }
+        },
+        "probe_mode": "full-fit on held-out singles, deployed on combos (OOD)"
+      },
+      "top20": {
+        "evaluable": true,
+        "n_positive": 5,
+        "auroc": {
+          "ad": 0.36,
+          "symbol": 0.72,
+          "probe": 0.16
+        },
+        "paired_bootstrap": {
+          "ad_minus_symbol": {
+            "mean_diff": -0.3756017857142857,
+            "ci_lo": -0.8760416666666666,
+            "ci_hi": 0.36,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          },
+          "ad_minus_probe": {
+            "mean_diff": 0.20663154761904765,
+            "ci_lo": 0.0,
+            "ci_hi": 0.5,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          }
+        },
+        "probe_mode": "full-fit on held-out singles, deployed on combos (OOD)"
+      },
+      "top50": {
+        "evaluable": true,
+        "n_positive": 5,
+        "auroc": {
+          "ad": 0.64,
+          "symbol": 0.4,
+          "probe": 0.48
+        },
+        "paired_bootstrap": {
+          "ad_minus_symbol": {
+            "mean_diff": 0.22766666666666666,
+            "ci_lo": -0.42857142857142855,
+            "ci_hi": 0.75,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          },
+          "ad_minus_probe": {
+            "mean_diff": 0.14553988095238096,
+            "ci_lo": 0.0,
+            "ci_hi": 0.3814285714285715,
+            "ci_excludes_zero": false,
+            "favors": "undetermined"
+          }
+        },
+        "probe_mode": "full-fit on held-out singles, deployed on combos (OOD)"
+      }
+    },
+    "signals_note": "ad = AD-combo (paper-faithful; deviation D-AD2)",
+    "feature_names": [
+      "delta_l2",
+      "delta_l1",
+      "delta_max",
+      "delta_top50_mean",
+      "n_de_025",
+      "frac_de_025",
+      "neg_frac",
+      "delta_entropy",
+      "log_n_cells"
+    ]
+  },
+  "verdict": {
+    "tier": "NOT_CONFIRMED",
+    "rule": "CONFIRMED iff (a) full-metric paired bootstrap CI of (AD-combo - symbol) excludes 0 favoring AD, AND (b) top20-metric CI includes 0 or favors symbol. Everything else = NOT_CONFIRMED. Secondary: same for AD-combo - probe.",
+    "primary": {
+      "ad_minus_symbol_full": {
+        "mean_diff": NaN,
+        "ci_lo": NaN,
+        "ci_hi": NaN,
+        "ci_excludes_zero": false,
+        "favors": "undetermined"
+      },
+      "ad_minus_symbol_top20": {
+        "mean_diff": -0.3756017857142857,
+        "ci_lo": -0.8760416666666666,
+        "ci_hi": 0.36,
+        "ci_excludes_zero": false,
+        "favors": "undetermined"
+      },
+      "cond_a_full_favors_AD": false,
+      "cond_b_top20_reverses_or_nsig": true
+    },
+    "all_pairs_by_metric": {
+      "ad_minus_symbol": {
+        "full": {
+          "mean_diff": NaN,
+          "ci_lo": NaN,
+          "ci_hi": NaN,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "top20": {
+          "mean_diff": -0.3756017857142857,
+          "ci_lo": -0.8760416666666666,
+          "ci_hi": 0.36,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "top50": {
+          "mean_diff": 0.22766666666666666,
+          "ci_lo": -0.42857142857142855,
+          "ci_hi": 0.75,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "ad_minus_probe": {
+        "full": {
+          "mean_diff": 0.005358928571428571,
+          "ci_lo": -0.19092261904761904,
+          "ci_hi": 0.24025000000000005,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "top20": {
+          "mean_diff": 0.20663154761904765,
+          "ci_lo": 0.0,
+          "ci_hi": 0.5,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "top50": {
+          "mean_diff": 0.14553988095238096,
+          "ci_lo": 0.0,
+          "ci_hi": 0.3814285714285715,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      }
+    }
+  },
+  "timing_total_s": 200.9
+}

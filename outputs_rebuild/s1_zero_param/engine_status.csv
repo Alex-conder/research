@@ -1,0 +1,12 @@
+dataset,engine,path,used,reason,n_perturbations
+K562,GEARS,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs\pred_expr_seed0.npz,True,ok,217.0
+K562,scFoundation,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\scfoundation\scf_k562_predictions.npz,True,ok,45.0
+K562,scGenePT,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\scgenept\scgenept_k562_predictions.npz,True,ok,217.0
+K562,scGPT,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\scgpt\scgpt_k562_predictions.npz,True,ok,217.0
+K562,Geneformer,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\geneformer\geneformer_k562_predictions.npz,False,no_expression_profile,
+K562,UCE,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\uce\uce_k562_predictions.npz,False,no_expression_profile,
+RPE1,GEARS,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_rpe1\pred_expr_seed0.npz,True,ok,306.0
+RPE1,scGenePT,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\scgenept\scgenept_rpe1_predictions.npz,True,ok,306.0
+RPE1,Geneformer_wave,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\wave\geneformer\geneformer_wave_rpe1_predictions.npz,False,no_expression_profile,
+RPE1,scGPT_wave,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\wave\scgpt\scgpt_wave_rpe1_predictions.npz,False,no_expression_profile,
+RPE1,UCE_wave,E:\清华类脑计算研究中心\virtual_cell_constraint_mvp\outputs_crossmodel\wave\uce\uce_wave_rpe1_predictions.npz,False,no_expression_profile,

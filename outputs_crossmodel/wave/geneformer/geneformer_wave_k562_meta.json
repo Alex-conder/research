@@ -1,0 +1,23 @@
+{
+  "task": "Geneformer V2-104M wave: per-cell embeddings K562/RPE1",
+  "date_utc": "2026-10-18T16:57:43Z",
+  "model": {
+    "name": "Geneformer V2-104M",
+    "weights_sha256": "fff5cba29ddd8792991fa77b4872246fbe548a178cebda3775cdc72b67780e7f",
+    "inference_protocol": "in silico token deletion; cell emb = mean gene-token last_hidden_state; per-cell kept",
+    "output_type": "cell embedding (768-d)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_k562.h5ad",
+    "heldout_source": "/research/meta/pred_expr_seed0.npz",
+    "ctrl_pool_size": 32,
+    "true_cells_cap": 32,
+    "true_sampling": "default_rng(777000+pi) w/o replacement"
+  },
+  "runtime": {
+    "command": "/research/scripts/run_geneformer_wave.py --threads 48 --batch 16 --out /research/outputs_crossmodel/geneformer/geneformer_wave_k562",
+    "threads": 48,
+    "infer_seconds_total": 8918.161676883698,
+    "total_seconds": 8957.349024772644
+  }
+}

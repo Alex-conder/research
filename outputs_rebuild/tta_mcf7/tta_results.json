@@ -1,0 +1,10 @@
+{
+  "best_k562_feature": "neg_frac",
+  "best_k562_threshold": -44.78481012596856,
+  "best_k562_direction": 1,
+  "k562_tta_auroc": 0.5988786952089704,
+  "mcf7_tta_auroc": 0.5,
+  "mcf7_raw_transfer_auroc": 0.5,
+  "mcf7_insitu_auroc": 0.6333333333333333,
+  "n_mcf7_valid": 60
+}

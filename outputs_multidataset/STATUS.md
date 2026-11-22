@@ -1,0 +1,38 @@
+# STATUS - step17 G-A multidataset (full)
+
+- started: 2026-10-30 10:53:45
+- pid: 66248
+- mode: full, epochs=3, datasets=['norman', 'adamson', 'dixit']
+- resume: rerun the same command; finished units are skipped
+
+- [ ] train norman seed=3 rc=1 955s (11:09:40)
+- FAIL train norman seed3
+- [x] train norman seed=4 rc=0 1151s (11:28:51)
+- [ ] train norman seed=5 rc=1 760s (11:41:31)
+- FAIL train norman seed5
+- [x] probe norman seed=4 auroc=0.8500 (11:41:45)
+- [x] train adamson seed=3 rc=0 994s (11:58:19)
+- [ ] train adamson seed=4 rc=1 819s (12:11:58)
+- FAIL train adamson seed4
+- [x] train adamson seed=5 rc=0 1066s (12:29:45)
+- [x] probe adamson seed=3 auroc=0.8000 (12:29:47)
+- [x] probe adamson seed=5 auroc=0.7000 (12:29:48)
+- [ ] train dixit seed=3 rc=1 123s (12:31:51)
+- FAIL train dixit seed3
+- [x] train dixit seed=4 rc=0 512s (12:40:22)
+- [x] train dixit seed=5 rc=0 488s (12:48:30)
+- [x] probe dixit seed=4 NON-EVALUABLE n=3 (12:48:31)
+- [x] probe dixit seed=5 NON-EVALUABLE n=3 (12:48:32)
+- ALL DONE 2026-10-30 12:48:32 failures=['train norman seed3', 'train norman seed5', 'probe norman seed3 (no train output)', 'probe norman seed5 (no train output)', 'train adamson seed4', 'probe adamson seed4 (no train output)', 'train dixit seed3', 'probe dixit seed3 (no train output)']
+- [ ] train norman seed=3 rc=1 699s (15:10:47)
+- FAIL train norman seed3
+- [x] train norman seed=5 rc=0 1129s (15:29:36)
+- [x] probe norman seed=5 auroc=0.9000 (15:29:41)
+- [x] train adamson seed=4 rc=0 876s (15:44:17)
+- [x] probe adamson seed=4 auroc=0.6000 (15:44:19)
+- [x] train dixit seed=3 rc=0 421s (15:51:19)
+- [x] probe dixit seed=3 NON-EVALUABLE n=3 (15:51:20)
+- ALL DONE 2026-10-30 15:51:20 failures=['train norman seed3', 'probe norman seed3 (no train output)']
+- [x] train norman seed=3 rc=0 1166s (16:34:01)
+- [x] probe norman seed=3 auroc=0.6000 (16:34:07)
+- ALL DONE 2026-10-30 16:34:07 failures=none

@@ -1,0 +1,68 @@
+{
+  "task": "mechanism audit of the gating signal (step9)",
+  "date": "2026-10-14",
+  "out_dir": "outputs",
+  "data": "replogle_k562_essential",
+  "seed": 0,
+  "n_perts": 217,
+  "n_positive": 108,
+  "ablation": {
+    "full_9feat_cv_auroc": 0.6556473829201102,
+    "magnitude_family_cv_auroc": 0.6320346320346321,
+    "residual_nonmagnitude_cv_auroc": 0.6637150728059819,
+    "magnitude_family": [
+      "delta_l2",
+      "delta_l1",
+      "delta_max",
+      "delta_top50_mean"
+    ],
+    "residual_features": [
+      "n_de_025",
+      "frac_de_025",
+      "neg_frac",
+      "delta_entropy"
+    ],
+    "interpretation_rule": "residual >= 0.6 -> 幅度之外仍有模型侧信号; residual < 0.6 -> 信号基本=效应量几何(评测病态性), 论文结论改写为部署可检测的难度代理"
+  },
+  "permutation_null": {
+    "n_perm": 1000,
+    "mean": 0.4920962453278967,
+    "std": 0.05439418650508005,
+    "p_value_ge_observed": 0.0
+  },
+  "bootstrap_ci_pooled_oof": {
+    "n_boot": 1000,
+    "ci95": [
+      0.5815477183771577,
+      0.7251732949590093
+    ]
+  },
+  "coverage_risk": {
+    "points": {
+      "filter_10pct": {
+        "err_captured_frac": 0.1148275057032009,
+        "retained_mean_error": 0.42438641258582577,
+        "overall_mean_error": 0.4330418785317712
+      },
+      "filter_20pct": {
+        "err_captured_frac": 0.23364591835935242,
+        "retained_mean_error": 0.41387563342593076,
+        "overall_mean_error": 0.4330418785317712
+      },
+      "filter_30pct": {
+        "err_captured_frac": 0.35407733457067314,
+        "retained_mean_error": 0.3993250623681376,
+        "overall_mean_error": 0.4330418785317712
+      }
+    },
+    "note": "filter = discard highest-OOF-score queries first"
+  },
+  "strength_decomposition_groundtruth_diagnostic": {
+    "spearman_error_strength": -0.5745923702419707,
+    "spearman_error_delta_max": -0.31176336569944146,
+    "spearman_strength_delta_max": 0.3173922030092495,
+    "auroc_strength_groundtruth": 0.7989296636085628,
+    "auroc_delta_max_single": 0.6292048929663607
+  },
+  "runtime_sec": 29.73918914794922
+}

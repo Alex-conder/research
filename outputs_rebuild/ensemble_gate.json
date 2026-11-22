@@ -1,0 +1,1091 @@
+{
+  "task": "G-B cross-engine ensemble gate (step17, prereg_expansion_gb.md)",
+  "prereg": "prereg_expansion_gb.md",
+  "smoke": false,
+  "spec": {
+    "meta_model": "LOPO logistic (StandardScaler + L2, C=1.0, max_iter=2000)",
+    "base_block": "per-engine 5-fold OOF probe scores (StratifiedKFold seed=0, R2 caliber)",
+    "b_boot": 1000,
+    "full_run_spec": {
+      "b_boot": 1000
+    },
+    "label": {
+      "expression": "y = (1 - pearson_delta) > median",
+      "embedding": "y = err_emb_dist > median"
+    }
+  },
+  "boot_master_seed": 20261030,
+  "verdict_rule": "ensemble AUROC beats GEARS in-situ arm in >=8/10 evaluable combos (perturbation-level paired bootstrap B=1000, 95% CI excludes 0) -> ensemble effective, enters main claim; else report no ensemble gain (tier conclusion, cross-validates error_signatures signature-noise)",
+  "combos": {
+    "gears_k562": {
+      "engine": "GEARS",
+      "dataset": "K562",
+      "class": "expression",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": "signs from gears_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.6244478423377506,
+        "gears_in_situ": 0.6543493034318723,
+        "symbol": 0.5893645939517499,
+        "own_in_situ": 0.6543493034318723
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": -0.03040446919912573,
+          "ci_lo": -0.0710256410256409,
+          "ci_hi": 0.00748319788703776,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.03740884226697575,
+          "ci_lo": -0.04574909311550698,
+          "ci_hi": 0.1258123522384809,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": -0.029802535938416114,
+          "ci_lo": -0.06799337355837251,
+          "ci_hi": 0.008156641968568459,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.003,
+        "lopo": 0.685
+      }
+    },
+    "gears_rpe1": {
+      "engine": "GEARS",
+      "dataset": "RPE1",
+      "class": "expression",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": "signs from gears_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.7883719936776453,
+        "gears_in_situ": 0.7896535520526293,
+        "symbol": 0.6539792387543253,
+        "own_in_situ": 0.7896535520526293
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": -0.001968126099901381,
+          "ci_lo": -0.018794218172428764,
+          "ci_hi": 0.013647856309736422,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.13682702470687924,
+          "ci_lo": 0.07777777777777779,
+          "ci_hi": 0.19974184060434666,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": -0.0010847936923869303,
+          "ci_lo": -0.01706301258895536,
+          "ci_hi": 0.01532534246575335,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.004,
+        "lopo": 1.038
+      }
+    },
+    "scgenept_k562": {
+      "engine": "scGenePT",
+      "dataset": "K562",
+      "class": "expression",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": "signs from scgenept_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.6512062521236832,
+        "gears_in_situ": 0.6274209989806319,
+        "symbol": 0.5568297655453619,
+        "own_in_situ": 0.6015545361875637
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.024672548426628048,
+          "ci_lo": -0.031576530698680515,
+          "ci_hi": 0.0842709530544911,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.09273826429144501,
+          "ci_lo": 0.0017196683106015052,
+          "ci_hi": 0.17819546505801964,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.04943492540997139,
+          "ci_lo": -0.0212155377808032,
+          "ci_hi": 0.1199328067595404,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.004,
+        "lopo": 0.789
+      }
+    },
+    "scgenept_rpe1": {
+      "engine": "scGenePT",
+      "dataset": "RPE1",
+      "class": "expression",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": "signs from scgenept_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.6136528685548294,
+        "gears_in_situ": 0.48942714340638216,
+        "symbol": 0.5328506130120894,
+        "own_in_situ": 0.45931052159425856
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.12293874042769641,
+          "ci_lo": 0.03297407593903564,
+          "ci_hi": 0.21013632872728794,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.08188521459236844,
+          "ci_lo": -0.00784226821923661,
+          "ci_hi": 0.16567625555814022,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.1537856312064199,
+          "ci_lo": 0.047930365726365415,
+          "ci_hi": 0.24712461348454012,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.003,
+        "lopo": 1.333
+      }
+    },
+    "scf_k562": {
+      "engine": "scFoundation",
+      "dataset": "K562",
+      "class": "expression",
+      "n": 45,
+      "label_balance": 0.4888888888888889,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "oof_probe::scf_k562",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": null,
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562",
+        "scf_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.5988142292490118,
+        "gears_in_situ": 0.48616600790513825,
+        "own_in_situ": 0.6679841897233202
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.10966368562891608,
+          "ci_lo": -0.15235679012345676,
+          "ci_hi": 0.3644018133569217,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": -0.06798316304947497,
+          "ci_lo": -0.21008986928104567,
+          "ci_hi": 0.07086466165413527,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.0,
+        "lopo": 0.09
+      }
+    },
+    "scf_rpe1": {
+      "engine": "scFoundation",
+      "dataset": "RPE1",
+      "class": "expression",
+      "missing": true
+    },
+    "scgpt_k562": {
+      "engine": "scGPT",
+      "dataset": "K562",
+      "class": "embedding",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from scgpt_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.5094291539245668,
+        "gears_in_situ": 0.4900611620795107,
+        "symbol": 0.473326537546721,
+        "own_in_situ": 0.4782959565069657
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.02185389476091126,
+          "ci_lo": -0.10258597855782257,
+          "ci_hi": 0.1435784658860035,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.033365271765199996,
+          "ci_lo": -0.07188082321310045,
+          "ci_hi": 0.14357759353741498,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.0320813064166998,
+          "ci_lo": -0.09699156312626979,
+          "ci_hi": 0.15123710419961164,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.004,
+        "lopo": 0.633
+      }
+    },
+    "scgpt_rpe1": {
+      "engine": "scGPT",
+      "dataset": "RPE1",
+      "class": "embedding",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from scgpt_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.6488530052543893,
+        "gears_in_situ": 0.33922850185825965,
+        "symbol": 0.5249049510871886,
+        "own_in_situ": 0.5730274680678371
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.309120729957899,
+          "ci_lo": 0.19541899324007206,
+          "ci_hi": 0.42256465339399635,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.1258981764508242,
+          "ci_lo": 0.04136709179930887,
+          "ci_hi": 0.20975649433016774,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.07394305479406763,
+          "ci_lo": -0.0021679723445964466,
+          "ci_hi": 0.14500663988962653,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.69
+      }
+    },
+    "geneformer_k562": {
+      "engine": "Geneformer",
+      "dataset": "K562",
+      "class": "embedding",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from geneformer_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.6681107713217803,
+        "gears_in_situ": 0.3434420659191302,
+        "symbol": 0.49082568807339455,
+        "own_in_situ": 0.4672103295956507
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.3268562607187639,
+          "ci_lo": 0.1910852284509573,
+          "ci_hi": 0.4604657849619844,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.17601090579978793,
+          "ci_lo": 0.07194762755293088,
+          "ci_hi": 0.274276718856365,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.20344652685046327,
+          "ci_lo": 0.10674458428735316,
+          "ci_hi": 0.3106101423978367,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.532
+      }
+    },
+    "geneformer_rpe1": {
+      "engine": "Geneformer",
+      "dataset": "RPE1",
+      "class": "embedding",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from geneformer_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.7537271989405784,
+        "gears_in_situ": 0.2321756589345978,
+        "symbol": 0.4688794907941391,
+        "own_in_situ": 0.5561108975180485
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.5181736838953269,
+          "ci_lo": 0.4079803619561032,
+          "ci_hi": 0.6239083240691108,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.28255465363766197,
+          "ci_lo": 0.1912498352068758,
+          "ci_hi": 0.3673303316795135,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.19597104838618792,
+          "ci_lo": 0.11692166095890409,
+          "ci_hi": 0.27530851262464495,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.699
+      }
+    },
+    "uce_k562": {
+      "engine": "UCE",
+      "dataset": "K562",
+      "class": "embedding",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from uce_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.6788141352361535,
+        "gears_in_situ": 0.36909616038056403,
+        "symbol": 0.48521916411824667,
+        "own_in_situ": 0.4492864424057085
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.3090902459831156,
+          "ci_lo": 0.17785920361917465,
+          "ci_hi": 0.4405619822508301,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.193996694526879,
+          "ci_lo": 0.09198334202536668,
+          "ci_hi": 0.2966151958664822,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.22760841489557757,
+          "ci_lo": 0.10838808823838507,
+          "ci_hi": 0.3430461476226038,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.523
+      }
+    },
+    "uce_rpe1": {
+      "engine": "UCE",
+      "dataset": "RPE1",
+      "class": "embedding",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from uce_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.7801273014652482,
+        "gears_in_situ": 0.20876585928489044,
+        "symbol": 0.4554017685505575,
+        "own_in_situ": 0.5416506471869793
+      },
+      "paired_bootstrap": {
+        "b_boot": 1000,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.5721113732599644,
+          "ci_lo": 0.4756543541951901,
+          "ci_hi": 0.6685107434807678,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.32647778797742194,
+          "ci_lo": 0.24469632878841305,
+          "ci_hi": 0.4063720358897672,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.2352737553751852,
+          "ci_lo": 0.1603726941060815,
+          "ci_hi": 0.30927490535145097,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.86
+      }
+    }
+  },
+  "missing": [
+    "scf_rpe1"
+  ],
+  "consistency": {
+    "K562": {
+      "engines": [
+        "GEARS",
+        "scGenePT",
+        "scFoundation",
+        "scGPT",
+        "Geneformer",
+        "UCE"
+      ],
+      "pairs": {
+        "GEARS__scGenePT": {
+          "n_pair": 217,
+          "n11_both_wrong": 76,
+          "n10": 32,
+          "n01": 32,
+          "n00_both_right": 77,
+          "agreement": 0.7050691244239631,
+          "cohens_kappa": 0.41012572205232756,
+          "phi": 0.41012572205232745
+        },
+        "GEARS__scFoundation": {
+          "n_pair": 45,
+          "n11_both_wrong": 15,
+          "n10": 6,
+          "n01": 7,
+          "n00_both_right": 17,
+          "agreement": 0.7111111111111111,
+          "cohens_kappa": 0.42136498516320475,
+          "phi": 0.42178300516305944
+        },
+        "GEARS__scGPT": {
+          "n_pair": 217,
+          "n11_both_wrong": 50,
+          "n10": 58,
+          "n01": 58,
+          "n00_both_right": 51,
+          "agreement": 0.46543778801843316,
+          "cohens_kappa": -0.06914712878015639,
+          "phi": -0.06914712878015648
+        },
+        "GEARS__Geneformer": {
+          "n_pair": 217,
+          "n11_both_wrong": 33,
+          "n10": 75,
+          "n01": 75,
+          "n00_both_right": 34,
+          "agreement": 0.3087557603686636,
+          "cohens_kappa": -0.38251783893985736,
+          "phi": -0.38251783893985863
+        },
+        "GEARS__UCE": {
+          "n_pair": 217,
+          "n11_both_wrong": 29,
+          "n10": 79,
+          "n01": 79,
+          "n00_both_right": 30,
+          "agreement": 0.271889400921659,
+          "cohens_kappa": -0.45625212368331636,
+          "phi": -0.456252123683318
+        },
+        "scGenePT__scFoundation": {
+          "n_pair": 45,
+          "n11_both_wrong": 9,
+          "n10": 11,
+          "n01": 13,
+          "n00_both_right": 12,
+          "agreement": 0.4666666666666667,
+          "cohens_kappa": -0.06930693069306937,
+          "phi": -0.06958374259266013
+        },
+        "scGenePT__scGPT": {
+          "n_pair": 217,
+          "n11_both_wrong": 53,
+          "n10": 55,
+          "n01": 55,
+          "n00_both_right": 54,
+          "agreement": 0.4930875576036866,
+          "cohens_kappa": -0.013846415222561914,
+          "phi": -0.013846415222562016
+        },
+        "scGenePT__Geneformer": {
+          "n_pair": 217,
+          "n11_both_wrong": 42,
+          "n10": 66,
+          "n01": 66,
+          "n00_both_right": 43,
+          "agreement": 0.391705069124424,
+          "cohens_kappa": -0.21661569826707439,
+          "phi": -0.21661569826707477
+        },
+        "scGenePT__UCE": {
+          "n_pair": 217,
+          "n11_both_wrong": 40,
+          "n10": 68,
+          "n01": 68,
+          "n00_both_right": 41,
+          "agreement": 0.37327188940092165,
+          "cohens_kappa": -0.2534828406388039,
+          "phi": -0.2534828406388042
+        },
+        "scFoundation__scGPT": {
+          "n_pair": 45,
+          "n11_both_wrong": 12,
+          "n10": 10,
+          "n01": 14,
+          "n00_both_right": 9,
+          "agreement": 0.4666666666666667,
+          "cohens_kappa": -0.06299212598425186,
+          "phi": -0.06400460849772367
+        },
+        "scFoundation__Geneformer": {
+          "n_pair": 45,
+          "n11_both_wrong": 7,
+          "n10": 15,
+          "n01": 16,
+          "n00_both_right": 7,
+          "agreement": 0.3111111111111111,
+          "cohens_kappa": -0.37709772951628806,
+          "phi": -0.3774703557312248
+        },
+        "scFoundation__UCE": {
+          "n_pair": 45,
+          "n11_both_wrong": 8,
+          "n10": 14,
+          "n01": 15,
+          "n00_both_right": 8,
+          "agreement": 0.35555555555555557,
+          "cohens_kappa": -0.28825271470878566,
+          "phi": -0.2885375494071141
+        },
+        "scGPT__Geneformer": {
+          "n_pair": 217,
+          "n11_both_wrong": 58,
+          "n10": 50,
+          "n01": 50,
+          "n00_both_right": 59,
+          "agreement": 0.5391705069124424,
+          "cohens_kappa": 0.07832144070676184,
+          "phi": 0.0783214407067619
+        },
+        "scGPT__UCE": {
+          "n_pair": 217,
+          "n11_both_wrong": 58,
+          "n10": 50,
+          "n01": 50,
+          "n00_both_right": 59,
+          "agreement": 0.5391705069124424,
+          "cohens_kappa": 0.07832144070676184,
+          "phi": 0.07832144070676184
+        },
+        "Geneformer__UCE": {
+          "n_pair": 217,
+          "n11_both_wrong": 87,
+          "n10": 21,
+          "n01": 21,
+          "n00_both_right": 88,
+          "agreement": 0.8064516129032258,
+          "cohens_kappa": 0.61289500509684,
+          "phi": 0.6128950050968398
+        }
+      },
+      "kappa_matrix": [
+        [
+          1.0,
+          0.41012572205232756,
+          0.42136498516320475,
+          -0.06914712878015639,
+          -0.38251783893985736,
+          -0.45625212368331636
+        ],
+        [
+          0.41012572205232756,
+          1.0,
+          -0.06930693069306937,
+          -0.013846415222561914,
+          -0.21661569826707439,
+          -0.2534828406388039
+        ],
+        [
+          0.42136498516320475,
+          -0.06930693069306937,
+          1.0,
+          -0.06299212598425186,
+          -0.37709772951628806,
+          -0.28825271470878566
+        ],
+        [
+          -0.06914712878015639,
+          -0.013846415222561914,
+          -0.06299212598425186,
+          1.0,
+          0.07832144070676184,
+          0.07832144070676184
+        ],
+        [
+          -0.38251783893985736,
+          -0.21661569826707439,
+          -0.37709772951628806,
+          0.07832144070676184,
+          1.0,
+          0.61289500509684
+        ],
+        [
+          -0.45625212368331636,
+          -0.2534828406388039,
+          -0.28825271470878566,
+          0.07832144070676184,
+          0.61289500509684,
+          1.0
+        ]
+      ],
+      "mean_abs_kappa_offdiag": 0.2527026760106707
+    },
+    "RPE1": {
+      "engines": [
+        "GEARS",
+        "scGenePT",
+        "scGPT",
+        "Geneformer",
+        "UCE"
+      ],
+      "pairs": {
+        "GEARS__scGenePT": {
+          "n_pair": 306,
+          "n11_both_wrong": 65,
+          "n10": 88,
+          "n01": 88,
+          "n00_both_right": 65,
+          "agreement": 0.42483660130718953,
+          "cohens_kappa": -0.15032679738562083,
+          "phi": -0.1503267973856209
+        },
+        "GEARS__scGPT": {
+          "n_pair": 306,
+          "n11_both_wrong": 54,
+          "n10": 99,
+          "n01": 99,
+          "n00_both_right": 54,
+          "agreement": 0.35294117647058826,
+          "cohens_kappa": -0.2941176470588236,
+          "phi": -0.29411764705882354
+        },
+        "GEARS__Geneformer": {
+          "n_pair": 306,
+          "n11_both_wrong": 34,
+          "n10": 119,
+          "n01": 119,
+          "n00_both_right": 34,
+          "agreement": 0.2222222222222222,
+          "cohens_kappa": -0.5555555555555556,
+          "phi": -0.5555555555555555
+        },
+        "GEARS__UCE": {
+          "n_pair": 306,
+          "n11_both_wrong": 28,
+          "n10": 125,
+          "n01": 125,
+          "n00_both_right": 28,
+          "agreement": 0.1830065359477124,
+          "cohens_kappa": -0.6339869281045751,
+          "phi": -0.6339869281045751
+        },
+        "scGenePT__scGPT": {
+          "n_pair": 306,
+          "n11_both_wrong": 76,
+          "n10": 77,
+          "n01": 77,
+          "n00_both_right": 76,
+          "agreement": 0.49673202614379086,
+          "cohens_kappa": -0.006535947712418277,
+          "phi": -0.006535947712418301
+        },
+        "scGenePT__Geneformer": {
+          "n_pair": 306,
+          "n11_both_wrong": 79,
+          "n10": 74,
+          "n01": 74,
+          "n00_both_right": 79,
+          "agreement": 0.5163398692810458,
+          "cohens_kappa": 0.0326797385620915,
+          "phi": 0.032679738562091505
+        },
+        "scGenePT__UCE": {
+          "n_pair": 306,
+          "n11_both_wrong": 76,
+          "n10": 77,
+          "n01": 77,
+          "n00_both_right": 76,
+          "agreement": 0.49673202614379086,
+          "cohens_kappa": -0.006535947712418277,
+          "phi": -0.006535947712418301
+        },
+        "scGPT__Geneformer": {
+          "n_pair": 306,
+          "n11_both_wrong": 109,
+          "n10": 44,
+          "n01": 44,
+          "n00_both_right": 109,
+          "agreement": 0.7124183006535948,
+          "cohens_kappa": 0.4248366013071896,
+          "phi": 0.4248366013071895
+        },
+        "scGPT__UCE": {
+          "n_pair": 306,
+          "n11_both_wrong": 109,
+          "n10": 44,
+          "n01": 44,
+          "n00_both_right": 109,
+          "agreement": 0.7124183006535948,
+          "cohens_kappa": 0.4248366013071896,
+          "phi": 0.4248366013071895
+        },
+        "Geneformer__UCE": {
+          "n_pair": 306,
+          "n11_both_wrong": 144,
+          "n10": 9,
+          "n01": 9,
+          "n00_both_right": 144,
+          "agreement": 0.9411764705882353,
+          "cohens_kappa": 0.8823529411764706,
+          "phi": 0.8823529411764706
+        }
+      },
+      "kappa_matrix": [
+        [
+          1.0,
+          -0.15032679738562083,
+          -0.2941176470588236,
+          -0.5555555555555556,
+          -0.6339869281045751
+        ],
+        [
+          -0.15032679738562083,
+          1.0,
+          -0.006535947712418277,
+          0.0326797385620915,
+          -0.006535947712418277
+        ],
+        [
+          -0.2941176470588236,
+          -0.006535947712418277,
+          1.0,
+          0.4248366013071896,
+          0.4248366013071896
+        ],
+        [
+          -0.5555555555555556,
+          0.0326797385620915,
+          0.4248366013071896,
+          1.0,
+          0.8823529411764706
+        ],
+        [
+          -0.6339869281045751,
+          -0.006535947712418277,
+          0.4248366013071896,
+          0.8823529411764706,
+          1.0
+        ]
+      ],
+      "mean_abs_kappa_offdiag": 0.3411764705882353
+    }
+  },
+  "verdict": {
+    "rule": "ensemble AUROC beats GEARS in-situ arm in >=8/10 evaluable combos (perturbation-level paired bootstrap B=1000, 95% CI excludes 0) -> ensemble effective, enters main claim; else report no ensemble gain (tier conclusion, cross-validates error_signatures signature-noise)",
+    "n_ensemble_better": 6,
+    "n_locked_combos": 10,
+    "threshold": ">=8/10 (locked)",
+    "tier": "no_ensemble_gain"
+  },
+  "timing_total_s": 86.22
+}

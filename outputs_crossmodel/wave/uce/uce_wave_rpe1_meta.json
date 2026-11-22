@@ -1,0 +1,23 @@
+{
+  "task": "UCE-33L wave: per-cell embeddings K562/RPE1",
+  "date_utc": "2026-10-20T20:04:55Z",
+  "model": {
+    "name": "UCE 33L",
+    "weights_sha256": "3f458726196308e171611ed28394b55865708749f82af68cfd7771d5dfee661e",
+    "inference_protocol": "official eval pipeline + fixed seeds; deletion = zero sampling weight; per-cell CLS kept",
+    "output_type": "cell embedding (1280-d CLS)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_rpe1.h5ad",
+    "heldout_source": "/research/meta_rpe1/pred_expr_seed0.npz",
+    "ctrl_pool_size": 32,
+    "true_cells_cap": 32,
+    "true_sampling": "default_rng(777000+pi) w/o replacement"
+  },
+  "runtime": {
+    "command": "/research/scripts/run_uce_wave.py --threads 48 --batch 8 --h5ad /research/data/perturb_processed_rpe1.h5ad --local-npz /research/meta_rpe1/pred_expr_seed0.npz --out /research/outputs_crossmodel/uce/uce_wave_rpe1",
+    "threads": 48,
+    "infer_seconds_total": 68513.22343039513,
+    "total_seconds": 68732.20735263824
+  }
+}

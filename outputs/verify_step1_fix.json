@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-13",
+  "checks": {
+    "crash_evidence": {
+      "log": "day6_seed2.log",
+      "oom_in_tail": true,
+      "traceback_frames": [
+        "File \"E:\\�廪���Լ����о�����\\virtual_cell_constraint_mvp\\step1_run.py\", line 95, in <module>",
+        "File \"E:\\�廪���Լ����о�����\\virtual_cell_constraint_mvp\\venv\\Lib\\site-packages\\gears\\gears.py\", line 602, in train",
+        "File \"E:\\�廪���Լ����о�����\\virtual_cell_constraint_mvp\\venv\\Lib\\site-packages\\gears\\inference.py\", line 389, in deeper_analysis",
+        "File \"E:\\�廪���Լ����о�����\\virtual_cell_constraint_mvp\\venv\\Lib\\site-packages\\scipy\\sparse\\_compressed.py\", line 1014, in toarray",
+        "File \"E:\\�廪���Լ����о�����\\virtual_cell_constraint_mvp\\venv\\Lib\\site-packages\\scipy\\sparse\\_base.py\", line 1693, in _process_toarray_args"
+      ],
+      "root_cause": "gears/inference.py deeper_analysis 内 adata.X.toarray() （全量 162246×5000 物化，3.02GiB）；经 gears.py:602 model.train() 内部测试分析触发，step1_run.py 评估段未执行到"
+    },
+    "library_patch": {
+      "file": "venv/Lib/site-packages/gears/inference.py",
+      "remaining_toarray_shape_refs": 0,
+      "patched_sites": 3,
+      "patch": "adata.X.toarray().shape[1] -> adata.shape[1]（reshape 目标同值）",
+      "frozen_copy_synced": true
+    },
+    "step1_eval_audit": {
+      "step1_run_unchanged": true,
+      "densify_points_in_eval_section": [
+        "ctrl_mean = np.asarray(ctrl.X.mean(axis=0)).ravel()",
+        "d = sub.X.toarray() - ctrl_mean          # (n_cells, n_genes) dense",
+        "pred_mat = np.stack([np.asarray(pred[g]).ravel() for g in in_graph])",
+        "p = np.asarray(pred[g]).ravel()",
+        "true_mean = np.asarray(sub.X.mean(axis=0)).ravel()"
+      ],
+      "max_group_cells": 637,
+      "peak_dense_bytes_per_group": 25480000,
+      "conclusion": "评估段仅逐扰动组物化（峰值约 25MB，瞬态），无全量矩阵物化；OOM 不在此处，无需修改（backed 方案不适用：GEARS 训练本就要全量 adata 在内存）"
+    },
+    "numeric_comparison": {
+      "method": "step1 原公式重算（逐组 toarray，验证专用）vs outputs/predictions_seed0.csv 归档值",
+      "n_perts_checked": 3,
+      "rows": [
+        {
+          "perturbation": "PRPF3",
+          "pearson_delta_recomputed": 0.8608881031246509,
+          "pearson_delta_csv": 0.8608881031246509,
+          "pearson_delta_all_recomputed": 0.6582907940064743,
+          "pearson_delta_all_csv": 0.6582907940064743,
+          "strength_recomputed": 31.095964431762695,
+          "strength_csv": 31.09596443176269,
+          "n_cells_recomputed": 129,
+          "n_cells_csv": 129,
+          "pearson_delta_abs_diff": 0.0,
+          "pearson_delta_all_abs_diff": 0.0,
+          "strength_abs_diff": 3.552713678800501e-15,
+          "n_cells_abs_diff": 0
+        },
+        {
+          "perturbation": "POP7",
+          "pearson_delta_recomputed": 0.32375700240312966,
+          "pearson_delta_csv": 0.3237570024031296,
+          "pearson_delta_all_recomputed": 0.08588206341109683,
+          "pearson_delta_all_csv": 0.0858820634110968,
+          "strength_recomputed": 28.344484329223633,
+          "strength_csv": 28.344484329223636,
+          "n_cells_recomputed": 196,
+          "n_cells_csv": 196,
+          "pearson_delta_abs_diff": 5.551115123125783e-17,
+          "pearson_delta_all_abs_diff": 2.7755575615628914e-17,
+          "strength_abs_diff": 3.552713678800501e-15,
+          "n_cells_abs_diff": 0
+        },
+        {
+          "perturbation": "COX17",
+          "pearson_delta_recomputed": 0.3840102671192184,
+          "pearson_delta_csv": 0.3840102671192184,
+          "pearson_delta_all_recomputed": 0.21648603251372214,
+          "pearson_delta_all_csv": 0.2164860325137221,
+          "strength_recomputed": 27.682226181030273,
+          "strength_csv": 27.682226181030277,
+          "n_cells_recomputed": 129,
+          "n_cells_csv": 129,
+          "pearson_delta_abs_diff": 0.0,
+          "pearson_delta_all_abs_diff": 5.551115123125783e-17,
+          "strength_abs_diff": 3.552713678800501e-15,
+          "n_cells_abs_diff": 0
+        }
+      ],
+      "max_abs_diff": 3.552713678800501e-15,
+      "tolerance": 1e-06,
+      "pass": true
+    },
+    "compat_patch_counts": {
+      "before": {
+        "gears.py": 2,
+        "inference.py": 1,
+        "pertdata.py": 4
+      },
+      "after": {
+        "gears.py": 2,
+        "inference.py": 4,
+        "pertdata.py": 4
+      },
+      "note": "原 6 类补丁标记原样保留（gears 2 / pertdata 4 未动，inference 原 1 处 + 新增 3 处同标记）；patches/ 固化副本已同步"
+    }
+  }
+}

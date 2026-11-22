@@ -1,0 +1,76 @@
+{
+  "task": "gating probe (slot 3: reliability gating)",
+  "seed": 0,
+  "n_perts": 306,
+  "label_definition": "y = (1 - pearson_delta) > median; error 高于中位数即判'答错'（定义性选择）",
+  "features": [
+    "delta_l2",
+    "delta_l1",
+    "delta_max",
+    "delta_top50_mean",
+    "n_de_025",
+    "frac_de_025",
+    "neg_frac",
+    "delta_entropy",
+    "log_n_cells"
+  ],
+  "excluded_features": {
+    "in_pert_graph": "常数列（全为 True），无方差剔除",
+    "strength": "真值派生（step1_run.py:96-105 由留出组真实表达算出），防泄漏排除",
+    "pearson_delta_all": "真值派生（标签来源），防泄漏排除"
+  },
+  "model": "LogisticRegression(L2, C=1.0) + StandardScaler, stratified 5-fold CV (shuffle, seed=0)",
+  "criterion": "CV AUROC mean > 0.6 -> gating signal present (0.5 = chance; definitional threshold)",
+  "error_median": 0.15699727511856065,
+  "n_positive": 153,
+  "cv_auroc_mean": 0.7965175164758932,
+  "cv_auroc_std": 0.06181757510087057,
+  "cv_auroc_per_fold": [
+    0.7804370447450573,
+    0.8795698924731183,
+    0.7182795698924731,
+    0.8333333333333334,
+    0.7709677419354839
+  ],
+  "pooled_cv_auroc": 0.7894399589901321,
+  "best_single_feature": "delta_max",
+  "single_feature_auroc": {
+    "delta_l2": {
+      "auroc_mean": 0.7696496704821366,
+      "auroc_std": 0.048237376792360794
+    },
+    "delta_l1": {
+      "auroc_mean": 0.7683524106833161,
+      "auroc_std": 0.04812964578269745
+    },
+    "delta_max": {
+      "auroc_mean": 0.7724037460978148,
+      "auroc_std": 0.046096698230798
+    },
+    "delta_top50_mean": {
+      "auroc_mean": 0.766236559139785,
+      "auroc_std": 0.04833019354209055
+    },
+    "n_de_025": {
+      "auroc_mean": 0.7611550468262227,
+      "auroc_std": 0.04559487556216379
+    },
+    "frac_de_025": {
+      "auroc_mean": 0.7611550468262227,
+      "auroc_std": 0.04559487556216379
+    },
+    "neg_frac": {
+      "auroc_mean": 0.5686819285466528,
+      "auroc_std": 0.03343999727902641
+    },
+    "delta_entropy": {
+      "auroc_mean": 0.7466389177939646,
+      "auroc_std": 0.05181706159796973
+    },
+    "log_n_cells": {
+      "auroc_mean": 0.7178980228928199,
+      "auroc_std": 0.052448154314033164
+    }
+  },
+  "verdict_pass": true
+}

@@ -1,0 +1,1448 @@
+{
+  "task": "G-C task-level utility: gate-guided experimental budget allocation (step22)",
+  "prereg": "prereg_expansion_gc.md",
+  "smoke": true,
+  "spec": {
+    "b_boot": 200,
+    "boot_master_seed": 20261030,
+    "oof_seed": 0,
+    "B_scan": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "cost_metric_primary": "full delta MAE",
+    "c_measure": "per-combo median(full MAE)",
+    "gates": [
+      "probe_full",
+      "probe_top20",
+      "probe_top50",
+      "symbol",
+      "conformal_width"
+    ],
+    "baselines": [
+      "random",
+      "magnitude"
+    ],
+    "conformal_width": "sigma_i = ||pred_delta_i||_2/sqrt(G) (G-D prereg_conformal_arm.md); trust = smallest sigma",
+    "magnitude_score": "delta_max = max_g |pred_delta| (prediction-side, step6 feature)",
+    "min_positive_datasets": 3,
+    "n_registered_datasets": 5
+  },
+  "combos": {
+    "gears_k562_s0": {
+      "dataset": "replogle_k562_essential",
+      "seed": 0,
+      "n": 217,
+      "c_measure_median_err": 0.0661519604086876,
+      "measure_all_cost": 14.354975408685208,
+      "evaluable_B": [
+        5,
+        10,
+        20,
+        50
+      ],
+      "degenerate_all_B": false,
+      "auroc_diagnostic": {
+        "full": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.908936459395175,
+            "probe_top20": 0.3567787971457696,
+            "probe_top50": 0.4954128440366973,
+            "symbol": 0.14381583418280666,
+            "conformal_width": 0.8367312266394835,
+            "ad_diagnostic": 0.8440366972477065
+          }
+        },
+        "top20": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.4872579001019368,
+            "probe_top20": 0.6346415222562012,
+            "probe_top50": 0.6099218484539586,
+            "symbol": 0.614593951749915,
+            "conformal_width": 0.40358477743798843,
+            "ad_diagnostic": 0.40375467210329596
+          }
+        },
+        "top50": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.5424736663268773,
+            "probe_top20": 0.618076792388719,
+            "probe_top50": 0.6151885830784913,
+            "symbol": 0.5691471287801563,
+            "conformal_width": 0.43603465851172274,
+            "ad_diagnostic": 0.4431702344546381
+          }
+        }
+      },
+      "per_B": {
+        "5": {
+          "B_eff": 5,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.29800211860127745,
+              "cost_random": 0.35524011312954745,
+              "cost_magnitude": 0.5794917511299252,
+              "savings_vs_measure_all": 0.03275768344216051,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.07518417974404498,
+                  "ci_lo": 0.025065882042300213,
+                  "ci_hi": 0.12283246735422479,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.30971155926569927,
+                  "ci_lo": 0.21682099225998855,
+                  "ci_hi": 0.3999943560808806,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.36499214560128745,
+              "cost_random": 0.35524011312954745,
+              "cost_magnitude": 0.5794917511299252,
+              "savings_vs_measure_all": -0.03423234355784949,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.012390763992498941,
+                  "ci_lo": -0.07782908885631527,
+                  "ci_hi": 0.050256804750970614,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.2178798495779075,
+                  "ci_lo": 0.11995044006365346,
+                  "ci_hi": 0.3185941483855528,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.35315961414836344,
+              "cost_random": 0.35524011312954745,
+              "cost_magnitude": 0.5794917511299252,
+              "savings_vs_measure_all": -0.022399812104925476,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.01301952899911311,
+                  "ci_lo": -0.038422054160605665,
+                  "ci_hi": 0.0705496573211755,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.2456742904671487,
+                  "ci_lo": 0.14109748497885652,
+                  "ci_hi": 0.34141052542428507,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 0.5802629973620177,
+              "cost_random": 0.35524011312954745,
+              "cost_magnitude": 0.5794917511299252,
+              "savings_vs_measure_all": -0.24950319531857973,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.23167187513010068,
+                  "ci_lo": -0.2898958738721739,
+                  "ci_hi": -0.16508835080123635,
+                  "ci_excludes_zero": true,
+                  "favors": "baseline",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.0034711699542589545,
+                  "ci_lo": -0.08031838448976168,
+                  "ci_hi": 0.07716703295146118,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.32101249246783553,
+              "cost_random": 0.35524011312954745,
+              "cost_magnitude": 0.5794917511299252,
+              "savings_vs_measure_all": 0.009747309575602436,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0411338703402509,
+                  "ci_lo": -0.041808326241973864,
+                  "ci_hi": 0.13998420674003592,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.2781965041772016,
+                  "ci_lo": 0.1358566245843284,
+                  "ci_hi": 0.4010574119971787,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        },
+        "10": {
+          "B_eff": 10,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.5694693998914211,
+              "cost_random": 0.7104802262590949,
+              "cost_magnitude": 1.1074992064453661,
+              "savings_vs_measure_all": 0.09205020419545484,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.143072545125497,
+                  "ci_lo": 0.07259373151020224,
+                  "ci_hi": 0.21123583548933944,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.5550935573728141,
+                  "ci_lo": 0.3933339251800813,
+                  "ci_hi": 0.6820559631080646,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.7265997995931655,
+              "cost_random": 0.7104802262590949,
+              "cost_magnitude": 1.1074992064453661,
+              "savings_vs_measure_all": -0.06508019550628952,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.010873328210153084,
+                  "ci_lo": -0.11194677387080183,
+                  "ci_hi": 0.07901902612702882,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.39295814099708387,
+                  "ci_lo": 0.21067791272218356,
+                  "ci_hi": 0.5316740907504877,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.6439853914719075,
+              "cost_random": 0.7104802262590949,
+              "cost_magnitude": 1.1074992064453661,
+              "savings_vs_measure_all": 0.01753421261496846,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.05459918605155381,
+                  "ci_lo": -0.032064924427883015,
+                  "ci_hi": 0.13365946016827154,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.4729261888190787,
+                  "ci_lo": 0.3045360582887382,
+                  "ci_hi": 0.5976843981229047,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 1.1494743797935547,
+              "cost_random": 0.7104802262590949,
+              "cost_magnitude": 1.1074992064453661,
+              "savings_vs_measure_all": -0.4879547757066788,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.4426569857464719,
+                  "ci_lo": -0.5378060886750096,
+                  "ci_hi": -0.33661581447627903,
+                  "ci_excludes_zero": true,
+                  "favors": "baseline",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": -0.02221017335727442,
+                  "ci_lo": -0.14394761972303513,
+                  "ci_hi": 0.0659783899699806,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.6671490956559777,
+              "cost_random": 0.7104802262590949,
+              "cost_magnitude": 1.1074992064453661,
+              "savings_vs_measure_all": -0.005629491569101752,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.04409073791556219,
+                  "ci_lo": -0.10318580589398758,
+                  "ci_hi": 0.18136552178010498,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.4623050453778934,
+                  "ci_lo": 0.2815107101687603,
+                  "ci_hi": 0.6674096463167482,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        },
+        "20": {
+          "B_eff": 20,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 1.1392842809543016,
+              "cost_random": 1.4209604525181898,
+              "cost_magnitude": 2.127142953373492,
+              "savings_vs_measure_all": 0.1837549272194503,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.2819703301666989,
+                  "ci_lo": 0.15715915421729443,
+                  "ci_hi": 0.39755173949122435,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.9734746542705744,
+                  "ci_lo": 0.7610537474859599,
+                  "ci_hi": 1.2057260044980609,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 1.4529814721368255,
+              "cost_random": 1.4209604525181898,
+              "cost_magnitude": 2.127142953373492,
+              "savings_vs_measure_all": -0.12994226396307362,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.028825118753512218,
+                  "ci_lo": -0.16729736182777072,
+                  "ci_hi": 0.10372452434309291,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.6671996054338449,
+                  "ci_lo": 0.4505816765766772,
+                  "ci_hi": 0.9296774077341986,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 1.3088781811278314,
+              "cost_random": 1.4209604525181898,
+              "cost_magnitude": 2.127142953373492,
+              "savings_vs_measure_all": 0.014161027045920482,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.10406790024820475,
+                  "ci_lo": -0.03210910106243244,
+                  "ci_hi": 0.22735777934850498,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.8026880600823106,
+                  "ci_lo": 0.5670721894991858,
+                  "ci_hi": 1.0259074215670578,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 2.1399867777295407,
+              "cost_random": 1.4209604525181898,
+              "cost_magnitude": 2.127142953373492,
+              "savings_vs_measure_all": -0.8169475695557888,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.7183304936232224,
+                  "ci_lo": -0.8839481964838442,
+                  "ci_hi": -0.5481335658684955,
+                  "ci_excludes_zero": true,
+                  "favors": "baseline",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": -0.021423725280241987,
+                  "ci_lo": -0.08821320137144956,
+                  "ci_hi": 0.04834759840184871,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 1.3424533528063447,
+              "cost_random": 1.4209604525181898,
+              "cost_magnitude": 2.127142953373492,
+              "savings_vs_measure_all": -0.019414144632592834,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.08107636996211355,
+                  "ci_lo": -0.09272710963054707,
+                  "ci_hi": 0.2265068291586647,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.7701044156213814,
+                  "ci_lo": 0.49882304158562785,
+                  "ci_hi": 1.0148339526183203,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        },
+        "50": {
+          "B_eff": 50,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 2.908785829376243,
+              "cost_random": 3.552401131295474,
+              "cost_magnitude": 4.773276775748282,
+              "savings_vs_measure_all": 0.39881219105813637,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.6584491881129166,
+                  "ci_lo": 0.4918419937351399,
+                  "ci_hi": 0.8457362424431313,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 1.8528716081309755,
+                  "ci_lo": 1.5806299069414018,
+                  "ci_hi": 2.145786973311179,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 3.7665839702026918,
+              "cost_random": 3.552401131295474,
+              "cost_magnitude": 4.773276775748282,
+              "savings_vs_measure_all": -0.4589859497683122,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.17907216754554944,
+                  "ci_lo": -0.39070909724096986,
+                  "ci_hi": 0.0005476672788723111,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 1.021156945111391,
+                  "ci_lo": 0.7500237383580438,
+                  "ci_hi": 1.3280344814856393,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 3.3815799185819926,
+              "cost_random": 3.552401131295474,
+              "cost_magnitude": 4.773276775748282,
+              "savings_vs_measure_all": -0.07398189814761302,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.14561407826287,
+                  "ci_lo": -0.05213596824414407,
+                  "ci_hi": 0.33913032490040307,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 1.337017447798712,
+                  "ci_lo": 1.0292691391684308,
+                  "ci_hi": 1.6304162771883466,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 4.800471293698065,
+              "cost_random": 3.552401131295474,
+              "cost_magnitude": 4.773276775748282,
+              "savings_vs_measure_all": -1.4928732732636854,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -1.225039459230763,
+                  "ci_lo": -1.419939320730898,
+                  "ci_hi": -0.9927832255869306,
+                  "ci_excludes_zero": true,
+                  "favors": "baseline",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": -0.032756483690598893,
+                  "ci_lo": -0.13773921172895426,
+                  "ci_hi": 0.045435596730305644,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 3.022489817297272,
+              "cost_random": 3.552401131295474,
+              "cost_magnitude": 4.773276775748282,
+              "savings_vs_measure_all": 0.2851082031371077,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.5149727622633193,
+                  "ci_lo": 0.24563640040511717,
+                  "ci_hi": 0.7280338447507122,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 1.7158531383523934,
+                  "ci_lo": 1.2945791663990878,
+                  "ci_hi": 2.0989488860799326,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        }
+      },
+      "per_metric_costs": {
+        "top20": {
+          "probe_full": {
+            "5": 2.324196383357048,
+            "10": 4.495050330460073,
+            "20": 8.15366181600839,
+            "50": 20.163220742903647
+          },
+          "probe_top20": {
+            "5": 1.52202093526721,
+            "10": 3.177175050228834,
+            "20": 6.518776736594735,
+            "50": 16.35906725395471
+          },
+          "probe_top50": {
+            "5": 1.7855656335130334,
+            "10": 3.5237232739105826,
+            "20": 6.047287088818848,
+            "50": 15.581804849393663
+          },
+          "symbol": {
+            "5": 1.502236194908619,
+            "10": 3.747562929242849,
+            "20": 7.265888479351997,
+            "50": 18.05936043895781
+          },
+          "conformal_width": {
+            "5": 2.269994693994522,
+            "10": 5.111461307108402,
+            "20": 10.91706428080797,
+            "50": 22.899261827394366
+          },
+          "random": {
+            "5": 1.8730240487000018,
+            "10": 3.7460480974000037,
+            "20": 7.492096194800007,
+            "50": 18.730240487000017
+          },
+          "magnitude": {
+            "5": 1.4983984723687171,
+            "10": 3.2570129804313184,
+            "20": 7.3019403599202635,
+            "50": 18.262368235737085
+          }
+        },
+        "top50": {
+          "probe_full": {
+            "5": 1.835193750932813,
+            "10": 3.5073082304000853,
+            "20": 6.251678799763321,
+            "50": 15.151892318129539
+          },
+          "probe_top20": {
+            "5": 1.1867136570811272,
+            "10": 2.46624283246696,
+            "20": 4.96855090610683,
+            "50": 12.804686743319035
+          },
+          "probe_top50": {
+            "5": 1.345143987759948,
+            "10": 2.5404675394296645,
+            "20": 4.536890514343977,
+            "50": 11.863212813064457
+          },
+          "symbol": {
+            "5": 1.2163056606054305,
+            "10": 3.01676582545042,
+            "20": 5.816700387522579,
+            "50": 14.169062162414193
+          },
+          "conformal_width": {
+            "5": 1.9214258241653441,
+            "10": 4.209032593667507,
+            "20": 8.829143679887054,
+            "50": 18.088220052346585
+          },
+          "random": {
+            "5": 1.439410930267677,
+            "10": 2.878821860535354,
+            "20": 5.757643721070708,
+            "50": 14.394109302676767
+          },
+          "magnitude": {
+            "5": 1.2700372397899629,
+            "10": 2.6516128802299495,
+            "20": 5.729795256778597,
+            "50": 14.12312647357583
+          }
+        }
+      }
+    },
+    "gears_norman_s4": {
+      "dataset": "norman",
+      "seed": 4,
+      "n": 20,
+      "c_measure_median_err": 0.031223366361522495,
+      "measure_all_cost": 0.62446732723045,
+      "evaluable_B": [
+        5,
+        10
+      ],
+      "degenerate_all_B": false,
+      "auroc_diagnostic": {
+        "full": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.68,
+            "probe_top20": 0.58,
+            "probe_top50": 0.68,
+            "symbol": 0.36,
+            "conformal_width": 0.91,
+            "ad_diagnostic": 0.88
+          }
+        },
+        "top20": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.53,
+            "probe_top20": 0.44,
+            "probe_top50": 0.53,
+            "symbol": 0.48,
+            "conformal_width": 0.75,
+            "ad_diagnostic": 0.72
+          }
+        },
+        "top50": {
+          "evaluable": true,
+          "auroc": {
+            "probe_full": 0.68,
+            "probe_top20": 0.58,
+            "probe_top50": 0.68,
+            "symbol": 0.36,
+            "conformal_width": 0.91,
+            "ad_diagnostic": 0.88
+          }
+        }
+      },
+      "per_B": {
+        "5": {
+          "B_eff": 5,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.15466988480068,
+              "cost_random": 0.16372865454581753,
+              "cost_magnitude": 0.1926065394712495,
+              "savings_vs_measure_all": 0.0014469470069324863,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.013632243587173213,
+                  "ci_lo": -0.004440034023199672,
+                  "ci_hi": 0.03081042120414524,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.04305625692025691,
+                  "ci_lo": 0.008844314299808592,
+                  "ci_hi": 0.09842045411085798,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.1644940733159504,
+              "cost_random": 0.16372865454581753,
+              "cost_magnitude": 0.1926065394712495,
+              "savings_vs_measure_all": -0.008377241508337907,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0022260133622419116,
+                  "ci_lo": -0.022690104112407225,
+                  "ci_hi": 0.025280705004376625,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.030228145830065545,
+                  "ci_lo": 0.00016078779064831062,
+                  "ci_hi": 0.06887932452224803,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.15466988480068,
+              "cost_random": 0.16372865454581753,
+              "cost_magnitude": 0.1926065394712495,
+              "savings_vs_measure_all": 0.0014469470069324863,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.014969117649527313,
+                  "ci_lo": -0.0010195289589450304,
+                  "ci_hi": 0.03400103254354798,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.046357041030293006,
+                  "ci_lo": 0.008940600518529107,
+                  "ci_hi": 0.09483475706092132,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 0.17762755473056627,
+              "cost_random": 0.16372865454581753,
+              "cost_magnitude": 0.1926065394712495,
+              "savings_vs_measure_all": -0.02151072292295378,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.012420086627140876,
+                  "ci_lo": -0.03742634827505765,
+                  "ci_hi": 0.008211812174724718,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.015817151927756536,
+                  "ci_lo": -0.009664659069231364,
+                  "ci_hi": 0.06645357858029526,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.1380133382547343,
+              "cost_random": 0.16372865454581753,
+              "cost_magnitude": 0.1926065394712495,
+              "savings_vs_measure_all": 0.018103493552878186,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.025223187469086427,
+                  "ci_lo": 0.01313280941161155,
+                  "ci_hi": 0.03829528136929621,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.055349185736563306,
+                  "ci_lo": 0.01635531909828298,
+                  "ci_hi": 0.10368987381146277,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        },
+        "10": {
+          "B_eff": 10,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.29970356814571913,
+              "cost_random": 0.32745730909163506,
+              "cost_magnitude": 0.35527966723029664,
+              "savings_vs_measure_all": 0.012530095469505842,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.027166721888972834,
+                  "ci_lo": 0.006088332805617819,
+                  "ci_hi": 0.052938724116191785,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.05120984465791095,
+                  "ci_lo": 0.0169409349513221,
+                  "ci_hi": 0.10117083257916422,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.3106247517347473,
+              "cost_random": 0.32745730909163506,
+              "cost_magnitude": 0.35527966723029664,
+              "savings_vs_measure_all": 0.0016089118804776814,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.015113664127919172,
+                  "ci_lo": -0.010024297817620114,
+                  "ci_hi": 0.03907526960922173,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.038388081946822916,
+                  "ci_lo": 0.00722191558669441,
+                  "ci_hi": 0.08351303950415177,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.29970356814571913,
+              "cost_random": 0.32745730909163506,
+              "cost_magnitude": 0.35527966723029664,
+              "savings_vs_measure_all": 0.012530095469505842,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.026710533159364135,
+                  "ci_lo": 0.005840000259537465,
+                  "ci_hi": 0.05401628510499838,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.05071849962345215,
+                  "ci_lo": 0.016992579892523133,
+                  "ci_hi": 0.10060945515836865,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 0.3499779343478149,
+              "cost_random": 0.32745730909163506,
+              "cost_magnitude": 0.35527966723029664,
+              "savings_vs_measure_all": -0.0377442707325899,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": -0.020955570994009978,
+                  "ci_lo": -0.046486543225361686,
+                  "ci_hi": 0.004283944305803559,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.004857192711179852,
+                  "ci_lo": -0.007922014825610729,
+                  "ci_hi": 0.03366999205817289,
+                  "ci_excludes_zero": false,
+                  "favors": "undetermined",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.2912868960096327,
+              "cost_random": 0.32745730909163506,
+              "cost_magnitude": 0.35527966723029664,
+              "savings_vs_measure_all": 0.020946767605592276,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.03601815391395372,
+                  "ci_lo": 0.01782635156779811,
+                  "ci_hi": 0.05823485034375347,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                },
+                "diff_magnitude": {
+                  "mean": 0.061512172965220026,
+                  "ci_lo": 0.024756329561635156,
+                  "ci_hi": 0.10615715528331808,
+                  "ci_excludes_zero": true,
+                  "favors": "gate",
+                  "degenerate": false
+                }
+              },
+              "degenerate": false
+            }
+          }
+        },
+        "20": {
+          "B_eff": 20,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            }
+          }
+        },
+        "50": {
+          "B_eff": 20,
+          "gates": {
+            "probe_full": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "probe_top20": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "probe_top50": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "symbol": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            },
+            "conformal_width": {
+              "non_evaluable": false,
+              "cost_gate": 0.6549146181832701,
+              "cost_random": 0.6549146181832701,
+              "cost_magnitude": 0.6549146181832701,
+              "savings_vs_measure_all": -0.030447290952820172,
+              "bootstrap": {
+                "diff_random": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                },
+                "diff_magnitude": {
+                  "mean": 0.0,
+                  "ci_lo": 0.0,
+                  "ci_hi": 0.0,
+                  "ci_excludes_zero": false,
+                  "favors": "none",
+                  "degenerate": true
+                }
+              },
+              "degenerate": true
+            }
+          }
+        }
+      },
+      "per_metric_costs": {
+        "top20": {
+          "probe_full": {
+            "5": 2.110983672598377,
+            "10": 3.71492345132865,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "probe_top20": {
+            "5": 1.9570238516200336,
+            "10": 3.52141695250757,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "probe_top50": {
+            "5": 2.110983672598377,
+            "10": 3.71492345132865,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "symbol": {
+            "5": 1.9699498433619738,
+            "10": 4.33084028805606,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "conformal_width": {
+            "5": 1.2268885786179453,
+            "10": 2.990720591554418,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "random": {
+            "5": 2.0400086287176236,
+            "10": 4.080017257435247,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          },
+          "magnitude": {
+            "5": 2.184385232999921,
+            "10": 4.5299913450609886,
+            "20": 8.160034514870494,
+            "50": 8.160034514870494
+          }
+        },
+        "top50": {
+          "probe_full": {
+            "5": 1.4484612939320505,
+            "10": 2.5957316255709153,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "probe_top20": {
+            "5": 1.4403229206241666,
+            "10": 2.5735609807958824,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "probe_top50": {
+            "5": 1.4484612939320505,
+            "10": 2.5957316255709153,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "symbol": {
+            "5": 1.428654406517744,
+            "10": 3.2282279641903004,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "conformal_width": {
+            "5": 0.9292538120411338,
+            "10": 2.15647958652582,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "random": {
+            "5": 1.4875708459917223,
+            "10": 2.9751416919834446,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          },
+          "magnitude": {
+            "5": 1.7151654090196826,
+            "10": 3.4248996603884736,
+            "20": 5.950283383966889,
+            "50": 5.950283383966889
+          }
+        }
+      }
+    }
+  },
+  "verdict": {
+    "tier": "NOT_CONFIRMED",
+    "primary_gate": "probe_full",
+    "per_gate": {
+      "probe_full": {
+        "dataset_positive": {
+          "replogle_k562_essential": true,
+          "norman": false
+        },
+        "n_positive": 1,
+        "confirmed": false,
+        "rule": "confirmed iff gate beats both baselines (95% paired bootstrap CI excludes 0 favoring gate at EVERY evaluable B) on every seed combo of the dataset, on >=3/5 registered datasets"
+      },
+      "probe_top20": {
+        "dataset_positive": {
+          "replogle_k562_essential": false,
+          "norman": false
+        },
+        "n_positive": 0,
+        "confirmed": false,
+        "rule": "confirmed iff gate beats both baselines (95% paired bootstrap CI excludes 0 favoring gate at EVERY evaluable B) on every seed combo of the dataset, on >=3/5 registered datasets"
+      },
+      "probe_top50": {
+        "dataset_positive": {
+          "replogle_k562_essential": false,
+          "norman": false
+        },
+        "n_positive": 0,
+        "confirmed": false,
+        "rule": "confirmed iff gate beats both baselines (95% paired bootstrap CI excludes 0 favoring gate at EVERY evaluable B) on every seed combo of the dataset, on >=3/5 registered datasets"
+      },
+      "symbol": {
+        "dataset_positive": {
+          "replogle_k562_essential": false,
+          "norman": false
+        },
+        "n_positive": 0,
+        "confirmed": false,
+        "rule": "confirmed iff gate beats both baselines (95% paired bootstrap CI excludes 0 favoring gate at EVERY evaluable B) on every seed combo of the dataset, on >=3/5 registered datasets"
+      },
+      "conformal_width": {
+        "dataset_positive": {
+          "replogle_k562_essential": false,
+          "norman": true
+        },
+        "n_positive": 1,
+        "confirmed": false,
+        "rule": "confirmed iff gate beats both baselines (95% paired bootstrap CI excludes 0 favoring gate at EVERY evaluable B) on every seed combo of the dataset, on >=3/5 registered datasets"
+      }
+    },
+    "rule": "primary = probe_full; per-gate verdicts also reported; negative result reported as-is (no utility is a result); R2 product unchanged (symbol layer)"
+  },
+  "timing_total_s": 27.9
+}

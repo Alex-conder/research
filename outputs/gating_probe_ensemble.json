@@ -1,0 +1,84 @@
+{
+  "task": "gating probe with ensemble-uncertainty feature (vs step6 cheap-features-only)",
+  "criterion": "CV AUROC mean > 0.6 (definitional, same as step6)",
+  "step6_baseline_auroc": 0.6556473829201102,
+  "n_perts": 217,
+  "features": [
+    "delta_l2",
+    "delta_l1",
+    "delta_max",
+    "delta_top50_mean",
+    "n_de_025",
+    "frac_de_025",
+    "neg_frac",
+    "delta_entropy",
+    "log_n_cells",
+    "log_ens_var"
+  ],
+  "cv_auroc_mean": 0.698288075560803,
+  "cv_auroc_std": 0.05280061443655897,
+  "cv_auroc_per_fold": [
+    0.7747933884297521,
+    0.6776859504132231,
+    0.6298701298701299,
+    0.696969696969697,
+    0.7121212121212122
+  ],
+  "pooled_cv_auroc": 0.6992864424057085,
+  "delta_vs_step6": 0.04264069264069281,
+  "ens_var_single_feature_auroc": {
+    "auroc_mean": 0.7062573789846518,
+    "auroc_std": 0.06672083852248017
+  },
+  "delta_max_single_feature_auroc": {
+    "auroc_mean": 0.6274104683195592,
+    "auroc_std": 0.05417191120375869
+  },
+  "corr_log_ens_var_vs_delta_max": {
+    "r": 0.646449625492096,
+    "p": 4.5647351539696295e-27
+  },
+  "verdict_pass": true,
+  "single_feature_auroc": {
+    "delta_l2": {
+      "auroc_mean": 0.6139315230224321,
+      "auroc_std": 0.052558191669155596
+    },
+    "delta_l1": {
+      "auroc_mean": 0.6118260527351437,
+      "auroc_std": 0.0503976755284188
+    },
+    "delta_max": {
+      "auroc_mean": 0.6274104683195592,
+      "auroc_std": 0.05417191120375869
+    },
+    "delta_top50_mean": {
+      "auroc_mean": 0.6186343959071232,
+      "auroc_std": 0.05175196735056982
+    },
+    "n_de_025": {
+      "auroc_mean": 0.6175619834710744,
+      "auroc_std": 0.05063516786432061
+    },
+    "frac_de_025": {
+      "auroc_mean": 0.6175619834710744,
+      "auroc_std": 0.05063516786432061
+    },
+    "neg_frac": {
+      "auroc_mean": 0.602016922471468,
+      "auroc_std": 0.05162849070349473
+    },
+    "delta_entropy": {
+      "auroc_mean": 0.5743014561196379,
+      "auroc_std": 0.05274169254536817
+    },
+    "log_n_cells": {
+      "auroc_mean": 0.4720877607241244,
+      "auroc_std": 0.04670173940371137
+    },
+    "log_ens_var": {
+      "auroc_mean": 0.7062573789846518,
+      "auroc_std": 0.06672083852248017
+    }
+  }
+}

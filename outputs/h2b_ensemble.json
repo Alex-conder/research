@@ -1,0 +1,11 @@
+{
+  "task": "H2b post-hoc completeness check (conservation route closed)",
+  "note": "路线关闭后的补全检验，不改变已归档结论",
+  "formula": "ens_var_i = mean_g var_s(pred_expr_{s,i,g} - ctrl_mean), s in {0,1,2}, ddof=1",
+  "violation_source": "outputs/violation_score.csv (Day3 绝对表达口径)",
+  "criterion": "r < 0.3 pass / >= 0.3 redundant (preregistration.md)",
+  "r": -0.6168413581357455,
+  "p": 3.8618102599752786e-24,
+  "n": 217,
+  "r_pass": true
+}

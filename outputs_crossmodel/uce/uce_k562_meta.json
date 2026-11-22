@@ -1,0 +1,28 @@
+{
+  "task": "UCE 33-layer zero-shot in silico deletion: Replogle essential held-out perturbation (K562)",
+  "date_utc": "2026-10-16T11:29:51Z",
+  "model": {
+    "name": "UCE 33L (snap-stanford/UCE)",
+    "source": "figshare model files (see RUNBOOK)",
+    "weights_file": "/research/models/uce/model_files/33l_8ep_1024t_1280.torch",
+    "weights_sha256": "3f458726196308e171611ed28394b55865708749f82af68cfd7771d5dfee661e",
+    "token_file_sha256": "07397ab3828502fb7d0bab658125c47f145f989f384db8f55fe106f6826b2a54",
+    "inference_protocol": "official eval_single_anndata pipeline with fixed per-cell seeds; deletion = zero target gene sampling weight; embedding = normalized CLS of decoder",
+    "input_note": "h5ad X is log-normalized; weights proportional to X values == log1p(recovered counts) up to library-size normalization, sampling probabilities identical",
+    "output_type": "cell embedding (1280-d); NOT an expression profile"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_k562.h5ad",
+    "heldout_source": "/research/meta/pred_expr_seed0.npz",
+    "split": "GEARS simulation, split_seed=0",
+    "ctrl_pool_size": 32,
+    "n_genes_uce_space": 4635
+  },
+  "runtime": {
+    "command": "/research/scripts/run_uce_k562.py --threads 32 --out /research/results/uce_k562",
+    "torch_version": "2.1.2+cpu",
+    "threads": 32,
+    "infer_seconds_total": 21863.797646045685,
+    "total_seconds": 22230.502428770065
+  }
+}

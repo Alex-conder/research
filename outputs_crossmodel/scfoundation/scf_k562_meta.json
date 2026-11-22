@@ -1,0 +1,436 @@
+{
+  "task": "scFoundation cross-model concept verification: Replogle K562 essential held-out perturbation subset (45 perts, stratified by true effect size into large/medium/small tiers)",
+  "date_utc": "2026-10-15T18:20:56Z",
+  "model": {
+    "name": "scFoundation xTrimoGene MAE (gene model, 100M params)",
+    "repo": "biomap-research/scFoundation (Nature Methods 2024)",
+    "weights_file": "/research/models/scfoundation_gene_model.pt",
+    "weights_sha256": "33dc3adec5af194668c4d61a9786b362dea744f560f83db84cec80221ac9eb7f",
+    "weights_bytes": 477485967,
+    "inference_mode": "zero-shot; input = ctrl cell log-normalized profile + 2 aux tokens [4.0, log10(sum)] (official get_embedding.py singlecell t4); perturbation simulated by zeroing target gene input (encoder gathers value>0 only)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_k562.h5ad",
+    "h5ad_sha256": "550fde89ac85c258c9fd517638fe34fb42c0e748c9305fe6355761a2bb754170",
+    "selection": "/research/results/scf_concept/selection.json",
+    "split": "GEARS simulation, split_seed=0 holdout; strength-stratified",
+    "n_genes_h5ad": 5000,
+    "n_genes_scf_space": 19264,
+    "n_genes_mapped": 4627,
+    "n_ctrl_cells_total": 10691,
+    "ctrl_pool_size": 32
+  },
+  "eval_protocol": {
+    "label_definition": "pearson_delta = Pearson(pred_delta, true_delta) on top-50 |true_delta| genes among mapped; pearson_delta_all on all mapped genes; pearson_delta_predctrl uses model-space ctrl baseline instead of data ctrl_mean",
+    "true_mean": "mean of condition cells in perturb_processed_k562.h5ad",
+    "ctrl_mean": "mean of ctrl cells in perturb_processed_k562.h5ad",
+    "top_n_deg": 50,
+    "aligned_with": "scGenePT run_scgenept_k562.py (same ctrl pool rng seed 0)"
+  },
+  "selected_perturbations": [
+    {
+      "perturbation": "PRPF31",
+      "tier": "large",
+      "rank_by_strength": 1,
+      "strength_mean": 0.1122378408908844,
+      "strength_top50": 0.6775431632995605,
+      "n_cells": 23
+    },
+    {
+      "perturbation": "MED9",
+      "tier": "large",
+      "rank_by_strength": 2,
+      "strength_mean": 0.10749092698097229,
+      "strength_top50": 0.7939305305480957,
+      "n_cells": 119
+    },
+    {
+      "perturbation": "RPL27",
+      "tier": "large",
+      "rank_by_strength": 4,
+      "strength_mean": 0.10272987931966782,
+      "strength_top50": 0.6457811594009399,
+      "n_cells": 37
+    },
+    {
+      "perturbation": "INTS5",
+      "tier": "large",
+      "rank_by_strength": 11,
+      "strength_mean": 0.09261684864759445,
+      "strength_top50": 0.7360456585884094,
+      "n_cells": 62
+    },
+    {
+      "perturbation": "EXOSC3",
+      "tier": "large",
+      "rank_by_strength": 16,
+      "strength_mean": 0.08995186537504196,
+      "strength_top50": 0.7490358948707581,
+      "n_cells": 44
+    },
+    {
+      "perturbation": "SMC3",
+      "tier": "large",
+      "rank_by_strength": 19,
+      "strength_mean": 0.08845382928848267,
+      "strength_top50": 0.6006028652191162,
+      "n_cells": 42
+    },
+    {
+      "perturbation": "NUTF2",
+      "tier": "large",
+      "rank_by_strength": 30,
+      "strength_mean": 0.08040787279605865,
+      "strength_top50": 0.5230106711387634,
+      "n_cells": 44
+    },
+    {
+      "perturbation": "RPL38",
+      "tier": "large",
+      "rank_by_strength": 35,
+      "strength_mean": 0.07788596302270889,
+      "strength_top50": 0.5710422992706299,
+      "n_cells": 168
+    },
+    {
+      "perturbation": "NUP88",
+      "tier": "large",
+      "rank_by_strength": 37,
+      "strength_mean": 0.07732410728931427,
+      "strength_top50": 0.4846465289592743,
+      "n_cells": 35
+    },
+    {
+      "perturbation": "RPL39",
+      "tier": "large",
+      "rank_by_strength": 43,
+      "strength_mean": 0.07505467534065247,
+      "strength_top50": 0.47505614161491394,
+      "n_cells": 31
+    },
+    {
+      "perturbation": "INTS7",
+      "tier": "large",
+      "rank_by_strength": 44,
+      "strength_mean": 0.07393191754817963,
+      "strength_top50": 0.5334075689315796,
+      "n_cells": 78
+    },
+    {
+      "perturbation": "ABCE1",
+      "tier": "large",
+      "rank_by_strength": 49,
+      "strength_mean": 0.07169248908758163,
+      "strength_top50": 0.49834370613098145,
+      "n_cells": 207
+    },
+    {
+      "perturbation": "GNL3",
+      "tier": "large",
+      "rank_by_strength": 54,
+      "strength_mean": 0.07064300775527954,
+      "strength_top50": 0.4100959002971649,
+      "n_cells": 32
+    },
+    {
+      "perturbation": "LSM4",
+      "tier": "large",
+      "rank_by_strength": 62,
+      "strength_mean": 0.06913386285305023,
+      "strength_top50": 0.44989126920700073,
+      "n_cells": 71
+    },
+    {
+      "perturbation": "RBM39",
+      "tier": "large",
+      "rank_by_strength": 69,
+      "strength_mean": 0.06460152566432953,
+      "strength_top50": 0.4365794062614441,
+      "n_cells": 54
+    },
+    {
+      "perturbation": "HNRNPL",
+      "tier": "medium",
+      "rank_by_strength": 72,
+      "strength_mean": 0.06196744367480278,
+      "strength_top50": 0.35306429862976074,
+      "n_cells": 55
+    },
+    {
+      "perturbation": "KARS",
+      "tier": "medium",
+      "rank_by_strength": 73,
+      "strength_mean": 0.06181437894701958,
+      "strength_top50": 0.3664206564426422,
+      "n_cells": 45
+    },
+    {
+      "perturbation": "MED31",
+      "tier": "medium",
+      "rank_by_strength": 77,
+      "strength_mean": 0.06095648184418678,
+      "strength_top50": 0.2987244129180908,
+      "n_cells": 35
+    },
+    {
+      "perturbation": "SEC61A1",
+      "tier": "medium",
+      "rank_by_strength": 80,
+      "strength_mean": 0.05883534997701645,
+      "strength_top50": 0.41051772236824036,
+      "n_cells": 129
+    },
+    {
+      "perturbation": "U2SURP",
+      "tier": "medium",
+      "rank_by_strength": 82,
+      "strength_mean": 0.058146312832832336,
+      "strength_top50": 0.5037753582000732,
+      "n_cells": 268
+    },
+    {
+      "perturbation": "EIF3M",
+      "tier": "medium",
+      "rank_by_strength": 91,
+      "strength_mean": 0.055587608367204666,
+      "strength_top50": 0.4545325040817261,
+      "n_cells": 217
+    },
+    {
+      "perturbation": "PPAN",
+      "tier": "medium",
+      "rank_by_strength": 99,
+      "strength_mean": 0.05432762950658798,
+      "strength_top50": 0.385282963514328,
+      "n_cells": 87
+    },
+    {
+      "perturbation": "GAB2",
+      "tier": "medium",
+      "rank_by_strength": 100,
+      "strength_mean": 0.05400071293115616,
+      "strength_top50": 0.6466274857521057,
+      "n_cells": 637
+    },
+    {
+      "perturbation": "NELFA",
+      "tier": "medium",
+      "rank_by_strength": 104,
+      "strength_mean": 0.053443364799022675,
+      "strength_top50": 0.3889131546020508,
+      "n_cells": 82
+    },
+    {
+      "perturbation": "RPP30",
+      "tier": "medium",
+      "rank_by_strength": 106,
+      "strength_mean": 0.053006384521722794,
+      "strength_top50": 0.39591193199157715,
+      "n_cells": 97
+    },
+    {
+      "perturbation": "NEDD8",
+      "tier": "medium",
+      "rank_by_strength": 114,
+      "strength_mean": 0.0516497865319252,
+      "strength_top50": 0.4376235902309418,
+      "n_cells": 191
+    },
+    {
+      "perturbation": "OPA1",
+      "tier": "medium",
+      "rank_by_strength": 121,
+      "strength_mean": 0.050623830407857895,
+      "strength_top50": 0.2882981598377228,
+      "n_cells": 53
+    },
+    {
+      "perturbation": "RFC2",
+      "tier": "medium",
+      "rank_by_strength": 125,
+      "strength_mean": 0.04847993701696396,
+      "strength_top50": 0.32767727971076965,
+      "n_cells": 85
+    },
+    {
+      "perturbation": "PPP1R11",
+      "tier": "medium",
+      "rank_by_strength": 136,
+      "strength_mean": 0.04674391448497772,
+      "strength_top50": 0.2810739278793335,
+      "n_cells": 69
+    },
+    {
+      "perturbation": "RNPS1",
+      "tier": "medium",
+      "rank_by_strength": 141,
+      "strength_mean": 0.045580510050058365,
+      "strength_top50": 0.27447709441185,
+      "n_cells": 80
+    },
+    {
+      "perturbation": "KIN",
+      "tier": "small",
+      "rank_by_strength": 152,
+      "strength_mean": 0.041791994124650955,
+      "strength_top50": 0.2622361481189728,
+      "n_cells": 144
+    },
+    {
+      "perturbation": "RPA1",
+      "tier": "small",
+      "rank_by_strength": 166,
+      "strength_mean": 0.03962010145187378,
+      "strength_top50": 0.2675210237503052,
+      "n_cells": 337
+    },
+    {
+      "perturbation": "DDX20",
+      "tier": "small",
+      "rank_by_strength": 168,
+      "strength_mean": 0.03957146033644676,
+      "strength_top50": 0.26934918761253357,
+      "n_cells": 110
+    },
+    {
+      "perturbation": "POLR2E",
+      "tier": "small",
+      "rank_by_strength": 170,
+      "strength_mean": 0.03812599927186966,
+      "strength_top50": 0.22924572229385376,
+      "n_cells": 129
+    },
+    {
+      "perturbation": "PELO",
+      "tier": "small",
+      "rank_by_strength": 174,
+      "strength_mean": 0.0376274548470974,
+      "strength_top50": 0.28073588013648987,
+      "n_cells": 240
+    },
+    {
+      "perturbation": "NDUFAB1",
+      "tier": "small",
+      "rank_by_strength": 180,
+      "strength_mean": 0.036353010684251785,
+      "strength_top50": 0.24769866466522217,
+      "n_cells": 143
+    },
+    {
+      "perturbation": "CDC23",
+      "tier": "small",
+      "rank_by_strength": 182,
+      "strength_mean": 0.03609854727983475,
+      "strength_top50": 0.26047104597091675,
+      "n_cells": 158
+    },
+    {
+      "perturbation": "NCL",
+      "tier": "small",
+      "rank_by_strength": 183,
+      "strength_mean": 0.0360548235476017,
+      "strength_top50": 0.28427478671073914,
+      "n_cells": 148
+    },
+    {
+      "perturbation": "DR1",
+      "tier": "small",
+      "rank_by_strength": 186,
+      "strength_mean": 0.03490936756134033,
+      "strength_top50": 0.23840169608592987,
+      "n_cells": 103
+    },
+    {
+      "perturbation": "INTS6",
+      "tier": "small",
+      "rank_by_strength": 188,
+      "strength_mean": 0.034307170659303665,
+      "strength_top50": 0.19278456270694733,
+      "n_cells": 112
+    },
+    {
+      "perturbation": "CENPE",
+      "tier": "small",
+      "rank_by_strength": 193,
+      "strength_mean": 0.03317887708544731,
+      "strength_top50": 0.22756366431713104,
+      "n_cells": 171
+    },
+    {
+      "perturbation": "PMF1",
+      "tier": "small",
+      "rank_by_strength": 195,
+      "strength_mean": 0.03278321400284767,
+      "strength_top50": 0.2224852591753006,
+      "n_cells": 255
+    },
+    {
+      "perturbation": "N6AMT1",
+      "tier": "small",
+      "rank_by_strength": 200,
+      "strength_mean": 0.03182155638933182,
+      "strength_top50": 0.1805705577135086,
+      "n_cells": 134
+    },
+    {
+      "perturbation": "PPP4R2",
+      "tier": "small",
+      "rank_by_strength": 202,
+      "strength_mean": 0.03150498867034912,
+      "strength_top50": 0.23353073000907898,
+      "n_cells": 162
+    },
+    {
+      "perturbation": "CEP192",
+      "tier": "small",
+      "rank_by_strength": 208,
+      "strength_mean": 0.029076244682073593,
+      "strength_top50": 0.16838793456554413,
+      "n_cells": 184
+    }
+  ],
+  "runtime": {
+    "command": "/research/scripts/scf_concept_run.py --selection /research/results/scf_concept/selection.json --out /research/results/scf_concept/scf_concept --pool 32 --batch 4 --threads 32",
+    "torch_version": "2.1.2+cpu",
+    "threads": 32,
+    "pool": 32,
+    "batch": 4,
+    "n_perts": 45,
+    "n_copied_baseline": 27,
+    "copied_baseline_reason": "target gene not in h5ad 5000-gene input space; zeroing is a no-op so forward input is bit-identical to ctrl baseline",
+    "seconds_per_pert_mean": 125.50094152556525,
+    "seconds_per_pert_median": 0.0,
+    "infer_seconds_total": 5647.542368650436,
+    "ctrl_baseline_seconds": 324.8354260921478,
+    "total_seconds": 5990.986944198608
+  },
+  "host": "Linux 3862ac567c69 5.14.0-687.12.1.el9_8.x86_64 #1 SMP PREEMPT_DYNAMIC Fri May 29 11:50:59 UTC 2026 x86_64 GNU/Linux",
+  "summary": {
+    "pearson_delta_mean": 0.3602449815914688,
+    "pearson_delta_median": 0.3488680315600792,
+    "pearson_delta_all_mean": 0.17318868982719685,
+    "target_in_input_space": {
+      "n": 18,
+      "pearson_delta_mean": 0.34253558558878483,
+      "pearson_delta_median": 0.35862368215774787
+    },
+    "by_tier": {
+      "large": {
+        "n": 15,
+        "pearson_delta_mean": 0.4951922078182623,
+        "pearson_delta_median": 0.4437193686082836
+      },
+      "medium": {
+        "n": 15,
+        "pearson_delta_mean": 0.3325088830279263,
+        "pearson_delta_median": 0.31466422583864756
+      },
+      "small": {
+        "n": 15,
+        "pearson_delta_mean": 0.2530338539282179,
+        "pearson_delta_median": 0.20898498572767316
+      }
+    },
+    "n_valid": 45
+  }
+}

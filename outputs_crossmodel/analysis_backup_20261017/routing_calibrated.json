@@ -1,0 +1,309 @@
+{
+  "task": "calibrated cross-model per-perturbation routing (step7b)",
+  "dataset": "replogle_k562_essential",
+  "n_perturbations": 217,
+  "metric_space": "unified 4813-gene public space, top-50 |delta| Pearson recomputed from h5ad truth for BOTH models (step1 metric)",
+  "label_consistency_check": {
+    "gears_recomputed_vs_archive": {
+      "n": 217,
+      "pearson_corr": 0.9858734168505686,
+      "mean_abs_diff": 0.025119536446304498,
+      "max_abs_diff": 0.18305994589724686
+    },
+    "scgenept_recomputed_vs_archive": {
+      "n": 217,
+      "pearson_corr": 1.0,
+      "mean_abs_diff": 2.0020953956665887e-09,
+      "max_abs_diff": 1.522616316362857e-08
+    },
+    "note": "两模型统一在 4813-gene 公共空间、同一真值重算；归档标签各自在不同基因空间计算（GEARS 5000 / scGenePT matched 4813），允许小幅口径差"
+  },
+  "split": "perturbation-level 70/30, split_seeds=[0,1,2]; identical split generation as step7_routing.py (master seed 20261016)",
+  "calibrators": {
+    "ridge": "StandardScaler + Ridge(alpha=1.0) regressing absolute pearson_delta, fit on 70% train, predict 30% test (no leakage)",
+    "isotonic": "Ridge 5-fold OOF predictions on the 70% train (shuffle, split-seed) -> IsotonicRegression(OOF_pred -> train truth, out_of_bounds='clip'); test = iso(Ridge_pred). OOF input prevents the calibrator from seeing in-sample Ridge fits (leakage guard)."
+  },
+  "routing_rule": "per perturbation, route to the model with higher calibrated predicted pearson_delta",
+  "gears_source": "recovered from archive outputs/pred_expr_seed0.npz (no recompute); scGenePT pred_expr_full from scgenept_k562_predictions.npz",
+  "groups": {
+    "all_gears": {
+      "mean": 0.5608288069013265,
+      "std": 0.03767397169223262,
+      "per_seed": [
+        0.5994521567053621,
+        0.5588522345517446,
+        0.5241820294468728
+      ]
+    },
+    "all_scgenept": {
+      "mean": 0.256590488824753,
+      "std": 0.01950669679470626,
+      "per_seed": [
+        0.2647719108494121,
+        0.27067419582460256,
+        0.23432535980024433
+      ]
+    },
+    "probe_uncalibrated": {
+      "mean": 0.4096160263654838,
+      "std": 0.026678365656014728,
+      "per_seed": [
+        0.4385898037879823,
+        0.3860668332850543,
+        0.4041914420234147
+      ]
+    },
+    "ridge_routed": {
+      "mean": 0.5608288069013265,
+      "std": 0.03767397169223262,
+      "per_seed": [
+        0.5994521567053621,
+        0.5588522345517446,
+        0.5241820294468728
+      ]
+    },
+    "isotonic_routed": {
+      "mean": 0.5608288069013265,
+      "std": 0.03767397169223262,
+      "per_seed": [
+        0.5994521567053621,
+        0.5588522345517446,
+        0.5241820294468728
+      ]
+    },
+    "oracle": {
+      "mean": 0.5759993531097489,
+      "std": 0.031420597757400345,
+      "per_seed": [
+        0.606619119080697,
+        0.577544036637408,
+        0.5438349036111417
+      ]
+    }
+  },
+  "routed_to_scgenept_frac": {
+    "probe_uncalibrated": {
+      "mean": 0.5692307692307691,
+      "per_seed": [
+        0.5384615384615384,
+        0.6307692307692307,
+        0.5384615384615384
+      ]
+    },
+    "ridge_routed": {
+      "mean": 0.0,
+      "per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "isotonic_routed": {
+      "mean": 0.0,
+      "per_seed": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "oracle": {
+      "mean": 0.08717948717948719,
+      "per_seed": [
+        0.06153846153846154,
+        0.1076923076923077,
+        0.09230769230769231
+      ]
+    }
+  },
+  "calibrated_minus_all_gears": {
+    "ridge_routed": {
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "isotonic_routed": {
+      "mean": 0.0,
+      "std": 0.0
+    }
+  },
+  "calibrated_minus_oracle": {
+    "ridge_routed": {
+      "mean": -0.015170546208422434,
+      "std": 0.006947944337357217
+    },
+    "isotonic_routed": {
+      "mean": -0.015170546208422434,
+      "std": 0.006947944337357217
+    }
+  },
+  "bootstrap_pooled_vs_all_gears": {
+    "ridge": {
+      "n_resamples": 3000,
+      "diff_mean": 0.0,
+      "diff_std": 0.0,
+      "p_one_sided": 1.0
+    },
+    "iso": {
+      "n_resamples": 3000,
+      "diff_mean": 0.0,
+      "diff_std": 0.0,
+      "p_one_sided": 1.0
+    }
+  },
+  "bootstrap_per_seed_vs_all_gears": [
+    {
+      "ridge": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      },
+      "iso": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      }
+    },
+    {
+      "ridge": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      },
+      "iso": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      }
+    },
+    {
+      "ridge": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      },
+      "iso": {
+        "diff_mean": 0.0,
+        "diff_std": 0.0,
+        "p_one_sided": 1.0
+      }
+    }
+  ],
+  "seed_results": [
+    {
+      "split_seed": 0,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5994521567053621,
+        "all_scgenept": 0.2647719108494121,
+        "probe_uncalibrated": 0.4385898037879823,
+        "ridge_routed": 0.5994521567053621,
+        "isotonic_routed": 0.5994521567053621,
+        "oracle": 0.606619119080697
+      },
+      "routed_to_scgenept_frac": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0,
+        "probe_uncalibrated": 0.5384615384615384,
+        "oracle": 0.06153846153846154
+      },
+      "calibrated_minus_all_gears": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0
+      },
+      "calibrated_minus_oracle": {
+        "ridge_routed": -0.007166962375334873,
+        "isotonic_routed": -0.007166962375334873
+      },
+      "bootstrap_vs_all_gears": {
+        "ridge": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        },
+        "iso": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        }
+      }
+    },
+    {
+      "split_seed": 1,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5588522345517446,
+        "all_scgenept": 0.27067419582460256,
+        "probe_uncalibrated": 0.3860668332850543,
+        "ridge_routed": 0.5588522345517446,
+        "isotonic_routed": 0.5588522345517446,
+        "oracle": 0.577544036637408
+      },
+      "routed_to_scgenept_frac": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0,
+        "probe_uncalibrated": 0.6307692307692307,
+        "oracle": 0.1076923076923077
+      },
+      "calibrated_minus_all_gears": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0
+      },
+      "calibrated_minus_oracle": {
+        "ridge_routed": -0.018691802085663456,
+        "isotonic_routed": -0.018691802085663456
+      },
+      "bootstrap_vs_all_gears": {
+        "ridge": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        },
+        "iso": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        }
+      }
+    },
+    {
+      "split_seed": 2,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5241820294468728,
+        "all_scgenept": 0.23432535980024433,
+        "probe_uncalibrated": 0.4041914420234147,
+        "ridge_routed": 0.5241820294468728,
+        "isotonic_routed": 0.5241820294468728,
+        "oracle": 0.5438349036111417
+      },
+      "routed_to_scgenept_frac": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0,
+        "probe_uncalibrated": 0.5384615384615384,
+        "oracle": 0.09230769230769231
+      },
+      "calibrated_minus_all_gears": {
+        "ridge_routed": 0.0,
+        "isotonic_routed": 0.0
+      },
+      "calibrated_minus_oracle": {
+        "ridge_routed": -0.019652874164268974,
+        "isotonic_routed": -0.019652874164268974
+      },
+      "bootstrap_vs_all_gears": {
+        "ridge": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        },
+        "iso": {
+          "diff_mean": 0.0,
+          "diff_std": 0.0,
+          "p_one_sided": 1.0
+        }
+      }
+    }
+  ]
+}

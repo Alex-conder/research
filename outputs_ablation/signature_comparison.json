@@ -1,0 +1,546 @@
+{
+  "task": "data-coverage ablation: signature comparison (step12)",
+  "label": "y = (1 - pearson_delta) > median (worst half), same as step6",
+  "units": {
+    "A_k562": {
+      "variant": "A_k562",
+      "dataset_filter": null,
+      "feature_names": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "meta": {
+        "n_total": 217,
+        "n_used": 217,
+        "n_dropped": 0,
+        "dropped_const": [],
+        "n_genes": 2832,
+        "pearson_delta_mean": 0.582158753373787
+      },
+      "probe": {
+        "auroc_mean": 0.7671979535615899,
+        "auroc_std": 0.030621938746847138,
+        "pooled_auroc": 0.7608732585796806,
+        "single_feature": {
+          "delta_l2": {
+            "auroc_mean": 0.7451790633608816,
+            "auroc_std": 0.028354630142599934
+          },
+          "delta_l1": {
+            "auroc_mean": 0.7427587563951201,
+            "auroc_std": 0.033574189518453416
+          },
+          "delta_max": {
+            "auroc_mean": 0.7629673356946085,
+            "auroc_std": 0.033512075439010976
+          },
+          "delta_top50_mean": {
+            "auroc_mean": 0.749409681227863,
+            "auroc_std": 0.02862231113167554
+          },
+          "n_de_025": {
+            "auroc_mean": 0.7598780007870917,
+            "auroc_std": 0.028362931453935945
+          },
+          "frac_de_025": {
+            "auroc_mean": 0.7598780007870917,
+            "auroc_std": 0.028362931453935945
+          },
+          "neg_frac": {
+            "auroc_mean": 0.753443526170799,
+            "auroc_std": 0.032844283519843906
+          },
+          "delta_entropy": {
+            "auroc_mean": 0.45883510428964974,
+            "auroc_std": 0.041359524858592234
+          },
+          "log_n_cells": {
+            "auroc_mean": 0.506582054309327,
+            "auroc_std": 0.02826655895836922
+          }
+        }
+      },
+      "signature": {
+        "delta_l2": 0.06129082952628889,
+        "delta_l1": 0.25292243625991717,
+        "delta_max": -0.40288776693315465,
+        "delta_top50_mean": -0.3050015589928787,
+        "n_de_025": -0.19389155964097457,
+        "frac_de_025": -0.19389145449254064,
+        "neg_frac": 0.7061889609855606,
+        "delta_entropy": 0.48892341736529715,
+        "log_n_cells": -0.11883504476649442
+      },
+      "dominant_top3": [
+        {
+          "feature": "neg_frac",
+          "coef": 0.7061889609855606
+        },
+        {
+          "feature": "delta_entropy",
+          "coef": 0.48892341736529715
+        },
+        {
+          "feature": "delta_max",
+          "coef": -0.40288776693315465
+        }
+      ]
+    },
+    "B_rpe1": {
+      "variant": "B_rpe1",
+      "dataset_filter": null,
+      "feature_names": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "meta": {
+        "n_total": 306,
+        "n_used": 306,
+        "n_dropped": 0,
+        "dropped_const": [],
+        "n_genes": 2832,
+        "pearson_delta_mean": 0.7574845948683929
+      },
+      "probe": {
+        "auroc_mean": 0.7566840097121055,
+        "auroc_std": 0.059933808262490014,
+        "pooled_auroc": 0.7517621427656029,
+        "single_feature": {
+          "delta_l2": {
+            "auroc_mean": 0.7135553243149497,
+            "auroc_std": 0.07749264393445253
+          },
+          "delta_l1": {
+            "auroc_mean": 0.7135483870967743,
+            "auroc_std": 0.07648359205946345
+          },
+          "delta_max": {
+            "auroc_mean": 0.7113146028442594,
+            "auroc_std": 0.0690636475741904
+          },
+          "delta_top50_mean": {
+            "auroc_mean": 0.7103364550815122,
+            "auroc_std": 0.07625658311542552
+          },
+          "n_de_025": {
+            "auroc_mean": 0.71139091224419,
+            "auroc_std": 0.07462945965122365
+          },
+          "frac_de_025": {
+            "auroc_mean": 0.71139091224419,
+            "auroc_std": 0.07462945965122365
+          },
+          "neg_frac": {
+            "auroc_mean": 0.6832778355879292,
+            "auroc_std": 0.05118096310468769
+          },
+          "delta_entropy": {
+            "auroc_mean": 0.6115643426985778,
+            "auroc_std": 0.06801920169598225
+          },
+          "log_n_cells": {
+            "auroc_mean": 0.7081200138744365,
+            "auroc_std": 0.057077932266055766
+          }
+        }
+      },
+      "signature": {
+        "delta_l2": -0.28240602753163135,
+        "delta_l1": -0.4706426600804057,
+        "delta_max": -0.15608900509973206,
+        "delta_top50_mean": 0.06808474854522316,
+        "n_de_025": 0.010680638476154474,
+        "frac_de_025": 0.010681359660223155,
+        "neg_frac": 0.12234880222742998,
+        "delta_entropy": -0.131891007411366,
+        "log_n_cells": 0.7152830856986561
+      },
+      "dominant_top3": [
+        {
+          "feature": "log_n_cells",
+          "coef": 0.7152830856986561
+        },
+        {
+          "feature": "delta_l1",
+          "coef": -0.4706426600804057
+        },
+        {
+          "feature": "delta_l2",
+          "coef": -0.28240602753163135
+        }
+      ]
+    },
+    "C_k562": {
+      "variant": "C_mixed",
+      "dataset_filter": "k562",
+      "feature_names": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "meta": {
+        "n_total": 217,
+        "n_used": 217,
+        "n_dropped": 0,
+        "dropped_const": [],
+        "n_genes": 2832,
+        "pearson_delta_mean": 0.3116831200068031
+      },
+      "probe": {
+        "auroc_mean": 0.6314246359700905,
+        "auroc_std": 0.07084380034247663,
+        "pooled_auroc": 0.625297315664288,
+        "single_feature": {
+          "delta_l2": {
+            "auroc_mean": 0.5923455332546241,
+            "auroc_std": 0.07253658530846938
+          },
+          "delta_l1": {
+            "auroc_mean": 0.5838252656434475,
+            "auroc_std": 0.08050961241624827
+          },
+          "delta_max": {
+            "auroc_mean": 0.5962613144431326,
+            "auroc_std": 0.08728784808980322
+          },
+          "delta_top50_mean": {
+            "auroc_mean": 0.5964777646595827,
+            "auroc_std": 0.06408177267476052
+          },
+          "n_de_025": {
+            "auroc_mean": 0.6024203069657614,
+            "auroc_std": 0.06399089828320913
+          },
+          "frac_de_025": {
+            "auroc_mean": 0.6024203069657614,
+            "auroc_std": 0.06399089828320913
+          },
+          "neg_frac": {
+            "auroc_mean": 0.6356749311294765,
+            "auroc_std": 0.03898536710782954
+          },
+          "delta_entropy": {
+            "auroc_mean": 0.6425423061786699,
+            "auroc_std": 0.08337627545209238
+          },
+          "log_n_cells": {
+            "auroc_mean": 0.5425127902400629,
+            "auroc_std": 0.0730466866712677
+          }
+        }
+      },
+      "signature": {
+        "delta_l2": -0.2773475260048022,
+        "delta_l1": -0.43602850404033366,
+        "delta_max": 0.2765104245197053,
+        "delta_top50_mean": -0.2682676542129553,
+        "n_de_025": 0.3926236931701808,
+        "frac_de_025": 0.39262378461086594,
+        "neg_frac": 0.17901225513040098,
+        "delta_entropy": -0.33415633012293294,
+        "log_n_cells": -0.23575011311023758
+      },
+      "dominant_top3": [
+        {
+          "feature": "delta_l1",
+          "coef": -0.43602850404033366
+        },
+        {
+          "feature": "frac_de_025",
+          "coef": 0.39262378461086594
+        },
+        {
+          "feature": "n_de_025",
+          "coef": 0.3926236931701808
+        }
+      ]
+    },
+    "C_rpe1": {
+      "variant": "C_mixed",
+      "dataset_filter": "rpe1",
+      "feature_names": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "meta": {
+        "n_total": 306,
+        "n_used": 306,
+        "n_dropped": 0,
+        "dropped_const": [],
+        "n_genes": 2832,
+        "pearson_delta_mean": 0.373904361367742
+      },
+      "probe": {
+        "auroc_mean": 0.7543669788414846,
+        "auroc_std": 0.04891999773485715,
+        "pooled_auroc": 0.7462514417531718,
+        "single_feature": {
+          "delta_l2": {
+            "auroc_mean": 0.581831425598335,
+            "auroc_std": 0.10615006872646024
+          },
+          "delta_l1": {
+            "auroc_mean": 0.5739576829691294,
+            "auroc_std": 0.10458806835816353
+          },
+          "delta_max": {
+            "auroc_mean": 0.5495317377731529,
+            "auroc_std": 0.10708179058752072
+          },
+          "delta_top50_mean": {
+            "auroc_mean": 0.5828442594519598,
+            "auroc_std": 0.10577861675287378
+          },
+          "n_de_025": {
+            "auroc_mean": 0.590669441553937,
+            "auroc_std": 0.10750063904978271
+          },
+          "frac_de_025": {
+            "auroc_mean": 0.590669441553937,
+            "auroc_std": 0.10750063904978271
+          },
+          "neg_frac": {
+            "auroc_mean": 0.7114568158168575,
+            "auroc_std": 0.0563078038435817
+          },
+          "delta_entropy": {
+            "auroc_mean": 0.7179118973291709,
+            "auroc_std": 0.07293904345875998
+          },
+          "log_n_cells": {
+            "auroc_mean": 0.41831078737426297,
+            "auroc_std": 0.014158114511652026
+          }
+        }
+      },
+      "signature": {
+        "delta_l2": -0.12849812070835984,
+        "delta_l1": -0.1037023941921807,
+        "delta_max": 1.8376458467056276,
+        "delta_top50_mean": 0.2072344185614539,
+        "n_de_025": -0.6994722774569287,
+        "frac_de_025": -0.699472191895026,
+        "neg_frac": -0.1792658185715202,
+        "delta_entropy": 0.9122068892167949,
+        "log_n_cells": 0.23470714396810619
+      },
+      "dominant_top3": [
+        {
+          "feature": "delta_max",
+          "coef": 1.8376458467056276
+        },
+        {
+          "feature": "delta_entropy",
+          "coef": 0.9122068892167949
+        },
+        {
+          "feature": "n_de_025",
+          "coef": -0.6994722774569287
+        }
+      ]
+    },
+    "D_zeroshot_rpe1": {
+      "variant": "D_zeroshot",
+      "dataset_filter": null,
+      "feature_names": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "meta": {
+        "n_total": 306,
+        "n_used": 306,
+        "n_dropped": 0,
+        "dropped_const": [],
+        "n_genes": 2832,
+        "pearson_delta_mean": 0.08380984967257611
+      },
+      "probe": {
+        "auroc_mean": 0.6194935830731877,
+        "auroc_std": 0.06290465789439816,
+        "pooled_auroc": 0.6229655260797129,
+        "single_feature": {
+          "delta_l2": {
+            "auroc_mean": 0.6266666666666667,
+            "auroc_std": 0.06367697994931429
+          },
+          "delta_l1": {
+            "auroc_mean": 0.6125078043704475,
+            "auroc_std": 0.06711050520989553
+          },
+          "delta_max": {
+            "auroc_mean": 0.5703850156087409,
+            "auroc_std": 0.013716450503667895
+          },
+          "delta_top50_mean": {
+            "auroc_mean": 0.6070551508844952,
+            "auroc_std": 0.04888679650053624
+          },
+          "n_de_025": {
+            "auroc_mean": 0.5803433922996878,
+            "auroc_std": 0.0717635476239683
+          },
+          "frac_de_025": {
+            "auroc_mean": 0.5803433922996878,
+            "auroc_std": 0.0717635476239683
+          },
+          "neg_frac": {
+            "auroc_mean": 0.6175407561567811,
+            "auroc_std": 0.06537451866083718
+          },
+          "delta_entropy": {
+            "auroc_mean": 0.560638224072147,
+            "auroc_std": 0.03527123095706053
+          },
+          "log_n_cells": {
+            "auroc_mean": 0.46602497398543186,
+            "auroc_std": 0.053077750645366295
+          }
+        }
+      },
+      "signature": {
+        "delta_l2": 0.31193219230089947,
+        "delta_l1": 0.7299566013390206,
+        "delta_max": 0.6121495637782385,
+        "delta_top50_mean": -0.2314241331678549,
+        "n_de_025": -0.06482688172409852,
+        "frac_de_025": -0.06480742775057835,
+        "neg_frac": -0.27019074549856925,
+        "delta_entropy": 0.1828395203391763,
+        "log_n_cells": -0.12946102492847578
+      },
+      "dominant_top3": [
+        {
+          "feature": "delta_l1",
+          "coef": 0.7299566013390206
+        },
+        {
+          "feature": "delta_max",
+          "coef": 0.6121495637782385
+        },
+        {
+          "feature": "delta_l2",
+          "coef": 0.31193219230089947
+        }
+      ]
+    }
+  },
+  "signature_cos_sim": {
+    "A_k562||B_rpe1": -0.16098708234574188,
+    "A_k562||C_k562": -0.3086876265642321,
+    "A_k562||C_rpe1": -0.11088147530133202,
+    "A_k562||D_zeroshot_rpe1": -0.02837289689572998,
+    "B_rpe1||C_k562": 0.14229802608657335,
+    "B_rpe1||C_rpe1": -0.08184033414716266,
+    "B_rpe1||D_zeroshot_rpe1": -0.6804142108777893,
+    "C_k562||C_rpe1": -0.18373405339151147,
+    "C_k562||D_zeroshot_rpe1": -0.2893764464468499,
+    "C_rpe1||D_zeroshot_rpe1": 0.49035253208069546
+  },
+  "baseline_comparison": {
+    "A_k562": {
+      "baseline_key": "GEARS(K562)",
+      "cos_sim": 0.5976527470410804,
+      "n_features": 9
+    }
+  },
+  "verdict": {
+    "question": "误差探针签名由训练数据覆盖决定，还是由模型架构决定？",
+    "rule": "C 的签名消失/显著改变 -> 能改；C 与 A/B 同构 -> 不能改",
+    "C_observation": {
+      "C_k562": {
+        "vs_same_data_solo": -0.3086876265642321,
+        "dominant_top3": [
+          {
+            "feature": "delta_l1",
+            "coef": -0.43602850404033366
+          },
+          {
+            "feature": "frac_de_025",
+            "coef": 0.39262378461086594
+          },
+          {
+            "feature": "n_de_025",
+            "coef": 0.3926236931701808
+          }
+        ],
+        "single_feature": {
+          "delta_l2": 0.592,
+          "delta_l1": 0.584,
+          "delta_max": 0.596,
+          "delta_top50_mean": 0.596,
+          "n_de_025": 0.602,
+          "frac_de_025": 0.602,
+          "neg_frac": 0.636,
+          "delta_entropy": 0.643,
+          "log_n_cells": 0.543
+        },
+        "auroc": 0.6314246359700905
+      },
+      "C_rpe1": {
+        "vs_same_data_solo": -0.08184033414716266,
+        "dominant_top3": [
+          {
+            "feature": "delta_max",
+            "coef": 1.8376458467056276
+          },
+          {
+            "feature": "delta_entropy",
+            "coef": 0.9122068892167949
+          },
+          {
+            "feature": "n_de_025",
+            "coef": -0.6994722774569287
+          }
+        ],
+        "single_feature": {
+          "delta_l2": 0.582,
+          "delta_l1": 0.574,
+          "delta_max": 0.55,
+          "delta_top50_mean": 0.583,
+          "n_de_025": 0.591,
+          "frac_de_025": 0.591,
+          "neg_frac": 0.711,
+          "delta_entropy": 0.718,
+          "log_n_cells": 0.418
+        },
+        "auroc": 0.7543669788414846
+      }
+    },
+    "dominant_feature_preserved_in_C": false,
+    "conclusion": "能改：混合训练后签名主导特征改变，签名受训练数据覆盖影响"
+  }
+}

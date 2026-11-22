@@ -1,0 +1,79 @@
+{
+  "task": "G-A multidataset gating probe",
+  "dataset": "adamson",
+  "model_seed": 4,
+  "probe_seed": 4,
+  "n_perts": 16,
+  "evaluable": true,
+  "cv_scheme": "stratified 5-fold CV",
+  "low_power_warning": false,
+  "label_definition": "y = (1 - pearson_delta) > median",
+  "features": [
+    "delta_l2",
+    "delta_l1",
+    "delta_max",
+    "delta_top50_mean",
+    "n_de_025",
+    "frac_de_025",
+    "neg_frac",
+    "delta_entropy",
+    "log_n_cells"
+  ],
+  "excluded_features": {
+    "in_pert_graph": "constant column, dropped",
+    "strength": "truth-derived, excluded (leakage guard)",
+    "pearson_delta_all": "truth-derived (label source), excluded"
+  },
+  "error_median": 0.09701995741119451,
+  "n_positive": 8,
+  "cv_auroc_mean": 0.6,
+  "cv_auroc_std": 0.22360679774997896,
+  "cv_auroc_per_fold": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0
+  ],
+  "pooled_cv_auroc": 0.625,
+  "best_single_feature": "neg_frac",
+  "single_feature_auroc": {
+    "delta_l2": {
+      "auroc_mean": 0.6,
+      "auroc_std": 0.37416573867739417
+    },
+    "delta_l1": {
+      "auroc_mean": 0.65,
+      "auroc_std": 0.3741657386773941
+    },
+    "delta_max": {
+      "auroc_mean": 0.6,
+      "auroc_std": 0.37416573867739417
+    },
+    "delta_top50_mean": {
+      "auroc_mean": 0.6,
+      "auroc_std": 0.37416573867739417
+    },
+    "n_de_025": {
+      "auroc_mean": 0.6,
+      "auroc_std": 0.37416573867739417
+    },
+    "frac_de_025": {
+      "auroc_mean": 0.6,
+      "auroc_std": 0.37416573867739417
+    },
+    "neg_frac": {
+      "auroc_mean": 0.7,
+      "auroc_std": 0.4
+    },
+    "delta_entropy": {
+      "auroc_mean": 0.7,
+      "auroc_std": 0.4
+    },
+    "log_n_cells": {
+      "auroc_mean": 0.5,
+      "auroc_std": 0.31622776601683794
+    }
+  },
+  "criterion": "per-dataset mean over seeds >= 0.6"
+}

@@ -1,0 +1,12 @@
+dataset,method,auroc,cost
+K562,sign-layer (zero-cost),0.620158002038736,1x inference
+K562,magnitude (delta_max),0.6403329935440027,1x inference
+K562,ensemble disagreement,0.5894070676180767,3x inference
+RPE1,sign-layer (zero-cost),0.5776197189115297,1x inference
+RPE1,magnitude (delta_max),0.7591097441155111,1x inference
+RPE1,ensemble disagreement,0.5695459011491306,2x inference
+K562,conformal prediction,0.6776859504132231,1x + calibration set
+Norman (ref),probe_full,0.6543493034318723,ref
+Norman (ref),delta_max_single,0.6233435270132518,ref
+Norman (ref),magnitude_l2,0.3843017329255861,ref
+Norman (ref),ensemble_variance,0.427285083248386,ref

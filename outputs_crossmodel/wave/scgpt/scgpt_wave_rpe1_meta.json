@@ -1,0 +1,24 @@
+{
+  "task": "scGPT whole-human wave: per-cell cell_emb K562/RPE1",
+  "date_utc": "2026-10-20T17:31:27Z",
+  "model": {
+    "name": "scGPT whole-human",
+    "weights_sha256": "6cb5d451ab5c4b33eb673adbe4fddc61d2389df1b89b7651a9fe2e557572b922",
+    "cell_emb_style": "cls",
+    "inference_protocol": "mask target to -1 on ctrl pool; true cells unmasked; cell_emb via _encode + _get_cell_emb_from_layer (skips 60697-vocab MLM head; verified elementwise equal to full-forward cell_emb); per-cell kept",
+    "output_type": "cell embedding (512-d cell_emb)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_rpe1.h5ad",
+    "heldout_source": "/research/meta_rpe1/pred_expr_seed0.npz",
+    "ctrl_pool_size": 32,
+    "true_cells_cap": 32,
+    "true_sampling": "default_rng(777000+pi) w/o replacement"
+  },
+  "runtime": {
+    "command": "/research/scripts/run_scgpt_wave.py --threads 32 --batch 8 --h5ad /research/data/perturb_processed_rpe1.h5ad --local-npz /research/meta_rpe1/pred_expr_seed0.npz --out /research/outputs_crossmodel/scgpt/scgpt_wave_rpe1",
+    "threads": 32,
+    "infer_seconds_total": 59408.95375752449,
+    "total_seconds": 59518.25916814804
+  }
+}

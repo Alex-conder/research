@@ -1,0 +1,14 @@
+{
+  "task": "G-A multidataset gating probe",
+  "dataset": "dixit",
+  "model_seed": 3,
+  "probe_seed": 3,
+  "n_perts": 3,
+  "evaluable": false,
+  "non_evaluable_reason": "minority class <2 (pos=1, neg=2); no CV/LOO can train (amendment 1, prereg_expansion_ga.md)",
+  "label_definition": "y = (1 - pearson_delta) > median",
+  "error_median": 0.841427399896441,
+  "n_positive": 1,
+  "cv_auroc_mean": null,
+  "criterion": "per-dataset mean over seeds >= 0.6"
+}

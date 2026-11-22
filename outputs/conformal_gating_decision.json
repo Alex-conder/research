@@ -1,0 +1,259 @@
+{
+  "auroc": 0.6776859504132231,
+  "alpha": 0.1,
+  "n_trials": 20,
+  "tau_grid": [
+    0.3,
+    0.325,
+    0.35,
+    0.375,
+    0.4,
+    0.42500000000000004,
+    0.45,
+    0.47500000000000003,
+    0.5,
+    0.525,
+    0.55,
+    0.5750000000000001,
+    0.6000000000000001,
+    0.625,
+    0.6500000000000001,
+    0.675,
+    0.7000000000000001,
+    0.7250000000000001,
+    0.75,
+    0.7750000000000001,
+    0.8,
+    0.8250000000000002,
+    0.8500000000000001,
+    0.875,
+    0.9
+  ],
+  "summary": [
+    {
+      "tau": 0.3,
+      "accept_rate_mean": 0.0022727272727272726,
+      "accept_rate_std": 0.0069953069460351415,
+      "mean_err_accepted_mean": 0.29721349399644104,
+      "mean_err_accepted_std": 0.0,
+      "mean_err_rejected_mean": 0.42595012269166704,
+      "mean_err_rejected_std": 0.028077682285397417
+    },
+    {
+      "tau": 0.325,
+      "accept_rate_mean": 0.0022727272727272726,
+      "accept_rate_std": 0.0069953069460351415,
+      "mean_err_accepted_mean": 0.29721349399644104,
+      "mean_err_accepted_std": 0.0,
+      "mean_err_rejected_mean": 0.42595012269166704,
+      "mean_err_rejected_std": 0.028077682285397417
+    },
+    {
+      "tau": 0.35,
+      "accept_rate_mean": 0.0022727272727272726,
+      "accept_rate_std": 0.0069953069460351415,
+      "mean_err_accepted_mean": 0.29721349399644104,
+      "mean_err_accepted_std": 0.0,
+      "mean_err_rejected_mean": 0.42595012269166704,
+      "mean_err_rejected_std": 0.028077682285397417
+    },
+    {
+      "tau": 0.375,
+      "accept_rate_mean": 0.0022727272727272726,
+      "accept_rate_std": 0.0069953069460351415,
+      "mean_err_accepted_mean": 0.29721349399644104,
+      "mean_err_accepted_std": 0.0,
+      "mean_err_rejected_mean": 0.42595012269166704,
+      "mean_err_rejected_std": 0.028077682285397417
+    },
+    {
+      "tau": 0.4,
+      "accept_rate_mean": 0.003409090909090909,
+      "accept_rate_std": 0.011121829202945292,
+      "mean_err_accepted_mean": 0.3557047918558071,
+      "mean_err_accepted_std": 0.08271918671351988,
+      "mean_err_rejected_mean": 0.42578407954624176,
+      "mean_err_rejected_std": 0.02829981311855024
+    },
+    {
+      "tau": 0.42500000000000004,
+      "accept_rate_mean": 0.005681818181818182,
+      "accept_rate_std": 0.016280690895713157,
+      "mean_err_accepted_mean": 0.33744791571165256,
+      "mean_err_accepted_std": 0.06968806262389886,
+      "mean_err_rejected_mean": 0.4258963906382437,
+      "mean_err_rejected_std": 0.028411859155826304
+    },
+    {
+      "tau": 0.45,
+      "accept_rate_mean": 0.005681818181818182,
+      "accept_rate_std": 0.016280690895713157,
+      "mean_err_accepted_mean": 0.33744791571165256,
+      "mean_err_accepted_std": 0.06968806262389886,
+      "mean_err_rejected_mean": 0.4258963906382437,
+      "mean_err_rejected_std": 0.028411859155826304
+    },
+    {
+      "tau": 0.47500000000000003,
+      "accept_rate_mean": 0.00909090909090909,
+      "accept_rate_std": 0.02005863523086563,
+      "mean_err_accepted_mean": 0.3435269122928585,
+      "mean_err_accepted_std": 0.06837992992937779,
+      "mean_err_rejected_mean": 0.4263944686873614,
+      "mean_err_rejected_std": 0.02931317734426419
+    },
+    {
+      "tau": 0.5,
+      "accept_rate_mean": 0.00909090909090909,
+      "accept_rate_std": 0.02005863523086563,
+      "mean_err_accepted_mean": 0.3435269122928585,
+      "mean_err_accepted_std": 0.06837992992937779,
+      "mean_err_rejected_mean": 0.4263944686873614,
+      "mean_err_rejected_std": 0.02931317734426419
+    },
+    {
+      "tau": 0.525,
+      "accept_rate_mean": 0.017045454545454548,
+      "accept_rate_std": 0.027466417471782377,
+      "mean_err_accepted_mean": 0.27750757803365217,
+      "mean_err_accepted_std": 0.14633797672041782,
+      "mean_err_rejected_mean": 0.4284710769109886,
+      "mean_err_rejected_std": 0.030186613898799442
+    },
+    {
+      "tau": 0.55,
+      "accept_rate_mean": 0.02727272727272727,
+      "accept_rate_std": 0.03346718088825559,
+      "mean_err_accepted_mean": 0.259476932573167,
+      "mean_err_accepted_std": 0.10985389013559622,
+      "mean_err_rejected_mean": 0.43104364975694026,
+      "mean_err_rejected_std": 0.03139929127706086
+    },
+    {
+      "tau": 0.5750000000000001,
+      "accept_rate_mean": 0.04659090909090909,
+      "accept_rate_std": 0.04805650853088692,
+      "mean_err_accepted_mean": 0.3004400668624166,
+      "mean_err_accepted_std": 0.12658417936017055,
+      "mean_err_rejected_mean": 0.4324324357493481,
+      "mean_err_rejected_std": 0.03314250085371416
+    },
+    {
+      "tau": 0.6000000000000001,
+      "accept_rate_mean": 0.06136363636363636,
+      "accept_rate_std": 0.0621756481451585,
+      "mean_err_accepted_mean": 0.2743438863918147,
+      "mean_err_accepted_std": 0.12476517566866889,
+      "mean_err_rejected_mean": 0.4357862278270298,
+      "mean_err_rejected_std": 0.03658539021325981
+    },
+    {
+      "tau": 0.625,
+      "accept_rate_mean": 0.07954545454545454,
+      "accept_rate_std": 0.06857938317332135,
+      "mean_err_accepted_mean": 0.23991078484716283,
+      "mean_err_accepted_std": 0.1106179771951857,
+      "mean_err_rejected_mean": 0.44028732863738423,
+      "mean_err_rejected_std": 0.037185831145238164
+    },
+    {
+      "tau": 0.6500000000000001,
+      "accept_rate_mean": 0.11136363636363637,
+      "accept_rate_std": 0.08306466768105376,
+      "mean_err_accepted_mean": 0.2450726310673427,
+      "mean_err_accepted_std": 0.09508951385781893,
+      "mean_err_rejected_mean": 0.44396354256339715,
+      "mean_err_rejected_std": 0.03534330639716332
+    },
+    {
+      "tau": 0.675,
+      "accept_rate_mean": 0.14772727272727273,
+      "accept_rate_std": 0.10596087815321069,
+      "mean_err_accepted_mean": 0.2558729521047788,
+      "mean_err_accepted_std": 0.09249685126731662,
+      "mean_err_rejected_mean": 0.44901026282614653,
+      "mean_err_rejected_std": 0.03868272439113683
+    },
+    {
+      "tau": 0.7000000000000001,
+      "accept_rate_mean": 0.20340909090909093,
+      "accept_rate_std": 0.1234902299196274,
+      "mean_err_accepted_mean": 0.29080324122112533,
+      "mean_err_accepted_std": 0.09471134414369943,
+      "mean_err_rejected_mean": 0.45102443193813163,
+      "mean_err_rejected_std": 0.02902653459354647
+    },
+    {
+      "tau": 0.7250000000000001,
+      "accept_rate_mean": 0.275,
+      "accept_rate_std": 0.14085505986789087,
+      "mean_err_accepted_mean": 0.3101870799191187,
+      "mean_err_accepted_std": 0.07262476645601292,
+      "mean_err_rejected_mean": 0.46251680940869433,
+      "mean_err_rejected_std": 0.03713879846723687
+    },
+    {
+      "tau": 0.75,
+      "accept_rate_mean": 0.3795454545454545,
+      "accept_rate_std": 0.16055376657594328,
+      "mean_err_accepted_mean": 0.3363880395257967,
+      "mean_err_accepted_std": 0.06031182487858425,
+      "mean_err_rejected_mean": 0.47217391971857836,
+      "mean_err_rejected_std": 0.037809497474500055
+    },
+    {
+      "tau": 0.7750000000000001,
+      "accept_rate_mean": 0.4965909090909091,
+      "accept_rate_std": 0.16705542235013238,
+      "mean_err_accepted_mean": 0.35340321473318137,
+      "mean_err_accepted_std": 0.058600244697591716,
+      "mean_err_rejected_mean": 0.48234148136012306,
+      "mean_err_rejected_std": 0.04095607595995285
+    },
+    {
+      "tau": 0.8,
+      "accept_rate_mean": 0.6306818181818181,
+      "accept_rate_std": 0.18402887489266018,
+      "mean_err_accepted_mean": 0.3809453909930901,
+      "mean_err_accepted_std": 0.050124834785142396,
+      "mean_err_rejected_mean": 0.47771495213990256,
+      "mean_err_rejected_std": 0.06290139128778974
+    },
+    {
+      "tau": 0.8250000000000002,
+      "accept_rate_mean": 0.7431818181818182,
+      "accept_rate_std": 0.18018102636474514,
+      "mean_err_accepted_mean": 0.39467312629192586,
+      "mean_err_accepted_std": 0.05251050672101632,
+      "mean_err_rejected_mean": 0.4677529656670477,
+      "mean_err_rejected_std": 0.0818947068858928
+    },
+    {
+      "tau": 0.8500000000000001,
+      "accept_rate_mean": 0.825,
+      "accept_rate_std": 0.15902254170094887,
+      "mean_err_accepted_mean": 0.4031033044127537,
+      "mean_err_accepted_std": 0.045340857605147375,
+      "mean_err_rejected_mean": 0.4732339268987663,
+      "mean_err_rejected_std": 0.17160016378320642
+    },
+    {
+      "tau": 0.875,
+      "accept_rate_mean": 0.8954545454545455,
+      "accept_rate_std": 0.11807135065353519,
+      "mean_err_accepted_mean": 0.41230303056966006,
+      "mean_err_accepted_std": 0.038423265279258496,
+      "mean_err_rejected_mean": 0.4638856445077345,
+      "mean_err_rejected_std": 0.15050078178034887
+    },
+    {
+      "tau": 0.9,
+      "accept_rate_mean": 0.9511363636363637,
+      "accept_rate_std": 0.08826138323375024,
+      "mean_err_accepted_mean": 0.4189356125736337,
+      "mean_err_accepted_std": 0.03182932326245404,
+      "mean_err_rejected_mean": 0.508390166879494,
+      "mean_err_rejected_std": 0.15858330472670093
+    }
+  ]
+}

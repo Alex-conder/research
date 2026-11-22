@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Large / regenerable artifacts
+*.npz
+*.pt
+*.pkl
+*.npy
+*.zip
+*.log
+
+# Raw data & heavy testbeds
+data/
+downloads/
+gse281048_testbed/
+manuscript/
+patches/
+vcc_pipeline/
+out_final*/
+
+# Cluster transfer utilities (not part of the reproducible pipeline)
+pull_arch_controls.py
+pull_file.py
+put_b64.py
+xmu_ssh.py*.h5ad
+*.h5

@@ -1,0 +1,56 @@
+{
+  "task": "scGPT whole-human zero-shot: Replogle essential held-out perturbation prediction (K562)",
+  "date_utc": "2026-10-16T15:50:02Z",
+  "model": {
+    "name": "scGPT whole-human pretrained (bowang-lab/scGPT)",
+    "source": "hf-mirror perturblab/scgpt-human (re-upload of bowang-lab/scGPT whole_human best_model.pt)",
+    "weights_file": "/research/models/scgpt_whole_human/best_model.pt",
+    "weights_sha256": "6cb5d451ab5c4b33eb673adbe4fddc61d2389df1b89b7651a9fe2e557572b922",
+    "weights_bytes": 205385258,
+    "args_json": {
+      "embsize": 512,
+      "nhead": 8,
+      "d_hid": 512,
+      "nlayers": 12,
+      "nlayers_cls": 3,
+      "n_cls": 1,
+      "mvc_decoder_style": "inner product"
+    },
+    "inference_protocol": "canonical zero-shot masking: perturbed gene value masked to -1 in ctrl cells, mlm_output read for all tokens; pred_expr = pool mean; unmasked positions are identity reconstructions",
+    "output_type": "gene expression prediction (mlm_output)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_k562.h5ad",
+    "h5ad_sha256": "550fde89ac85c258c9fd517638fe34fb42c0e748c9305fe6355761a2bb754170",
+    "heldout_source": "/research/meta/pred_expr_seed0.npz",
+    "split": "GEARS simulation, split_seed=0, holdout frac=0.2",
+    "n_genes_h5ad": 5000,
+    "n_genes_matched_vocab": 4813,
+    "n_ctrl_cells_total": 10691,
+    "ctrl_pool_size": 32
+  },
+  "eval_protocol": {
+    "label_definition": "pearson_delta = Pearson(pred_delta, true_delta) on top-50 |true_delta| genes; pearson_delta_all on all matched genes (same as local step1_run.py / scgenept run)",
+    "true_mean": "mean of condition cells in perturb_processed.h5ad",
+    "ctrl_mean": "mean of ctrl cells in perturb_processed.h5ad",
+    "top_n_deg": 50,
+    "caveat": "零样本 mask 协议下未扰动位置预测≈输入，pearson_delta 主要反映扰动基因单点及其邻域；pred_pert_gene_value 单独留痕",
+    "target_not_in_input_space": "目标基因不在输入空间的扰动无法 mask，预测≈ctrl（138/217，同 scgenept 数据事实）"
+  },
+  "runtime": {
+    "command": "/research/scripts/run_scgpt_k562.py --threads 32 --out /research/results/scgpt_k562",
+    "torch_version": "2.1.2+cpu",
+    "threads": 32,
+    "n_perts": 217,
+    "resumed_from_checkpoint": 0,
+    "seconds_per_pert_mean": 195.0334095866999,
+    "infer_seconds_total": 42322.24988031387,
+    "total_seconds": 42339.19158625603
+  },
+  "summary": {
+    "pearson_delta_mean": 0.22701694508845374,
+    "pearson_delta_median": 0.23105276502639524,
+    "pearson_delta_all_mean": 0.08374686341331923,
+    "n_valid": 217
+  }
+}

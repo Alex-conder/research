@@ -1,0 +1,44 @@
+{
+  "task": "strata robustness / failure-mode analysis (step6c)",
+  "dataset": "RPE1",
+  "n": 306,
+  "overall_auroc_3seeds": [
+    0.7896535520526293,
+    0.7896535520526293,
+    0.7896535520526293
+  ],
+  "true_strength_tertile": {
+    "low": {
+      "n": 102,
+      "auroc": 0.7633064516129031,
+      "worst_half_rate": 0.6078431372549019
+    },
+    "mid": {
+      "n": 102,
+      "auroc": 0.7551257253384914,
+      "worst_half_rate": 0.5392156862745098
+    },
+    "high": {
+      "n": 102,
+      "auroc": 0.7508417508417509,
+      "worst_half_rate": 0.35294117647058826
+    }
+  },
+  "n_cells_tertile": {
+    "low": {
+      "n": 102,
+      "auroc": 0.7481481481481481,
+      "worst_half_rate": 0.2647058823529412
+    },
+    "mid": {
+      "n": 106,
+      "auroc": 0.5977011494252873,
+      "worst_half_rate": 0.5471698113207547
+    },
+    "high": {
+      "n": 98,
+      "auroc": 0.7534313725490196,
+      "worst_half_rate": 0.6938775510204082
+    }
+  }
+}

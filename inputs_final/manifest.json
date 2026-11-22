@@ -1,0 +1,36 @@
+{
+  "season": "2026",
+  "partition": "test",
+  "panel_id": "vcc2026-test-1",
+  "contexts": [
+    "D",
+    "E",
+    "F"
+  ],
+  "pert_col": "target_gene",
+  "context_col": "context",
+  "control_label": "non-targeting",
+  "n_genes": 18533,
+  "n_constructs": 300,
+  "cells_per_pert": 400,
+  "per_context": {
+    "D": {
+      "n_perturbations": 300,
+      "control_cells": 18400,
+      "n_ntc_ids": 46,
+      "ground_truth_cells": 138400
+    },
+    "E": {
+      "n_perturbations": 300,
+      "control_cells": 18400,
+      "n_ntc_ids": 46,
+      "ground_truth_cells": 138400
+    },
+    "F": {
+      "n_perturbations": 300,
+      "control_cells": 18400,
+      "n_ntc_ids": 46,
+      "ground_truth_cells": 138400
+    }
+  }
+}

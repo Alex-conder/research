@@ -1,0 +1,50 @@
+{
+  "task": "scGenePT cross-model generalization: Replogle essential held-out perturbation prediction (zero-shot from Norman finetune)",
+  "date_utc": "2026-10-15T22:46:32Z",
+  "model": {
+    "name": "scGenePT (scgenept_ncbi+uniprot, Norman finetuned)",
+    "model_type": "scgenept_ncbi+uniprot_gpt",
+    "repo": "https://github.com/czi-ai/scGenePT",
+    "git_commit": "5847c57e4cccd9949a7f0b5f3775d5dcae5a5eac",
+    "weights_file": "/research/models/finetuned/scgenept_ncbi+uniprot/norman/best_model_gpt3.5_ada_rnd_seed_42.pt",
+    "weights_sha256": "fa210160108980452f90c67df086deec25179f85a55c99e038ddd40dd9118cc2",
+    "weights_bytes": 954404783,
+    "gene_embeddings_file": "/research/models/gene_embeddings/NCBI+UniProt_embeddings-gpt3.5-ada.pkl",
+    "inference_mode": "deterministic mean (explicit_zero_prob=False)"
+  },
+  "data": {
+    "h5ad": "/research/data/perturb_processed_rpe1.h5ad",
+    "h5ad_sha256": "cc3e13da13ecd3cf7fb027b8261514a2bdcfab16fe47fc685b2714f79781afba",
+    "heldout_source": "/research/meta_rpe1/pred_expr_seed0.npz",
+    "split": "GEARS simulation, split_seed=0, holdout frac=0.2",
+    "n_genes_h5ad": 5000,
+    "n_genes_matched_vocab": 4899,
+    "n_ctrl_cells_total": 11485,
+    "ctrl_pool_size": 32
+  },
+  "eval_protocol": {
+    "label_definition": "pearson_delta = Pearson(pred_delta, true_delta) on top-50 |true_delta| genes; pearson_delta_all on all matched genes (same as local step1_run.py)",
+    "true_mean": "mean of condition cells in perturb_processed.h5ad",
+    "ctrl_mean": "mean of ctrl cells in perturb_processed.h5ad",
+    "top_n_deg": 50,
+    "cross_dataset_note": "model finetuned on Norman 5045-gene space; applied zero-shot via scGPT whole-human vocab gene matching",
+    "target_not_in_input_space": "部分 held-out 目标基因不在数据集输入基因内（GEARS 图含扰动节点而 token 模型无法标记缺失 token），这些扰动的预测≈ctrl，逐扰动留痕 target_in_input_space"
+  },
+  "runtime": {
+    "command": "/research/scripts/run_scgenept_k562.py --h5ad /research/data/perturb_processed_rpe1.h5ad --local-npz /research/meta_rpe1/pred_expr_seed0.npz --pool 32 --batch 8 --out /research/results/scgenept_rpe1",
+    "torch_version": "2.1.2+cpu",
+    "threads": 64,
+    "n_perts": 306,
+    "resumed_from_checkpoint": 3,
+    "seconds_per_pert_mean": 117.77255252092192,
+    "infer_seconds_total": 35685.08341383934,
+    "total_seconds": 35710.75998520851
+  },
+  "host": "Linux 360945d14497 5.14.0-687.12.1.el9_8.x86_64 #1 SMP PREEMPT_DYNAMIC Fri May 29 11:50:59 UTC 2026 x86_64 GNU/Linux",
+  "summary": {
+    "pearson_delta_mean": -0.004563551661499614,
+    "pearson_delta_median": -0.031387709783866104,
+    "pearson_delta_all_mean": 0.11769116689312756,
+    "n_valid": 306
+  }
+}

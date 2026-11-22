@@ -1,0 +1,44 @@
+{
+  "task": "cross-dataset transfer: same K562 in-situ probe applied verbatim to RPE1 (step9b)",
+  "probe": {
+    "source": "outputs/gating_probe_transfer.json",
+    "dataset": "replogle_k562_essential",
+    "n_fit": 217,
+    "note": "deployment-style in-sample fit on all 217 held-out K562 perturbations; NOT refitted here; archived scaler applied without refit"
+  },
+  "target": {
+    "dataset": "replogle_rpe1_essential",
+    "n": 306,
+    "label": "y = (1 - pearson_delta) > median over all 306 RPE1 perturbations (same definition as the in-situ RPE1 probe, via step6d_naive_baselines.load_dataset)"
+  },
+  "transfer": {
+    "auroc": 0.7580417788030246,
+    "boot_ci95": [
+      0.7052813978472421,
+      0.8094154202279202
+    ],
+    "boot_b": 1000,
+    "permutation_p_one_sided_vs_random": 0.000999000999000999,
+    "perm_b": 1000,
+    "seed": 20261022
+  },
+  "delta_max_sign_transfer": {
+    "auroc": 0.7679524969029007,
+    "rule": "sign(K562 coef[delta_max]) * raw RPE1 delta_max"
+  },
+  "references_archived": {
+    "k562_in_situ_cv_auroc_mean": 0.6556473829201102,
+    "rpe1_in_situ_cv_auroc_mean": 0.7965175164758932,
+    "note": "cited from outputs{,_rpe1}/gating_probe.json, not recomputed"
+  },
+  "preregistered_criteria": {
+    "transfer_ok": "transfer AUROC >= 0.6 AND bootstrap 95% CI lower bound > 0.5",
+    "weak": "0.5 <= transfer AUROC < 0.6",
+    "no_transfer": "transfer AUROC < 0.5",
+    "verdict_ok": "检测跨数据集可迁移，签名方向不可迁移（detection transfers across datasets, signature direction does not）",
+    "verdict_weak": "弱迁移（weak transfer），如实报告",
+    "verdict_no": "跨数据集全面不可迁移（nothing transfers across datasets）"
+  },
+  "verdict_bucket": "transfer_ok",
+  "verdict": "检测跨数据集可迁移，签名方向不可迁移（detection transfers across datasets, signature direction does not）"
+}

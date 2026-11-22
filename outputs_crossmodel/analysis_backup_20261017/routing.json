@@ -1,0 +1,197 @@
+{
+  "task": "cross-model per-perturbation routing via error probes (step7)",
+  "dataset": "replogle_k562_essential",
+  "n_perturbations": 217,
+  "split": "perturbation-level 70/30, split_seeds=[0, 1, 2]",
+  "probe_spec": "StandardScaler + LogisticRegression(C=1.0, max_iter=2000), in-situ per model on the 70% train; y = (1 - pearson_delta) > train median (step6 label)",
+  "routing_rule": "per perturbation, route to the model whose probe predicts lower error probability; ties -> GEARS",
+  "metric": "mean top-50 |delta| Pearson (pearson_delta, step1 metric) on the 30% held-out routing test set",
+  "gears_source": "recovered from archive outputs/pred_expr_seed0.npz (same artifact as step6 probe; no recompute)",
+  "scgenept_note": "138/217 perturbations have target NOT in model input space (pred ~ ctrl, data fact kept as-is)",
+  "groups": {
+    "all_gears": {
+      "mean": 0.5533318938630641,
+      "std": 0.03542516697871966,
+      "per_seed": [
+        0.5909394704961255,
+        0.5484634953979688,
+        0.5205927156950982
+      ]
+    },
+    "all_scgenept": {
+      "mean": 0.25659048896202674,
+      "std": 0.019506696901982937,
+      "per_seed": [
+        0.26477191070838624,
+        0.2706741963101265,
+        0.23432535986756745
+      ]
+    },
+    "routed": {
+      "mean": 0.40487915410996805,
+      "std": 0.02982819370048845,
+      "per_seed": [
+        0.43915749916854063,
+        0.3848300959355178,
+        0.39064986722584555
+      ]
+    },
+    "oracle": {
+      "mean": 0.5684286206114026,
+      "std": 0.03080440038237835,
+      "per_seed": [
+        0.5987210268345524,
+        0.5694282738359479,
+        0.5371365611637077
+      ]
+    }
+  },
+  "routed_minus_best_single": {
+    "mean": -0.14845273975309617,
+    "std": 0.01709023533231046,
+    "per_seed": [
+      -0.15178197132758486,
+      -0.16363339946245098,
+      -0.1299428484692527
+    ]
+  },
+  "routed_minus_oracle": {
+    "mean": -0.16354946650143465,
+    "std": 0.01936587420585673
+  },
+  "routed_to_scgenept_frac": {
+    "mean": 0.5794871794871795,
+    "per_seed": [
+      0.5384615384615384,
+      0.6461538461538462,
+      0.5538461538461539
+    ]
+  },
+  "oracle_to_scgenept_frac": {
+    "mean": 0.09743589743589744
+  },
+  "probe_test_auroc": {
+    "gears": {
+      "mean": 0.7031767947152563,
+      "per_seed": [
+        0.7455621301775148,
+        0.6695238095238095,
+        0.6944444444444444
+      ]
+    },
+    "scgenept": {
+      "mean": 0.5780570371087613,
+      "per_seed": [
+        0.5526819923371648,
+        0.5738636363636365,
+        0.6076254826254827
+      ]
+    }
+  },
+  "bootstrap_pooled": {
+    "n_resamples": 3000,
+    "diff_mean": -0.14834521610799087,
+    "diff_std": 0.03090844371355201,
+    "p_one_sided": 1.0
+  },
+  "bootstrap_per_seed": [
+    {
+      "n": 1000,
+      "diff_mean": -0.15167227696137575,
+      "diff_std": 0.02662952174226382,
+      "p_one_sided": 1.0
+    },
+    {
+      "n": 1000,
+      "diff_mean": -0.16306590916586206,
+      "diff_std": 0.0295955646182762,
+      "p_one_sided": 1.0
+    },
+    {
+      "n": 1000,
+      "diff_mean": -0.13029746219673485,
+      "diff_std": 0.026996958691245458,
+      "p_one_sided": 1.0
+    }
+  ],
+  "seed_results": [
+    {
+      "split_seed": 0,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5909394704961255,
+        "all_scgenept": 0.26477191070838624,
+        "routed": 0.43915749916854063,
+        "oracle": 0.5987210268345524
+      },
+      "best_single": "gears",
+      "routed_minus_best_single": -0.15178197132758486,
+      "routed_minus_oracle": -0.15956352766601178,
+      "routed_to_scgenept_frac": 0.5384615384615384,
+      "oracle_to_scgenept_frac": 0.07692307692307693,
+      "probe_test_auroc": {
+        "gears": 0.7455621301775148,
+        "scgenept": 0.5526819923371648
+      },
+      "bootstrap": {
+        "n": 1000,
+        "diff_mean": -0.15167227696137575,
+        "diff_std": 0.02662952174226382,
+        "p_one_sided": 1.0
+      }
+    },
+    {
+      "split_seed": 1,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5484634953979688,
+        "all_scgenept": 0.2706741963101265,
+        "routed": 0.3848300959355178,
+        "oracle": 0.5694282738359479
+      },
+      "best_single": "gears",
+      "routed_minus_best_single": -0.16363339946245098,
+      "routed_minus_oracle": -0.18459817790043004,
+      "routed_to_scgenept_frac": 0.6461538461538462,
+      "oracle_to_scgenept_frac": 0.12307692307692308,
+      "probe_test_auroc": {
+        "gears": 0.6695238095238095,
+        "scgenept": 0.5738636363636365
+      },
+      "bootstrap": {
+        "n": 1000,
+        "diff_mean": -0.16306590916586206,
+        "diff_std": 0.0295955646182762,
+        "p_one_sided": 1.0
+      }
+    },
+    {
+      "split_seed": 2,
+      "n_train": 152,
+      "n_test": 65,
+      "mean_pearson_delta": {
+        "all_gears": 0.5205927156950982,
+        "all_scgenept": 0.23432535986756745,
+        "routed": 0.39064986722584555,
+        "oracle": 0.5371365611637077
+      },
+      "best_single": "gears",
+      "routed_minus_best_single": -0.1299428484692527,
+      "routed_minus_oracle": -0.14648669393786212,
+      "routed_to_scgenept_frac": 0.5538461538461539,
+      "oracle_to_scgenept_frac": 0.09230769230769231,
+      "probe_test_auroc": {
+        "gears": 0.6944444444444444,
+        "scgenept": 0.6076254826254827
+      },
+      "bootstrap": {
+        "n": 1000,
+        "diff_mean": -0.13029746219673485,
+        "diff_std": 0.026996958691245458,
+        "p_one_sided": 1.0
+      }
+    }
+  ]
+}

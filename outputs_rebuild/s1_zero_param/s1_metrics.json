@@ -1,0 +1,14 @@
+{
+  "n_k562": 217,
+  "n_rpe1": 306,
+  "k562_sign_auroc": 0.6229612640163099,
+  "k562_threshold": 0.3768729610671435,
+  "rpe1_transfer_auroc": 0.5,
+  "loeo_aurocs": {
+    "GEARS": 0.5347859327217125,
+    "scGenePT": 0.6855674481821271,
+    "scGPT": 0.5748810737342847
+  },
+  "k562_magnitude_auroc": 0.6403329935440027,
+  "rpe1_magnitude_auroc": 0.7591097441155111
+}

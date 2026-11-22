@@ -1,0 +1,31 @@
+{
+  "task": "disease-gene stratification of gate AUROC (step6e)",
+  "dataset": "K562",
+  "n": 217,
+  "disease_gene_set": {
+    "source": "Enrichr",
+    "library": "DisGeNET",
+    "organism": "Human",
+    "n_gene_sets": 9804,
+    "n_union_genes": 16761,
+    "fetched": "2026-11-02",
+    "fetch_method": "gseapy.get_library"
+  },
+  "layers": {
+    "disease_genes": {
+      "n": 178,
+      "worst_half_rate": 0.48314606741573035,
+      "probe_auroc": 0.6589989888776543,
+      "delta_max_auroc": 0.6327098078867542,
+      "small_sample": false
+    },
+    "non_disease_genes": {
+      "n": 39,
+      "worst_half_rate": 0.5641025641025641,
+      "probe_auroc": 0.6274509803921569,
+      "delta_max_auroc": 0.5828877005347594,
+      "small_sample": false
+    }
+  },
+  "caveat": "strata with n<30 flagged small_sample; no strong claims on small strata"
+}

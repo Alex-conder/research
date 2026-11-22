@@ -1,0 +1,30 @@
+{
+  "task": "naive uncertainty baselines vs gating probe (step6d)",
+  "dataset": "K562",
+  "n": 217,
+  "base_rate": 0.5,
+  "label": "y = (1 - pearson_delta) > median, worst half",
+  "metrics": "OOF AUROC (higher score = more likely worst-half) and P@20 (top-20% flagged, worst-half fraction)",
+  "methods": {
+    "probe_full": {
+      "desc": "9-feature gating probe (main)",
+      "auroc": 0.6543493034318723,
+      "p_at_20": 0.627906976744186
+    },
+    "delta_max_single": {
+      "desc": "delta_max single-feature logistic",
+      "auroc": 0.6233435270132518,
+      "p_at_20": 0.5813953488372093
+    },
+    "magnitude_l2": {
+      "desc": "|delta| L2 norm, no training",
+      "auroc": 0.3843017329255861,
+      "p_at_20": 0.2558139534883721
+    },
+    "ensemble_variance": {
+      "desc": "variance of 5 split-seed probe OOF probabilities",
+      "auroc": 0.427285083248386,
+      "p_at_20": 0.4186046511627907
+    }
+  }
+}

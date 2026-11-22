@@ -1,0 +1,258 @@
+{
+  "task": "G-B cross-engine ensemble gate (step17, prereg_expansion_gb.md)",
+  "prereg": "prereg_expansion_gb.md",
+  "smoke": true,
+  "spec": {
+    "meta_model": "LOPO logistic (StandardScaler + L2, C=1.0, max_iter=2000)",
+    "base_block": "per-engine 5-fold OOF probe scores (StratifiedKFold seed=0, R2 caliber)",
+    "b_boot": 100,
+    "full_run_spec": {
+      "b_boot": 1000
+    },
+    "label": {
+      "expression": "y = (1 - pearson_delta) > median",
+      "embedding": "y = err_emb_dist > median"
+    }
+  },
+  "boot_master_seed": 20261030,
+  "verdict_rule": "ensemble AUROC beats GEARS in-situ arm in >=8/10 evaluable combos (perturbation-level paired bootstrap B=1000, 95% CI excludes 0) -> ensemble effective, enters main claim; else report no ensemble gain (tier conclusion, cross-validates error_signatures signature-noise)",
+  "combos": {
+    "gears_k562": {
+      "engine": "GEARS",
+      "dataset": "K562",
+      "class": "expression",
+      "n": 217,
+      "label_balance": 0.4976958525345622,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "symbol_layer_score",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": "signs from gears_rpe1 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.6244478423377506,
+        "gears_in_situ": 0.6543493034318723,
+        "symbol": 0.5893645939517499,
+        "own_in_situ": 0.6543493034318723
+      },
+      "paired_bootstrap": {
+        "b_boot": 100,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": -0.029845845914119463,
+          "ci_lo": -0.0694324823328814,
+          "ci_hi": 0.009626963475693874,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.031179316543022334,
+          "ci_lo": -0.043151450916633055,
+          "ci_hi": 0.11617676949219,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": -0.027244706579154745,
+          "ci_lo": -0.06496274612598739,
+          "ci_hi": 0.005138735313095075,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.003,
+        "lopo": 0.414
+      }
+    },
+    "scf_k562": {
+      "engine": "scFoundation",
+      "dataset": "K562",
+      "class": "expression",
+      "n": 45,
+      "label_balance": 0.4888888888888889,
+      "stack_features": [
+        "oof_probe::gears_k562",
+        "oof_probe::scgenept_k562",
+        "oof_probe::scgpt_k562",
+        "oof_probe::geneformer_k562",
+        "oof_probe::uce_k562",
+        "oof_probe::scf_k562",
+        "own::delta_l2",
+        "own::delta_l1",
+        "own::delta_max",
+        "own::delta_top50_mean",
+        "own::n_de_025",
+        "own::frac_de_025",
+        "own::neg_frac",
+        "own::delta_entropy",
+        "own::log_n_cells"
+      ],
+      "symbol_layer": null,
+      "base_block_keys": [
+        "gears_k562",
+        "scgenept_k562",
+        "scgpt_k562",
+        "geneformer_k562",
+        "uce_k562",
+        "scf_k562"
+      ],
+      "auroc": {
+        "ensemble": 0.5988142292490118,
+        "gears_in_situ": 0.48616600790513825,
+        "own_in_situ": 0.6679841897233202
+      },
+      "paired_bootstrap": {
+        "b_boot": 100,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.09940268773931185,
+          "ci_lo": -0.17593633483221577,
+          "ci_hi": 0.35187747035573125,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": -0.06612495986585701,
+          "ci_lo": -0.18934999999999996,
+          "ci_hi": 0.06166135809162351,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.0,
+        "lopo": 0.063
+      }
+    },
+    "scgpt_rpe1": {
+      "engine": "scGPT",
+      "dataset": "RPE1",
+      "class": "embedding",
+      "n": 306,
+      "label_balance": 0.5,
+      "stack_features": [
+        "oof_probe::gears_rpe1",
+        "oof_probe::scgenept_rpe1",
+        "oof_probe::scgpt_rpe1",
+        "oof_probe::geneformer_rpe1",
+        "oof_probe::uce_rpe1",
+        "symbol_layer_score",
+        "own::pred_emb_norm",
+        "own::delta_emb_norm",
+        "own::log_n_cells",
+        "own::target_in_input_space"
+      ],
+      "symbol_layer": "signs from scgpt_k562 in-situ fit (zero training here)",
+      "base_block_keys": [
+        "gears_rpe1",
+        "scgenept_rpe1",
+        "scgpt_rpe1",
+        "geneformer_rpe1",
+        "uce_rpe1"
+      ],
+      "auroc": {
+        "ensemble": 0.6488530052543893,
+        "gears_in_situ": 0.33922850185825965,
+        "symbol": 0.5249049510871886,
+        "own_in_situ": 0.5730274680678371
+      },
+      "paired_bootstrap": {
+        "b_boot": 100,
+        "ensemble_minus_gears_in_situ": {
+          "mean_diff": 0.30787883586929427,
+          "ci_lo": 0.1991599459524213,
+          "ci_hi": 0.4338726844645078,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_symbol": {
+          "mean_diff": 0.12337919042857162,
+          "ci_lo": 0.0556947210234449,
+          "ci_hi": 0.205385990424185,
+          "ci_excludes_zero": true,
+          "favors": "first_arm"
+        },
+        "ensemble_minus_own_in_situ": {
+          "mean_diff": 0.07937385485391375,
+          "ci_lo": -0.005837700198979001,
+          "ci_hi": 0.16084383058617224,
+          "ci_excludes_zero": false,
+          "favors": "undetermined"
+        }
+      },
+      "timing_s": {
+        "feature_assembly": 0.002,
+        "lopo": 0.645
+      }
+    }
+  },
+  "missing": [],
+  "consistency": {
+    "K562": {
+      "engines": [
+        "GEARS",
+        "scFoundation"
+      ],
+      "pairs": {
+        "GEARS__scFoundation": {
+          "n_pair": 45,
+          "n11_both_wrong": 15,
+          "n10": 6,
+          "n01": 7,
+          "n00_both_right": 17,
+          "agreement": 0.7111111111111111,
+          "cohens_kappa": 0.42136498516320475,
+          "phi": 0.42178300516305944
+        }
+      },
+      "kappa_matrix": [
+        [
+          1.0,
+          0.42136498516320475
+        ],
+        [
+          0.42136498516320475,
+          1.0
+        ]
+      ],
+      "mean_abs_kappa_offdiag": 0.42136498516320475
+    },
+    "RPE1": {
+      "engines": [
+        "scGPT"
+      ],
+      "pairs": {},
+      "kappa_matrix": [
+        [
+          1.0
+        ]
+      ],
+      "mean_abs_kappa_offdiag": NaN
+    }
+  },
+  "verdict": {
+    "tier": "smoke_only_not_adjudicated",
+    "note": "smoke numbers do not enter the locked criteria",
+    "n_ensemble_better_smoke_numbers": 1,
+    "n_locked_combos": 2
+  },
+  "timing_total_s": 9.65
+}

@@ -1,0 +1,225 @@
+{
+  "task": "gating probe seed stability (step6 signal replication)",
+  "n_perts": 217,
+  "perturbation_sets_identical": true,
+  "per_seed": {
+    "0": {
+      "n_perts": 217,
+      "n_positive": 108,
+      "error_median": 0.41410167746695115,
+      "features": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "cv_auroc_mean": 0.6556473829201102,
+      "cv_auroc_std": 0.048026301099339544,
+      "cv_auroc_per_fold": [
+        0.6570247933884298,
+        0.6818181818181818,
+        0.577922077922078,
+        0.6558441558441558,
+        0.7056277056277056
+      ],
+      "pooled_cv_auroc": 0.6546890927624872,
+      "best_single_feature": "delta_max",
+      "single_feature_auroc": {
+        "delta_l2": {
+          "auroc_mean": 0.6139315230224321,
+          "auroc_std": 0.052558191669155596
+        },
+        "delta_l1": {
+          "auroc_mean": 0.6118260527351437,
+          "auroc_std": 0.0503976755284188
+        },
+        "delta_max": {
+          "auroc_mean": 0.6274104683195592,
+          "auroc_std": 0.05417191120375869
+        },
+        "delta_top50_mean": {
+          "auroc_mean": 0.6186343959071232,
+          "auroc_std": 0.05175196735056982
+        },
+        "n_de_025": {
+          "auroc_mean": 0.6175619834710744,
+          "auroc_std": 0.05063516786432061
+        },
+        "frac_de_025": {
+          "auroc_mean": 0.6175619834710744,
+          "auroc_std": 0.05063516786432061
+        },
+        "neg_frac": {
+          "auroc_mean": 0.602016922471468,
+          "auroc_std": 0.05162849070349473
+        },
+        "delta_entropy": {
+          "auroc_mean": 0.5743014561196379,
+          "auroc_std": 0.05274169254536817
+        },
+        "log_n_cells": {
+          "auroc_mean": 0.4720877607241244,
+          "auroc_std": 0.04670173940371137
+        }
+      }
+    },
+    "1": {
+      "n_perts": 217,
+      "n_positive": 108,
+      "error_median": 0.3667016856428028,
+      "features": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "cv_auroc_mean": 0.718693427784337,
+      "cv_auroc_std": 0.06387420060985279,
+      "cv_auroc_per_fold": [
+        0.7933884297520661,
+        0.6528925619834711,
+        0.70995670995671,
+        0.6623376623376623,
+        0.7748917748917749
+      ],
+      "pooled_cv_auroc": 0.7166156982670745,
+      "best_single_feature": "delta_max",
+      "single_feature_auroc": {
+        "delta_l2": {
+          "auroc_mean": 0.6719795356158992,
+          "auroc_std": 0.05026136714226952
+        },
+        "delta_l1": {
+          "auroc_mean": 0.6611373475009839,
+          "auroc_std": 0.05397414950001456
+        },
+        "delta_max": {
+          "auroc_mean": 0.7081070444706808,
+          "auroc_std": 0.046221511693041555
+        },
+        "delta_top50_mean": {
+          "auroc_mean": 0.6875836284927194,
+          "auroc_std": 0.0479776454894819
+        },
+        "n_de_025": {
+          "auroc_mean": 0.6681326249508068,
+          "auroc_std": 0.053542400766295725
+        },
+        "frac_de_025": {
+          "auroc_mean": 0.6681326249508068,
+          "auroc_std": 0.053542400766295725
+        },
+        "neg_frac": {
+          "auroc_mean": 0.6998720975993703,
+          "auroc_std": 0.06441935025651911
+        },
+        "delta_entropy": {
+          "auroc_mean": 0.4439984258166076,
+          "auroc_std": 0.047310259438694026
+        },
+        "log_n_cells": {
+          "auroc_mean": 0.520995670995671,
+          "auroc_std": 0.05816714973562245
+        }
+      }
+    },
+    "2": {
+      "n_perts": 217,
+      "n_positive": 108,
+      "error_median": 0.33109315356582825,
+      "features": [
+        "delta_l2",
+        "delta_l1",
+        "delta_max",
+        "delta_top50_mean",
+        "n_de_025",
+        "frac_de_025",
+        "neg_frac",
+        "delta_entropy",
+        "log_n_cells"
+      ],
+      "cv_auroc_mean": 0.7523022432113342,
+      "cv_auroc_std": 0.0494188842656194,
+      "cv_auroc_per_fold": [
+        0.7561983471074382,
+        0.7066115702479339,
+        0.7532467532467533,
+        0.8311688311688311,
+        0.7142857142857143
+      ],
+      "pooled_cv_auroc": 0.7398912674142032,
+      "best_single_feature": "delta_max",
+      "single_feature_auroc": {
+        "delta_l2": {
+          "auroc_mean": 0.7473632428177882,
+          "auroc_std": 0.05747125068511466
+        },
+        "delta_l1": {
+          "auroc_mean": 0.7417945690672963,
+          "auroc_std": 0.056205408717245844
+        },
+        "delta_max": {
+          "auroc_mean": 0.7517512790240064,
+          "auroc_std": 0.07994662331589286
+        },
+        "delta_top50_mean": {
+          "auroc_mean": 0.7495670995670995,
+          "auroc_std": 0.052792220957340846
+        },
+        "n_de_025": {
+          "auroc_mean": 0.7498327430145613,
+          "auroc_std": 0.05332382503719742
+        },
+        "frac_de_025": {
+          "auroc_mean": 0.7498327430145613,
+          "auroc_std": 0.05332382503719742
+        },
+        "neg_frac": {
+          "auroc_mean": 0.7233077528532075,
+          "auroc_std": 0.07642273552400779
+        },
+        "delta_entropy": {
+          "auroc_mean": 0.5704643841007477,
+          "auroc_std": 0.10144999033494838
+        },
+        "log_n_cells": {
+          "auroc_mean": 0.4864718614718614,
+          "auroc_std": 0.04549269146987521
+        }
+      }
+    }
+  },
+  "stability": {
+    "auroc_by_seed": {
+      "0": 0.6556473829201102,
+      "1": 0.718693427784337,
+      "2": 0.7523022432113342
+    },
+    "best_single_feature_by_seed": {
+      "0": "delta_max",
+      "1": "delta_max",
+      "2": "delta_max"
+    },
+    "mean_auroc": 0.7088810179719273,
+    "range": 0.09665486029122405,
+    "criteria": {
+      "existence_at_least_2_above_0.6_and_mean_above_0.6": true,
+      "direction_all_above_0.6_and_same_best_feature": true,
+      "magnitude_range_below_0.05": false,
+      "existence_threshold": 0.6,
+      "magnitude_threshold": 0.05,
+      "magnitude_attribution": "极差阈值 0.05 ≈ step6 fold std 0.048；n=217 小样本下 fold 级 std 约 0.05-0.06，极差落在该区间时优先归因小样本而非信号不稳；量级不过不否定存在性"
+    },
+    "verdict": "信号存在，精确量级需更大样本确认"
+  }
+}

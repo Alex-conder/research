@@ -1,0 +1,68 @@
+{
+  "task": "mechanism audit of the gating signal (step9)",
+  "date": "2026-10-14",
+  "out_dir": "outputs_rpe1",
+  "data": "replogle_rpe1_essential",
+  "seed": 0,
+  "n_perts": 306,
+  "n_positive": 153,
+  "ablation": {
+    "full_9feat_cv_auroc": 0.7965175164758932,
+    "magnitude_family_cv_auroc": 0.802088102670829,
+    "residual_nonmagnitude_cv_auroc": 0.7969614984391259,
+    "magnitude_family": [
+      "delta_l2",
+      "delta_l1",
+      "delta_max",
+      "delta_top50_mean"
+    ],
+    "residual_features": [
+      "n_de_025",
+      "frac_de_025",
+      "neg_frac",
+      "delta_entropy"
+    ],
+    "interpretation_rule": "residual >= 0.6 -> 幅度之外仍有模型侧信号; residual < 0.6 -> 信号基本=效应量几何(评测病态性), 论文结论改写为部署可检测的难度代理"
+  },
+  "permutation_null": {
+    "n_perm": 1000,
+    "mean": 0.49219377162629757,
+    "std": 0.04612206310151572,
+    "p_value_ge_observed": 0.0
+  },
+  "bootstrap_ci_pooled_oof": {
+    "n_boot": 1000,
+    "ci95": [
+      0.7397947363205188,
+      0.8369773985372666
+    ]
+  },
+  "coverage_risk": {
+    "points": {
+      "filter_10pct": {
+        "err_captured_frac": 0.2245051684633958,
+        "retained_mean_error": 0.22471675285079865,
+        "overall_mean_error": 0.2613630554418117
+      },
+      "filter_20pct": {
+        "err_captured_frac": 0.37869769178014473,
+        "retained_mean_error": 0.20281613757793404,
+        "overall_mean_error": 0.2613630554418117
+      },
+      "filter_30pct": {
+        "err_captured_frac": 0.5000004494127334,
+        "retained_mean_error": 0.18599307692963887,
+        "overall_mean_error": 0.2613630554418117
+      }
+    },
+    "note": "filter = discard highest-OOF-score queries first"
+  },
+  "strength_decomposition_groundtruth_diagnostic": {
+    "spearman_error_strength": -0.32985507974749684,
+    "spearman_error_delta_max": -0.5039055489766795,
+    "spearman_strength_delta_max": 0.2708449685208627,
+    "auroc_strength_groundtruth": 0.6322781836045965,
+    "auroc_delta_max_single": 0.7679524969029007
+  },
+  "runtime_sec": 25.077708959579468
+}

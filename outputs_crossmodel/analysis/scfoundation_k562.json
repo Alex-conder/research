@@ -1,0 +1,47 @@
+{
+  "task": "cross-model transfer of gating probe (step6f)",
+  "model": "scfoundation",
+  "dataset": "replogle_k562_essential",
+  "dataset_tag": "Norman (K562)",
+  "n": 45,
+  "base_rate": 0.5,
+  "label": "y = (1 - pearson_delta) > median (worst half), same as step6",
+  "feature_space_note": "features computed on the model's matched gene space (5000 genes), not the local GEARS 5000-gene space; all 9 features are pure functions of pred_expr/ctrl_mean/n_cells, no GEARS-specific quantity",
+  "transfer_probe_note": "local GEARS probe fit in-sample (deployment-style), identical spec; see gating_probe_transfer.json",
+  "dropped_no_truth": 0,
+  "target_in_input_space": null,
+  "transfer": {
+    "auroc": 0.3003952569169961,
+    "p_at_20": 0.0
+  },
+  "in_situ": {
+    "auroc": 0.6478260869565217,
+    "p_at_20": 0.5555555555555556
+  },
+  "baselines": {
+    "magnitude_l2": {
+      "auroc": 0.4624505928853755,
+      "p_at_20": 0.4444444444444444
+    },
+    "ensemble_variance": {
+      "auroc": 0.4090909090909091,
+      "p_at_20": 0.4444444444444444
+    }
+  },
+  "strength_tertile_transfer": {
+    "n_nan_strength": 0,
+    "low": {
+      "n": 15,
+      "transfer_auroc": null
+    },
+    "mid": {
+      "n": 15,
+      "transfer_auroc": null
+    },
+    "high": {
+      "n": 15,
+      "transfer_auroc": null
+    }
+  },
+  "strength_note": "strength = mean per-cell L2 to ctrl mean (step1_run.py:106-115), truth-derived, diagnostic strata only"
+}
